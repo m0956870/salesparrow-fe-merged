@@ -1,0 +1,266 @@
+.select_btn {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 1rem;
+  padding: 1.05rem 0.5rem;
+  border-radius: 0.3rem;
+  border: none;
+  outline: none;
+  margin-right: 0.5rem;
+}
+
+.select_btn option {
+  background-color: #fff;
+  color: gray;
+}
+
+.new_state_select {
+  font-size: 0.9rem;
+  width: 12rem;
+}
+
+.employee_head img {
+  height: 2.5rem;
+  width: 3rem;
+  margin-right: 0.5rem;
+}
+
+.excel_icon:hover {
+  box-shadow: var(--box-shadow);
+}
+
+/* Good Details */
+
+.gd_form {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  /* padding: 1rem; */
+}
+
+.gd_left {
+  flex: 1;
+}
+
+.gd_right {
+  flex: 1;
+}
+
+.good_detail select {
+  margin: 0.52rem 0;
+  padding: 0.8rem 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+  color: gray;
+}
+.good_detail input {
+  margin: 0.6rem 0;
+  padding: 0.8rem 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+  color: gray;
+}
+
+/* Config */
+
+.confi_div {
+  margin-right: 2rem;
+  display: inline;
+  border: 1px solid gray;
+  color: #000;
+  padding: 0.7rem 2rem;
+  border-radius: 0.4rem;
+  font-weight: 500;
+}
+
+.config_tab .config_active_tab {
+  background: var(--main-color);
+  color: #fff;
+}
+
+.config_head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  padding-top: 1rem;
+}
+
+.device_subh {
+  font-size: 1.2rem;
+}
+
+.config_btn {
+  background-color: var(--main-color);
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.8rem 2.5rem;
+  font-weight: 500;
+}
+
+.device_btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.device_btn {
+  color: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 0.4rem;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.user_subh {
+  padding: 1rem 0;
+  font-size: 1.2rem;
+}
+
+.user_right_btn {
+  display: flex;
+  padding: 0.8rem 0;
+}
+.user_right_btn div {
+  text-align: center;
+  margin-right: 2rem;
+  color: #fff;
+  border-radius: 0.3rem;
+  padding: 0.3rem 1rem;
+  background-color: var(--main-color);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+}
+
+/* Employee grouping list */
+.search select {
+  padding: 0.6rem;
+  width: 10rem;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  color: #ababab;
+  padding-left: 0;
+}
+
+/* popup */
+
+.employee_gl_popup {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.7rem 2rem;
+  border-radius: 0.3rem;
+  margin: auto;
+  text-align: center;
+  width: 50%;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+}
+.employee_gl_popup_del {
+  background-color: red;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.7rem 2rem;
+  border-radius: 0.3rem;
+  margin: auto;
+  text-align: center;
+  width: 50%;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+}
+.employee_gl_popup:hover {
+  background-color: #099bdb;
+}
+.employee_gl_popup_del:hover {
+  background-color: #eb0707;
+}
+
+/* delete btn */
+.emp_grp_icons:hover {
+  box-shadow: var(--box-shadow);
+}
+
+/* Employee Target */
+
+.active_beat {
+  background-color: #36d200;
+  color: #fff;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+}
+.inactive_beat {
+  background-color: #f83838;
+  color: #fff;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+}
+.yellow_beat {
+  background-color: #ffa41d;
+  color: #fff;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+}
+
+.active_beat select,
+.inactive_beat select {
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.active_beat select option,
+.inactive_beat select option {
+  color: #000;
+}
+
+.config_tab {
+  margin: 1rem 0 3rem 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .config_tab {
+    margin: 1rem auto 3rem auto;
+  }
+  .confi_div {
+    padding: 1rem 1.5rem;
+  }
+}

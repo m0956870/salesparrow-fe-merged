@@ -1,0 +1,138 @@
+.container .beat_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+
+.beat_heading .beat_left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beat_heading .beat_left .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--box-shadow);
+}
+
+.beat_heading .beat_left .icon img {
+  height: 40px;
+  width: 40px;
+}
+
+.beat_heading .beat_left .title {
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  font-weight: bold;
+  color: var(--main-color);
+}
+
+.beat_heading .beat_right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beat_right .search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  height: 100%;
+  /* margin-right: 1rem; */
+  padding: 0.5rem;
+  box-shadow: var(--box-shadow);
+  border-radius: 0.3rem;
+}
+
+.search input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  height: 100%;
+  margin-right: 1rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.add_btn {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+/* .active_beat {
+  background-color: #67ff32;
+  color: #fff;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  padding: 0.2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+}
+.inactive_beat {
+  background-color: #fe2550;
+  color: #fff;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  padding: 0.2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+} */
+
+.active_role,
+.inactive_role {
+  display: inline-block;
+}
+.active_beat select,
+.inactive_beat select {
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
+.active_beat select option,
+.inactive_beat select option {
+  background-color: #f9f9fa;
+}
+
+/* .span_name {
+    font-size: 20px;
+    background-color: #777;
+    padding: 10px;
+} */
+
+.new_add_btn_top_filter {
+  display: flex;
+  gap: 1rem;
+}
+
+.new_add_btn_top_filter .add_new_side_btn {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.6rem 2rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+
+/* table css */
+
+.table_scroll_container {
+  width: 79.4vw;
+  overflow-x: scroll;
+}

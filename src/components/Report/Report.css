@@ -1,0 +1,388 @@
+/* Sale plan */
+.sale_plan {
+  background-color: #51b448;
+  padding: 1rem;
+  color: #fff;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.detail_div_2 {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.detail_title {
+  font-weight: 500;
+}
+
+.detail {
+  margin-left: 0.5rem;
+}
+
+/* distributor current stock */
+
+.current_stock {
+  background-color: #fe58d9;
+  border-radius: 1rem;
+  display: block;
+}
+
+.company_stock {
+  background-color: #55ef94;
+  border-radius: 1rem;
+  display: block;
+}
+
+/* Secondary orders */
+
+.report_search {
+  margin: 0 !important;
+}
+
+/* Invoice */
+.download_invoice_btn {
+  /* width: 126px; */
+  padding: 0 2.9rem;
+  display: flex;
+  justify-content: center;
+}
+
+.center_invoice {
+  display: flex;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+#invoice {
+  padding: 2rem;
+  border: 1px solid grey;
+  width: 900px;
+  margin: 2rem 0;
+}
+
+#invoice .invoice_company_detail {
+  padding-bottom: 2rem;
+}
+
+#invoice .invoice_company_detail div {
+  color: #000;
+  font-weight: 600;
+  padding: 0.3rem 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#invoice .invoice_company_detail div .grey_span {
+  color: grey;
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+
+#invoice .invoice_detail_heading {
+  display: flex;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1rem;
+  background-color: lightgrey;
+}
+
+.invoice_detail_heading span {
+  margin: 0 0.5rem;
+}
+
+#invoice .invoice_party_detail {
+  padding: 0 0 2rem 0;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+}
+
+.party_invoice_heading {
+  padding: 1rem 0;
+}
+
+.invoice_party_detail div {
+  color: #000;
+  font-weight: 600;
+  padding: 0.3rem 0;
+}
+.invoice_party_detail div .grey_span {
+  color: grey;
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+
+.invoice_total_amount_cell {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.invoice_total_amount_cell div {
+  display: flex;
+  justify-content: flex-start;
+  color: #000;
+  font-weight: 600;
+}
+
+.invoice_total_amount_cell div .grey_span {
+  color: grey;
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+
+.invoice_download_link {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* Daily Attendance */
+
+.active_emp {
+  color: lightgreen;
+}
+.inactive_emp {
+  color: lightcoral;
+}
+.leave_emp {
+  color: lightblue;
+}
+
+/* Monthly Market Visit Single */
+
+.mv_call_container {
+  box-shadow: var(--box-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  border-radius: 0.2rem;
+  background-color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.mv_call_div {
+  box-shadow: var(--box-shadow);
+  background-color: #fe6e4c;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  margin: 0 0.5rem;
+  padding: 0.8rem;
+  /* height: 4.5rem; */
+  font-size: 2rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.mv_call_div .mv_call_span {
+  font-size: 1.1rem;
+}
+
+.mv_single_total_div {
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  width: 25%;
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+  font-weight: 600;
+}
+
+/* new summery ui */
+.mattendance_summery_section {
+  margin-bottom: 1.5rem;
+  border: 2px solid lightgrey;
+  border-radius: 0.5rem;
+  background-color: #fff;
+}
+
+.mattendance_summery_section .report_summery_title {
+  color: var(--main-color);
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid lightgrey;
+}
+
+.mattendance_summery_section .report_summery_body {
+  padding: 0.5rem 1rem;
+  display: flex;
+}
+.report_summery_body .report_summery_left,
+.report_summery_body .report_summery_right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.report_summery_body .bg-color1 {
+  background-color: #cbe4f9;
+}
+
+.report_summery_body .bg-color2 {
+  background-color: #cdf5f6;
+}
+.report_summery_body .bg-color3 {
+  background-color: #eff9da;
+}
+.report_summery_body .bg-color4 {
+  background-color: #f9ebdf;
+}
+.report_summery_body .bg-color5 {
+  background-color: #f9d8d6;
+}
+.report_summery_body .bg-color6 {
+  background-color: #d6cdea;
+}
+
+.report_summery_left .summery_column,
+.report_summery_right .summery_column {
+  display: flex;
+}
+.summery_column .detail_title {
+  font-weight: 500;
+  color: #302f2f;
+}
+.summery_column .detail {
+  margin-left: 0.5rem;
+  color: grey;
+}
+
+.report_summery_left .performance_summary_col,
+.report_summery_right .performance_summary_col {
+  /* display: flex; */
+  text-align: center;
+  padding: 10px;
+}
+.performance_summary_col .detail_title {
+  font-weight: 500;
+  color: #000;
+}
+.performance_summary_col .detail {
+  margin-left: 0.5rem;
+  color: #000;
+}
+
+/* salary slip............................. */
+.ss_section {
+  margin: 6rem 8rem 8rem 8rem ;
+  border: 1px solid grey;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.slip-header {
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: #000;
+}
+.hr {
+  border: none;
+  height: 1px;
+  background-color: #000;
+}
+
+.Slip_logo img {
+  width: 6.25rem;
+}
+.slip-date h4 {
+  display: flex;
+  justify-content: end;
+}
+.slip-row {
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+.slip-row h3 {
+  font-size: 1.2rem;
+  color: #a5a5a5;
+  font-weight: bold;
+}
+.slip-detail {
+  display: flex;
+  padding: 10px 0px;
+}
+
+.slip-detail h4 {
+  font-size: 0.9rem;
+  color: #a5a5a5;
+  font-family: sans-serif;
+  width: 11rem;
+}
+.slip-detail h3 {
+  font-size: 0.9rem;
+  color: #524e4e;
+  font-family: sans-serif;
+  padding-left: 1.9rem;
+}
+
+.salary-box {
+  height: 12.5rem;
+  width: 18.75rem;
+  border: 2px solid #28a9e8;
+  border-radius: 7px;
+}
+.salary-amt {
+  background-color: #c9e3ef;
+  height: 100px;
+  border-radius: 7px;
+}
+.ruppee {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.8rem;
+  font-family: sans-serif;
+}
+.ruppee p {
+  border-left: 3px solid #129ddd;
+  margin-top: 5px;
+  padding-left: 1.2rem;
+}
+.ruppee-p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.salary-desc-box {
+  margin: 20px 0;
+  box-shadow: 0px 3px 10px 0px rgba(31, 30, 30, 0.1);
+  border: 2px solid #c4b8b8;
+  border-radius: 10px;
+}
+.salary-desc-head {
+  display: flex;
+}
+
+.salary-desc-row {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid;
+  margin: 15px;
+}
+.salary-details {
+  width: 50%;
+  justify-content: space-between;
+  padding: 20px 0 0;
+  margin: 15px;
+}
+.slip-detail-salary {
+  display: flex;
+  justify-content: space-between;
+}
+
+.salary-desc {
+  justify-content: space-between;
+}

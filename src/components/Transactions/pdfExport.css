@@ -1,0 +1,43 @@
+#pdf_container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#hide_pdf_container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.pdf_head_section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pdf_head_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pdf_head_left .pdf_selected_date {
+  font-weight: 500;
+}
+
+/* .pdf_head_right {
+} */
+.pdf_head_right div {
+  font-weight: 500;
+}
+
+.pdf_summery_section {
+  margin-top: 1rem;
+}

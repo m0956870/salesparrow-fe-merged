@@ -1,0 +1,131 @@
+#login_container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+/* Left */
+#login_container .left {
+  height: 100%;
+  width: 35%;
+  background-color: #95deff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.left .logo {
+  width: 60%;
+}
+
+.logo img {
+  height: 100%;
+  width: 100%;
+}
+
+/* Right */
+#login_container .right {
+  height: 100%;
+  width: 65%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right .main {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main .head_img {
+  width: 40%;
+}
+
+.head_img img {
+  height: 100%;
+  width: 100%;
+}
+
+.main .form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.main .form .login_parent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.login_parent .pass_icon {
+  position: absolute;
+  bottom: 15%;
+  right: 15%;
+}
+
+.form input {
+  margin: 0.5rem;
+  padding: 1rem;
+  width: 75%;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+}
+.form div input {
+  margin: 0.5rem;
+  padding: 1rem;
+  width: 75%;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+}
+
+.form input::placeholder {
+  color: #ababab;
+}
+
+.form .fp_link {
+  width: 80%;
+  display: flex;
+  justify-content: end;
+  color: #28a9e2;
+  text-decoration: none;
+}
+
+.form button {
+  border: none;
+  background: #28a9e2;
+  border-radius: 30px;
+  color: #fff;
+  width: 180px;
+  height: 50px;
+  margin: 2rem 0;
+  cursor: pointer;
+}
+.form button:hover {
+  background: #099bdb;
+}
+
+.form .signup_link {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

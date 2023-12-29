@@ -1,0 +1,95 @@
+.addbeat_container {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+    margin: 0 auto;
+    padding: 0.5rem 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.addbeat_form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 1rem;
+    gap: 2rem;
+}
+
+.addbeat_form .addbeat_left {
+    width: 50%;
+    align-items: flex-start;
+}
+.addbeat_form .addbeat_right {
+    width: 50%;
+    align-items: flex-start;
+}
+
+.addbeat_form input {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+}
+.addbeat_form select {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    color: gray;
+    box-sizing: border-box;
+}
+
+/* .addbeat_form .select {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    padding-left: 0.4rem;
+}
+
+.select select {
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    color: gray;
+    box-sizing: border-box;
+} */
+
+.employee_target_inputs {
+    width: 50%;
+}
+
+.changepass_btn {
+    margin-top: 2rem;
+}
+
+/* emp config */
+.addbeat_right label,
+.addbeat_left label {
+    color: grey;
+    font-size: 0.8rem;
+    font-weight: 500;
+}

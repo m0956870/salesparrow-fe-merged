@@ -1,0 +1,170 @@
+.select_div_name {
+  margin: 0.6rem 0;
+  padding: 0.8rem 0.6rem;
+  width: 100%;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+}
+
+/* Employee / party Mapping */
+
+.emp_party_emp_container {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.emp_party_emp_container select {
+  border-radius: 0.7rem;
+}
+
+.emp_party_select_arr_container {
+  width: 100%;
+  margin: 1rem 0;
+  display: flex;
+  /* box-shadow: var(--box-shadow); */
+}
+
+.emp_party_select_arr_container .ep_select_arr,
+.emp_party_select_arr_container .ep_selected_arr {
+  flex: 1;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem 0;
+  /* overflow-y: scroll; */
+}
+
+/* Non-selected Parties */
+/* .ep_select_arr .ep_arr_left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+} */
+
+/* Selected Parties */
+/* .ep_selected_arr .ep_arr_left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+} */
+
+.emp_party_mapping_add_btn {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.8rem 2.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+/* New UI */
+
+.map_listing_assigned_col {
+  display: flex;
+  justify-content: space-between;
+}
+
+.map_listing_assigned_col a {
+  color: var(--main-color);
+}
+.map_listing_assigned_col a:hover {
+  color: #0875a5;
+}
+
+/* Add Emp Party */
+.ep_select_arr .ep_arr_left,
+.ep_selected_arr .ep_arr_left {
+  border: 1px solid lightgray;
+  border-bottom-left-radius: 0.8rem;
+  border-bottom-right-radius: 0.8rem;
+  width: 60%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.emp_party_select_arr_container .ep_select_arr .ep_arr_left::-webkit-scrollbar,
+.emp_party_select_arr_container
+  .ep_selected_arr
+  .ep_arr_left::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.emp_party_select_arr_container
+  .ep_select_arr
+  .ep_arr_left::-webkit-scrollbar-thumb,
+.emp_party_select_arr_container
+  .ep_selected_arr
+  .ep_arr_left::-webkit-scrollbar-thumb {
+  width: 10px;
+  background: var(--main-color);
+  border-radius: 0.5rem;
+}
+
+.ep_select_arr .heading,
+.ep_selected_arr .heading {
+  background-color: var(--main-color);
+  color: #fff;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 0.8rem;
+  border-top-left-radius: 0.8rem;
+  height: 3rem;
+}
+
+.ep_select_arr .party_name {
+  padding: 0.2rem 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.ep_select_arr .party_name:nth-child(odd) {
+  background: #f4fafd;
+}
+
+.ep_select_arr .party_mapping_icon {
+  color: var(--main-color);
+  font-size: 1rem;
+  margin-left: 0.7rem;
+}
+
+.ep_select_arr .party_mapping_icon:hover {
+  color: #0d79a9;
+}
+
+.ep_selected_arr .party_name {
+  padding: 0.2rem 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.ep_selected_arr .party_name:nth-child(odd) {
+  background: #f4fafd;
+}
+
+.ep_selected_arr .party_mapping_icon {
+  color: var(--main-color);
+  font-size: 1rem;
+  margin-right: 0.7rem;
+}
+
+.ep_selected_arr .party_mapping_icon:hover {
+  color: #0d79a9;
+}
+
+/* State - Pricelist */
+/* State Popup List */
+
+.sp_states_popup .sp_states_popup_list {
+  border-bottom: 1px solid lightgray;
+  padding: 0.3rem 0;
+}

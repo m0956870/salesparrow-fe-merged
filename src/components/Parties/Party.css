@@ -1,0 +1,17 @@
+.no_data {
+  width: 100%;
+  margin: 2rem auto;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* view document style */
+
+.view_doc_span {
+  color: var(--main-color);
+  cursor: pointer;
+}
+.view_doc_span:hover {
+  text-decoration: underline;
+}

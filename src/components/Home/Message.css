@@ -1,0 +1,15 @@
+.whatsapp {
+    background-color: #3fe523;
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+    padding: 0.6rem 1.5rem;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 0.6rem 2rem;
+    border-radius: 0.3rem;
+}
+
+.message_link {
+    color: var(--main-color);
+    font-weight: bold;
+}

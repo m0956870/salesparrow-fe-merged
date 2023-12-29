@@ -1,0 +1,170 @@
+#signup_container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+/* Left */
+#signup_container .left {
+  height: 100%;
+  width: 35%;
+  background-color: #95deff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.left .logo {
+  width: 40%;
+}
+
+.logo img {
+  height: 100%;
+  width: 100%;
+}
+
+/* Right */
+#signup_container .right {
+  height: 100%;
+  width: 65%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: scroll;
+}
+
+.right::-webkit-scrollbar {
+  display: none;
+}
+
+.right .main {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main .signup_head_img {
+  width: 40%;
+  /* margin-top: 7rem; */
+}
+
+.signup_head_img img {
+  height: 100%;
+  width: 100%;
+}
+
+.main .signup_form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.signup_form input {
+  margin: 0.4rem 0;
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+}
+.signup_form select {
+  margin: 0.4rem 0;
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+  color: #ababab;
+}
+.signup_form select option {
+  margin: 0.4rem 0;
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+  /* color: #ababab; */
+}
+
+.signup_form .half {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.half input, .half select {
+  flex: 1;
+}
+.half div {
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.signup_form input::placeholder {
+  color: #ababab;
+}
+
+.signup_form .fp_link {
+  width: 80%;
+  display: flex;
+  justify-content: end;
+  color: #28a9e2;
+  text-decoration: none;
+}
+
+.signup_form button {
+  border: none;
+  background: #28a9e2;
+  border-radius: 0.3rem;
+  color: #fff;
+  width: 180px;
+  height: 40px;
+  margin: 1rem 0;
+  cursor: pointer;
+}
+.signup_form button:hover {
+  background: #099bdb;
+}
+
+.signup_form .signup_link_bottom {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+
+.pass_icon_signup {
+  position: absolute;
+  top: 30%;
+  right: 2%;
+}
+
+.error_p {
+  width: 98%;
+  color: red;
+  font-size: 0.8rem;
+}
+
+.signup_p_error {
+  width: 98%;
+  color: red;
+  font-size: 0.8rem;
+}

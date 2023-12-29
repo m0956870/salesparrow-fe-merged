@@ -1,0 +1,24 @@
+#test {
+  display: flex;
+}
+
+.t_left {
+  height: 100vh;
+  transition: all 0.2s ease-in-out;
+  overflow-x: scroll;
+}
+
+.t_right {
+  /* min-height: 100vh;
+  overflow-x: scroll;
+  margin-top: 4rem; */
+}
+/* .t_left::-webkit-scrollbar,
+.t_right::-webkit-scrollbar {
+  display: none;
+} */
+
+.t_right .t_body {
+  height: 95%;
+  width: 100%;
+}

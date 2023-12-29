@@ -1,0 +1,98 @@
+.subadmin_container {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.subadmin_form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 1rem;
+}
+
+.left .avatar {
+    position: relative;
+}
+
+.avatar .camera_icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 3rem;
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--main-color);
+}
+
+.left {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* padding-top: 2rem; */
+}
+
+.right {
+    flex: 2;
+    padding: 1rem;
+}
+
+.profile_div .input_form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.input_form input {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+}
+
+.input_form select {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    color: gray;
+}
+
+.input_form select option {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    color: #ABABAB;
+}

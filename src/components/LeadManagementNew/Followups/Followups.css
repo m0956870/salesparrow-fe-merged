@@ -1,0 +1,162 @@
+
+@media screen and (max-width:767px) {
+    .followups_dashboard_overdue{
+        padding: 1rem !important;
+    }
+    .followups_dashboard_someday{
+        padding: 1rem !important;
+    }
+    .followups_dashboard_upcoming{
+        padding: 1rem !important;
+    }
+}
+.followups_dashboard_box{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    margin: 0rem 1rem;
+    height: 14rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.followups_dashboard_overdue{
+    border: 6px solid #42a242;
+    padding: 2rem;
+    height: 160px;
+    width: 175px;
+    border-radius: 50%;
+}
+.followups_dashboard_someday{
+    border: 6px solid #7f00ff;
+    padding: 2rem;
+    height: 160px;
+    width: 175px;
+    border-radius: 50%;
+}
+.followups_dashboard_upcoming{
+    border: 6px solid #fe6e4c;
+    padding: 2rem;
+    height: 160px;
+    width: 175px;
+    border-radius: 50%;
+}
+.followups_dasboard_downbox{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 2rem;
+    margin: 2rem 0rem;
+    background-color: #fff;
+}
+.followups_overdue{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: hsl(120, 42%, 45%);
+    margin: 1rem 0.5rem;
+}
+.followups_upcoming{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: #fe6e4c;
+    margin: 1rem 0.5rem;
+}
+.followups_someday{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: #7f00ff;
+    margin: 1rem 0.5rem;
+}
+.followups_sidebox{
+    width: 100px;
+    height: 150px;
+    background-color: #f5035b;
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px;
+}
+.followups_data{
+    margin-top: 1rem;
+}
+
+
+.followups_lead_abc{
+    background-color: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 3px #00000033;
+    border: 1px solid #ffffff22;
+    margin-bottom: 1rem;
+}
+.followups_lead_xyz{
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 6px;
+    color: #fff;
+}
+.followup_details_box{
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    border: 1px solid #ffffff22;
+    box-shadow: 0 4px 3px #00000033;
+}
+.followups_123{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+.followups_456{
+    text-align: center;
+    text-align: center;
+    margin: 0rem 5rem;
+    padding: 0.8rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+    color: #ffff;
+    width: 220px;
+}
+.followup_schedule{
+    background-color: #c4edff;
+    height: 3rem;
+    width: 15rem;
+    border-radius: 0.5rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+.followup_schedule:hover{
+   background-color: #28A9E2;
+   color: #ffff;
+}
+.followup_activity_btn{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+.followup_activity_btn button{
+    background-color: #28A9E2;
+    border: 1px solid #28A9E2;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.followups_box_shadow{
+    box-shadow: 1px 3px 5px 2px #00000033;
+    border: 1px solid #ffffff22;
+    background-color: #fff;
+    margin: 1rem 0rem;
+    padding: 1.5rem;
+    border-radius: 5px;
+}
+.folowup_datetime_field{
+ background-color: #28A9E2;
+ border: 1px solid #28A9E2;
+ padding: 5px;
+ color: #ffff;
+ font-size: 1.2rem;
+}

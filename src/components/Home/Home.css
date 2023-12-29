@@ -1,0 +1,122 @@
+/* Hide scrollbar */
+.MuiDrawer-paper::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar {
+  background-color: #fff;
+}
+
+.main {
+  min-height: 100%;
+  width: 100%;
+}
+
+.main .navbar {
+  height: 4rem;
+  background-color: #fff;
+  padding: 0 2.2rem 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .user_info {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_info img {
+  width: 1.5rem;
+  height: 1.8rem;
+  margin-right: 0.5rem;
+}
+
+.user_info .name {
+  color: #000;
+}
+
+.appbar_icon:hover {
+  box-shadow: var(--box-shdow);
+}
+
+/* Container */
+/* #container {
+    min-height: 90vh;
+} */
+
+#open {
+  padding: 0 2rem;
+  min-height: 90vh;
+}
+
+#close {
+  padding: 0 2rem;
+  min-height: 90vh;
+}
+
+
+
+/* Plus Icon */
+.appbar_plus_icon {
+  position: relative;
+  padding: 0.2rem;
+}
+
+.appbar_plus_icon:hover .plus_icon_hover_layer {
+  display: block;
+}
+
+.appbar_plus_icon .plus_icon_hover_layer {
+  display: none;
+  position: absolute;
+  right: -8rem;
+}
+
+.plus_icon_hover_layer .add_btn_container {
+  color: #000;
+  background-color: #fff;
+  box-shadow: var(--box-shadow);
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+} 
+
+.add_btn_container .add_elem {
+  width: 13rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.add_elem .elem_icon {
+  color: var(--main-color);
+  margin-right: 0.3rem;
+  /* margin-top: 0.1rem; */
+}
+
+.add_elem .add_elem_img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.add_elem a {
+  text-decoration: none;
+  color: #000;
+  margin: 0.3rem 0;
+}
+
+.add_elem a:hover {
+  color: gray;
+}
+
+@media screen and (max-width: 600px) {
+  .hamburger_menu {
+    display: none;
+  }
+}

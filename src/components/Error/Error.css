@@ -1,0 +1,24 @@
+.error_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error_page .heading {
+    font-size: 5rem;
+    margin-top: 5rem;
+}
+
+.error_page img {
+    height: 25rem;
+    width: 25rem;
+}
+
+.error_page .link {
+    color:var(--main-color);
+    text-decoration: none;
+}
+.error_page .link:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,6 @@
+.table_cell select {
+    background-color: #f3f5f7;
+    padding: 0.3rem 2rem 0.3rem 0;
+    outline: none;
+    border: none;
+}
