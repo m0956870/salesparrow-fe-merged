@@ -13,7 +13,7 @@ import { getBaseUrl } from "../../../../utils/baseUrl";
 import axios from "axios";
 import { FaYoutube } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { createFile } from "../../../../api/leadApi";
+import { createFile, updateFile } from "../../../../api/leadApi";
 
 const Item = styled(Paper)(({ theme }) => ({
   //   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -79,7 +79,7 @@ const Preview = () => {
   const handleYoutube=(url)=>{
     window.open(url, '_blank');
   }
-  console.log(location?.state?.message?.file)
+  console.log(location?.state?.message?.file, "img")
   const handleDone=async()=>{
     let formFile = new FormData();
     formFile.append("title" , location?.state?.message?.title)
@@ -91,8 +91,9 @@ const Preview = () => {
     formFile.append("pdf" , location?.state?.message?.fileAttachment)
     formFile.append("mediaURL" , location?.state?.youtubeList)
     formFile.append("websiteURL" , location?.state?.message.websiteLink)
+    formFile.append("id", location?.state?.update ? location?.state?.id : "");
     try {
-      const res = await createFile(formFile);
+      const res = await location.state.update?updateFile(formFile):createFile(formFile);
       if (res.data.status) {
         toast.success(res.data.message);
         navigate(-1)

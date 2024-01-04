@@ -204,13 +204,14 @@ const FilesListing = () => {
                                                 <StyledTableCell>
                                                     {row.fileType==="PDF"?row.title+"(Uploaded)":row.title}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="left"><img src={row.images[0]}/></StyledTableCell>
+                                                <StyledTableCell align="left"><img src={row.images[0]} width={"10%"}/></StyledTableCell>
                                                 <StyledTableCell align="left">{row.description}</StyledTableCell>
                                                 <StyledTableCell align="left" className='position-relative'>
                                                     <BorderColorIcon
                                                         onClick={() => {
                                                             setcurrentGroup(row);
                                                             seteditFilePopup(true)
+                                                            setCatalogue(row.fileType==="PDF"?false:true)
                                                         }}
                                                         style={{ fontSize: '1rem', color: 'var(--main-color)' }}
                                                     />
@@ -306,11 +307,13 @@ const FilesListing = () => {
             <EditFile
                 open={editFilePopup}
                 close={() => seteditFilePopup(!editFilePopup)}
+                seteditFilePopup={seteditFilePopup}
                 fileData={currentGroup}
                 getFileList={getFileList}
                 manageImage={manageImage}
                 setManageImage={setManageImage}
                 manageImageList={manageImageList}
+                catalogue={catalogue}
                 setManageImageList={setManageImageList}
             />
             <ManageImage
@@ -320,6 +323,8 @@ const FilesListing = () => {
             manageImageList={manageImageList}
             setManageImageList={setManageImageList}
             setaddFilePopup={setaddFilePopup}
+            seteditFilePopup={seteditFilePopup}
+            editFilePopup={editFilePopup}
             />
         </>
     )

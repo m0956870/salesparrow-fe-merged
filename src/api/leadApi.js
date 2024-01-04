@@ -476,6 +476,24 @@ export const createFile = async (data) => {
   }
 }
 
+export const updateFile = async (data) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "put",
+    url: getBaseUrl() + "lead_api/file",
+    headers: { Authorization: `Bearer ${token}` },
+    data,
+  };
+
+  try {
+    return await axios(config);
+  } catch (error) {
+    console.log(error)
+    return error.response
+  }
+}
+
 export const getFileData = async (queryParams) => {
   const token = localStorage.getItem('token');
   return await axios({
@@ -586,6 +604,24 @@ export const saveFollowup_lead = async (data) => {
 
   let config = {
     method: "post",
+    url: getBaseUrl() + "lead_api/followUp",
+    headers: { Authorization: `Bearer ${token}` },
+    data
+  };
+
+  try {
+    return await axios(config);
+  } catch (error) {
+    console.log(error)
+    return error.response
+  }
+}
+
+export const updateFollowup_lead = async (data) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "put",
     url: getBaseUrl() + "lead_api/followUp",
     headers: { Authorization: `Bearer ${token}` },
     data
