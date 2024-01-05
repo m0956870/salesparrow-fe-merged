@@ -220,7 +220,10 @@ import BannerReview from "./components/LeadManagementNew/Content/Banner/BannerRe
 import ShareLead from "./components/LeadManagementNew/Clients/Lead/ShareLead";
 import FollowUpsDashboard from "./components/LeadManagementNew/Followups/FollowUpsDashboard";
 import FollowupsLead from "./components/LeadManagementNew/Followups/FollowupsLead";
+import BannerListing from "./components/ProductCatalogue/Banner/BannerListing";
+import TrendingProductListing from "./components/ProductCatalogue/TrendingProduct/TrendingProductListing";
 
+// catalogue
 
 
 const routeArray = [
@@ -305,6 +308,11 @@ const routeArray = [
 
   { params: "product_list", component: <ProductList /> },
   { params: "focused_product", component: <FocusedProduct /> },
+  
+  // Catalogue
+  { params: "catalogue_banner", component: <BannerListing /> },
+  { params: "catalogue_trending_product", component: <TrendingProductListing /> },
+  { params: "catalogue_category", component: <BannerListing /> },
 
   // MAPPING
   { params: "employee_party_mapping_listing", component: <EmpPartyMappingListing /> },
