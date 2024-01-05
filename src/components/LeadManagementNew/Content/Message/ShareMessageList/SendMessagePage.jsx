@@ -7,11 +7,13 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import { updateMessage } from "../../../../../api/leadApi";
+import { createSharedMedia_lead, updateMessage } from "../../../../../api/leadApi";
 import { SetMealSharp } from "@mui/icons-material";
 import { FaWhatsappSquare } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const SendMessagePage = (props) => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState({
     title: "",
     body: "",
@@ -21,16 +23,16 @@ const SendMessagePage = (props) => {
   useEffect(() => {
     setMessage({
       ...message,
-      title: props.messageData.title,
-      body: props.messageData.description,
-      banner:props.messageData?.banner
+      title: props?.messageData?.title,
+      body: props?.messageData?.description,
+      banner:props?.messageData?.banner
     });
-  }, [props.messageData._id,]);
+  }, [props?.messageData?._id,]);
 
 
   const handleUpdate = async () => {
     let data = {
-      id: props.messageData._id,
+      id: props?.messageData?._id,
       title: message.title,
       body: message.body,
     };
@@ -38,11 +40,11 @@ const SendMessagePage = (props) => {
       const res = await updateMessage(data);
       if (res.data.status) {
         toast.success(res.data.message);
-        props.getMessageList()
+        props?.getMessageList()
       } else {
         toast.error(res.data.message);
       }
-      props.close();
+      props?.close();
       setMessage({
         ...message,
         title: "",
@@ -63,9 +65,39 @@ const SendMessagePage = (props) => {
     });
   };
 
-  const handleSend=(elem)=>{
-    const whatsappLink = `https://wa.me/${props.name=="lead"?elem.mobileNumber:props.name=="customer"?elem.mobileNo:elem.mobileNo}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(message.body)}`;
+
+  const handleSend=async(elem)=>{
+    if(props.messageData.name==="file"){
+
+      let data = {
+        media: props.messageData.leadId,
+        sharedWith: elem.id,
+        userType: props.name
+      };
+      try {
+        const res = await createSharedMedia_lead(data);
+        if (res.data.status) {
+          toast.success(res.data.message);
+          const whatsappLink =`https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=${res.data.url}`;
+          window.location.href = whatsappLink;
+        } else {
+          toast.error(res.data.message);
+        }
+        props?.close();
+        setMessage({
+          ...message,
+          title: "",
+          body: "",
+        });
+      } catch (error) {
+        toast.error(error.message);
+        // setApiRes({ loading: false, error: res.data.message });
+      }
+    
+    }else{
+      const whatsappLink = `https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(message.body)}`;
       window.location.href = whatsappLink;
+    }
   }
 
   return (
@@ -105,9 +137,9 @@ const SendMessagePage = (props) => {
               <div className="msg_total_send ">
                     <div className="image_body_list">
                       {/* <div className="">{elem.leadName.toString().charAt(0)}</div> */}
-                    <div><p >{props.name=="lead"?elem.leadName:props.name=="customer"?elem.customerName:elem.firmName}</p>
+                    <div><p >{props?.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName}</p>
                       <p>
-                        {props.name=="lead"?elem.mobileNumber:props.name=="customer"?elem.mobileNo:elem.mobileNo}
+                        {props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}
                       </p></div>
                     </div>
                     <div className="content_create_msg_btn_whatsap" onClick={()=>handleSend(elem)}>
@@ -122,9 +154,9 @@ const SendMessagePage = (props) => {
             <div>Total Sent</div>
             <div>{props?.sentName?.length}</div>
           </div>
-          <div className="content_create_msg_btn" onClick={handleUpdate}>
+          {/* <div className="content_create_msg_btn" onClick={handleUpdate}>
             Save Message
-          </div>
+          </div> */}
         </div>
       </DialogContent>
     </Dialog>

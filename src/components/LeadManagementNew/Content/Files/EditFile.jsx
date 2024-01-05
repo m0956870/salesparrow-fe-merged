@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Dialog,DialogActions,DialogTitle,DialogContent,CircularProgress,} from "@mui/material";
-import { createFile, createMessage } from "../../../../api/leadApi";
+import { createFile, createMessage, updateFile } from "../../../../api/leadApi";
 import { toast } from "react-toastify";
 import ManageImage from "./ManageImage";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,6 @@ import YouTube from 'react-youtube';
 import axios from "axios";
 
 const CreateFile = (props) => {
-  console.log(props.fileData , "dfgh")
     const navigate = useNavigate();
   const [message, setMessage] = useState({
     title: "",
@@ -31,23 +30,46 @@ const CreateFile = (props) => {
       title: props.fileData.title,
       body: props.fileData.description,
       websiteLink:props.fileData.websiteUrl,
-      youtubeLink:props.fileData.mediaUrl
+      youtubeLink:props.fileData.mediaUrl,
+      file:props?.fileData?.images
     });
     setImagePreviews(props?.fileData?.images)
     // setImagePreviews(prevState=>[...prevState , ...props?.fileData?.images?.map((elem)=>elem)])
   }, [props.fileData,]);
+console.log(props.catalogue,"filedata")
 
-
-  const handleCreate =() => {
-
-    if(message.title && message.body){
-      navigate("/preview" ,{state:{message , imageList:imagePreviews , youtubeList:youtubeLink , fileName:fileName , fileType:props.catalogue , action:"edit"}})
+  const handleUpdate =async() => {
+    if(props.fileData.fileType==="CATALOGUE"){
+      if(message.title && message.body){
+        navigate("/preview" ,{state:{message , imageList:imagePreviews , youtubeList:youtubeLink , fileName:fileName , fileType:props.catalogue , update:true ,id:props.fileData._id}})
+      }else{
+        toast.warning("Please enter title and description")
+      }
     }else{
-      toast.warning("Please enter title and description")
+      if(message.title ){
+        let formFile = new FormData();
+        formFile.append("title" ,message?.title)
+        formFile.append("fileType" , "Pdf")
+       
+        formFile.append("pdf" , message?.fileAttachment)
+        try {
+          const res = await updateFile(formFile);
+          if (res.data.status) {
+            toast.success(res.data.message);
+            props.close()
+          } else {
+            toast.error(res.data.message);
+          }
+         
+        } catch (error) {
+          toast.error(error.message);
+          // setApiRes({ loading: false, error: res.data.message });
+        }
+      }else{
+        toast.warning("Please enter title and description")
+      }
     }
-
-    
-  };
+    };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -67,24 +89,20 @@ const CreateFile = (props) => {
 
   const handleImage = (e) => {
     const files = e.target.files;
-
-    if (files) {
-      setMessage({
+    
+      setMessage(prevMessage=>({
         ...message,
-        file:files
-      })
+        file:[...prevMessage.file , ...files]
+      }))
       const imageFiles = Array.from(files).filter((file) => {
         return ["image/jpeg", "image/png", "image/svg+xml"].includes(file.type);
       });
-
       Promise.all(imageFiles.map((file) => getImageDataUrl(file))).then(
         (newPreviews) => {
           setImagePreviews(previews=>[...previews , ...newPreviews]);
         }
       );
-    }
   };
-
   const getImageDataUrl = (file) => {
     return new Promise((resolve) => {
       const objectUrl = URL.createObjectURL(file);
@@ -100,7 +118,7 @@ const CreateFile = (props) => {
 
 
   const handleManageImage=()=>{
-    props.close()
+    // props.close()
     props.setManageImage(true)
     props.setManageImageList(imagePreviews)
   }
@@ -242,7 +260,7 @@ const CreateFile = (props) => {
             </div>
             
           </div>
-          <div className="content_create_msg_btn" onClick={handleCreate}>
+          <div className="content_create_msg_btn" onClick={handleUpdate}>
             Update {props.fileData.fileType==="CATALOGUE"?"Catalogue":"File"}
           </div>
         </div>

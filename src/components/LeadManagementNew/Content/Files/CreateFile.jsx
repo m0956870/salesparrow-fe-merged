@@ -26,8 +26,7 @@ const CreateFile = (props) => {
 
 
   const handleCreate =async() => {
-
-  if(props.catalogue==="Catalogue"){
+  if(props.catalogue){
     if(message.title && message.body){
       navigate("/preview" ,{state:{message , imageList:imagePreviews , youtubeList:youtubeLink , fileName:fileName , fileType:props.catalogue}})
     }else{
@@ -44,7 +43,7 @@ const CreateFile = (props) => {
         const res = await createFile(formFile);
         if (res.data.status) {
           toast.success(res.data.message);
-          navigate(-1)
+          props.close()
         } else {
           toast.error(res.data.message);
         }
@@ -79,12 +78,10 @@ const CreateFile = (props) => {
 
   const handleImage = (e) => {
     const files = e.target.files;
-
-    if (files) {
-      setMessage({
+      setMessage(prevMessage=>({
         ...message,
-        file:files
-      })
+        file:[...prevMessage.file , ...files]
+      }))
       const imageFiles = Array.from(files).filter((file) => {
         return ["image/jpeg", "image/png", "image/svg+xml"].includes(file.type);
       });
@@ -94,7 +91,7 @@ const CreateFile = (props) => {
           setImagePreviews(previews=>[...previews , ...newPreviews]);
         }
       );
-    }
+    
   };
 
   const getImageDataUrl = (file) => {
@@ -156,7 +153,7 @@ const CreateFile = (props) => {
             // ));
   
         } else {
-          console.log('File type not allowed. Please upload a PDF, JPG, JPEG, or PNG file.');
+          toast.warning('File type not allowed. Please upload a PDF, JPG, JPEG, or PNG file.');
         }
       }
   }
@@ -213,7 +210,7 @@ const CreateFile = (props) => {
              {props.catalogue?<> <input
                 type="file"
                 id="input-img"
-                multiple 
+                multiple
                 onChange={handleImage}
                 style={{ display: "none" }}
               />

@@ -67,6 +67,7 @@ const FilesListing = () => {
             if(res.data.status){
                 setallLeadsData(res.data.result)
                 setpageLength(res.data.total_page);
+                settotalDataCount(res.data.count)
                 // toast.success("");
             }else{
                 toast.error(res.data.File);
@@ -136,11 +137,11 @@ const FilesListing = () => {
 
     const handleShare=(e , name , row)=>{
         if(name==="lead"){
-            navigate("/lead_management_share_lead",{state:{title:row.title, description:row.description,banner:row?.images[0]}} )
+            navigate("/lead_management_share_lead",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} )
         }else if(name==="parties"){
-            navigate("/lead_management_share_party",{state:{title:row.title, description:row.description,banner:row?.images[0]}} );
+            navigate("/lead_management_share_party",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} );
         }else{
-            navigate("/lead_management_share_customer",{state:{title:row.title, description:row.description,banner:row?.images[0]}} );
+            navigate("/lead_management_share_customer",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} );
         }
     }
 
@@ -204,13 +205,14 @@ const FilesListing = () => {
                                                 <StyledTableCell>
                                                     {row.fileType==="PDF"?row.title+"(Uploaded)":row.title}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="left"><img src={row.images[0]}/></StyledTableCell>
+                                                <StyledTableCell align="left"><img src={row.images[0]} width={"10%"}/></StyledTableCell>
                                                 <StyledTableCell align="left">{row.description}</StyledTableCell>
                                                 <StyledTableCell align="left" className='position-relative'>
                                                     <BorderColorIcon
                                                         onClick={() => {
                                                             setcurrentGroup(row);
                                                             seteditFilePopup(true)
+                                                            setCatalogue(row.fileType==="PDF"?false:true)
                                                         }}
                                                         style={{ fontSize: '1rem', color: 'var(--main-color)' }}
                                                     />
@@ -306,11 +308,13 @@ const FilesListing = () => {
             <EditFile
                 open={editFilePopup}
                 close={() => seteditFilePopup(!editFilePopup)}
+                seteditFilePopup={seteditFilePopup}
                 fileData={currentGroup}
                 getFileList={getFileList}
                 manageImage={manageImage}
                 setManageImage={setManageImage}
                 manageImageList={manageImageList}
+                catalogue={catalogue}
                 setManageImageList={setManageImageList}
             />
             <ManageImage
@@ -320,6 +324,8 @@ const FilesListing = () => {
             manageImageList={manageImageList}
             setManageImageList={setManageImageList}
             setaddFilePopup={setaddFilePopup}
+            seteditFilePopup={seteditFilePopup}
+            editFilePopup={editFilePopup}
             />
         </>
     )

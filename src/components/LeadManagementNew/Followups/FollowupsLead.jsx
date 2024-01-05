@@ -5,7 +5,7 @@ import { BsAlarm, BsApple, BsArchive, BsAward, BsPlus } from "react-icons/bs";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { getLead_follwups, getLeads, saveFollowup_lead } from "../../../api/leadApi";
+import { getLead_follwups, getLeads, saveFollowup_lead, updateFollowup_lead } from "../../../api/leadApi";
 import { Dialog } from "@mui/material";
 import { AiOutlineShareAlt, AiOutlineTeam } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -71,13 +71,14 @@ const FollowupsLead = () => {
   const [addPopup, setAddPopup] = useState(false);
   const [activity, setActivity] = useState(false);
   const [addActivity, setaddActivity] = useState(false);
-  const [scheduleData, setScheduleData] = useState("");
+  const [scheduleData , setScheduleData] = useState(false);
  const [activityName , setActivityName] = useState("")
  const [dateTime , setDateTime] = useState("")
  const [description , setDescription] = useState("")
+ const [lastDateObject, setLastDateObject] = useState(null);
+ const [nextDateObject, setNextDateObject] = useState(null);
 
-  const todayDate = new Date();
-
+ let todayDate = new Date();
   useEffect(() => {
     if (lastActivityEl.current)
       lastActivityEl.current.scrollIntoView({
@@ -102,61 +103,119 @@ const FollowupsLead = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getLeadapiFollowup();
-    getLeadList()
-  }, []);
-
-  // const handleAddActivity = () => {
-   
-  // };
+  
+  
+  
+  const handleAddActivity = () => {
+    setActivity(true);
+  };
 
   
   const handleUpdateActivity=()=>{
     setAddPopup(true);
   }
 
-  const handleAddActivity = (name) => {
-    
-    setActivity(true);
-    // switch (name) {
-    //   case "today":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate()));
-    //     setScheduleData(d.toLocaleString());
+  
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
+  }
 
-    //     break;
-    //   case "tomorrow":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate() + 1));
-    //     setScheduleData(d.toLocaleString());
+  const handleScheduleUpdate = (name) => {
+    switch (name) {
+      case "today":
+        var d = new Date(todayDate.setDate(todayDate.getDate()));
+        setScheduleData(formatDate(d.toLocaleString()));
 
-    //     break;
-    //   case "3days":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate() + 3));
-    //     setScheduleData(d.toLocaleString());
+        break;
+      case "tomorrow":
+        var d = new Date(todayDate.setDate(todayDate.getDate() + 1));
+        setScheduleData(formatDate(d.toLocaleString()));
 
-    //     break;
-    //   case "1week":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate() + 7));
-    //     setScheduleData(d.toLocaleString());
-    //     break;
+        break;
+      case "3days":
+        var d = new Date(todayDate.setDate(todayDate.getDate() + 3));
+        setScheduleData(formatDate(d.toLocaleString()));
 
-    //   case "1month":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate() + 30));
-    //     setScheduleData(d.toLocaleString());
-    //     break;
+        break;
+      case "1week":
+        var d = new Date(todayDate.setDate(todayDate.getDate() + 7));
+        setScheduleData(formatDate(d.toLocaleString()));
+        break;
 
-    //   case "customdate":
-    //     setScheduleData("customdate");
-    //     break;
+      case "1month":
+        var d = new Date(todayDate.setDate(todayDate.getDate() + 30));
+        setScheduleData(formatDate(d.toLocaleString()));
+        break;
 
-    //   case "never":
-    //     setScheduleData("never");
-    //     break;
+      case "customdate":
+        setScheduleData("customdate");
+        break;
 
-    //   default:
-    //     break;
-    // }
+      case "never":
+        setScheduleData("never");
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+   updateActivity(scheduleData);
+  }, [scheduleData]);
+
+  let dateArray = followupData.map((elem)=> {return elem.date})
+
+
+useEffect(() => {
+const currentDate = new Date();
+let formatedDate = formatDate(currentDate)
+  const parseDate = dateString => {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid date format: ' + dateString);
+    }
+    return date;
+  };
+
+  try {
+    const lastDate = dateArray.filter(date => date <= formatedDate);
+    const nextDate = dateArray.filter(date => date > formatedDate);
+    let maxDate = new Date(Math.max(...lastDate.map(dateString => new Date(dateString))))
+    let minDate = new Date(Math.min(...nextDate.map(dateString => new Date(dateString))))
+    setLastDateObject( maxDate.toISOString().split('T')[0]);
+    setNextDateObject( minDate.toISOString().split('T')[0]);
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+}, [followupData]);
+
+  const matchingElement = followupData.find(elem => {
+    const formattedElemDate = formatDate(elem?.date);
+    const formattedNextDate = formatDate(nextDateObject);
+    return formattedElemDate == formattedNextDate;
+  });
+
+  const updateActivity = async() => {
+    let data = {
+        date:scheduleData,
+        id: matchingElement?._id
+    }
+    let res = await updateFollowup_lead(data)
+    try {
+        if(res.data.status){
+            toast.success("Success")
+            setAddPopup(false)
+            getLeadapiFollowup();
+        }
+    } catch (error) {
+        console.log(error)
+    }
   };
 
   const handleActivityAdd = (name) => {
@@ -196,6 +255,7 @@ const FollowupsLead = () => {
         if(res.data.status){
             toast.success("Success")
             setaddActivity(false)
+            getLeadapiFollowup();
         }
     } catch (error) {
         console.log(error)
@@ -224,12 +284,10 @@ const FollowupsLead = () => {
     }
   }
 
-//   const nextDateFind = ()=>{
-//     let a=[];
-//     followupData.map((elem)=>{
-//         a.push()
-//     })
-//   }
+  useEffect(() => {
+    getLeadapiFollowup();
+    getLeadList()
+  }, []);
 
   const leadInfo = [
     {
@@ -295,8 +353,6 @@ const FollowupsLead = () => {
     },
   ];
 
-
-
   return (
     <div className="container">
       <div className="beat_heading">
@@ -327,13 +383,11 @@ const FollowupsLead = () => {
         <div className="followups_123">
           <div className="followups_456" style={{ backgroundColor: "#522da9" }}>
             <label>Last Follow Up</label>
-            <div>{followupData.map((elem)=>{
-
-            })}</div>
+            <div>{lastDateObject ? lastDateObject: 'N/A'}</div>
           </div>
           <div className="followups_456" style={{ backgroundColor: "#ef0c76" }}>
             <label>Next Follow Up</label>
-            <div>12/02/2021</div>
+            <div>{nextDateObject ? nextDateObject: 'N/A'}</div>
           </div>
           <div className="followups_456" style={{ backgroundColor: "#63d19a" }}>
             <label>Status</label>
@@ -407,7 +461,7 @@ const FollowupsLead = () => {
               return (
                 <div
                   className="ll_sl_tabs"
-                  // onClick={() => handleSchedule(elem.label)}
+                   onClick={() => handleScheduleUpdate(elem.label)}
                 >
                   <div className="followup_schedule">{elem.name}</div>
                 </div>
