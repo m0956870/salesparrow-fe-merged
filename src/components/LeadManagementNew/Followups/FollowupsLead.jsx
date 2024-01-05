@@ -103,12 +103,9 @@ const FollowupsLead = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getLeadapiFollowup();
-    getLeadList()
-  }, []);
-
+  
+  
+  
   const handleAddActivity = () => {
     setActivity(true);
   };
@@ -118,31 +115,41 @@ const FollowupsLead = () => {
     setAddPopup(true);
   }
 
+  
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
+  }
+
   const handleScheduleUpdate = (name) => {
     switch (name) {
       case "today":
         var d = new Date(todayDate.setDate(todayDate.getDate()));
-        setScheduleData(d.toLocaleString());
+        setScheduleData(formatDate(d.toLocaleString()));
 
         break;
       case "tomorrow":
         var d = new Date(todayDate.setDate(todayDate.getDate() + 1));
-        setScheduleData(d.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }));
+        setScheduleData(formatDate(d.toLocaleString()));
 
         break;
       case "3days":
         var d = new Date(todayDate.setDate(todayDate.getDate() + 3));
-        setScheduleData(d.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }));
+        setScheduleData(formatDate(d.toLocaleString()));
 
         break;
       case "1week":
         var d = new Date(todayDate.setDate(todayDate.getDate() + 7));
-        setScheduleData(d.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }));
+        setScheduleData(formatDate(d.toLocaleString()));
         break;
 
       case "1month":
         var d = new Date(todayDate.setDate(todayDate.getDate() + 30));
-        setScheduleData(d.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }));
+        setScheduleData(formatDate(d.toLocaleString()));
         break;
 
       case "customdate":
@@ -159,19 +166,11 @@ const FollowupsLead = () => {
   };
 
   useEffect(() => {
-    updateActivity(scheduleData);
+   updateActivity(scheduleData);
   }, [scheduleData]);
 
   let dateArray = followupData.map((elem)=> {return elem.date})
 
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-  
-    return `${year}-${month}-${day}`;
-  }
 
 useEffect(() => {
 const currentDate = new Date();
@@ -212,6 +211,7 @@ let formatedDate = formatDate(currentDate)
         if(res.data.status){
             toast.success("Success")
             setAddPopup(false)
+            getLeadapiFollowup();
         }
     } catch (error) {
         console.log(error)
@@ -255,6 +255,7 @@ let formatedDate = formatDate(currentDate)
         if(res.data.status){
             toast.success("Success")
             setaddActivity(false)
+            getLeadapiFollowup();
         }
     } catch (error) {
         console.log(error)
@@ -282,6 +283,11 @@ let formatedDate = formatDate(currentDate)
       console.log('get leads catch error', error.message);
     }
   }
+
+  useEffect(() => {
+    getLeadapiFollowup();
+    getLeadList()
+  }, []);
 
   const leadInfo = [
     {

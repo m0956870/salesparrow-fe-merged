@@ -44,7 +44,6 @@ const ManageImage = (props) => {
 })
   }
 
-  console.log(props.editFilePopup , "edit")
 
   const handleBack=()=>{
     // props.setaddFilePopup(true)

@@ -5,10 +5,10 @@ import { AiOutlineShareAlt, AiOutlineTeam, AiOutlineEdit, AiOutlineDelete } from
 // import { BiSelectMultiple } from "react-icons/bi"
 
 // import selectionImg from "../../../../images/selection.png"
-import img1 from "../../../../../images/column_filter.png"
-import img2 from "../../../../../images/excel_import.png"
-import img3 from "../../../../../images/excel_export.png"
-import img4 from "../../../../../images/pdf_download.png"
+// import img1 from "../../../../../images/column_filter.png"
+// import img2 from "../../../../../images/excel_import.png"
+// import img3 from "../../../../../images/excel_export.png"
+// import img4 from "../../../../../images/pdf_download.png"
 
 // import SearchIcon from '@mui/icons-material/Search';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -45,6 +45,7 @@ const ShareLeads = () => {
   const [allLeadGroups, setallLeadGroups] = useState([]);
   const [sendMessagePopup, setsendMessagePopup] = useState(false)
   const [sentName , setSentName] = useState([])
+  const [allSent , setAllSent] = useState(false);
 
   const [selectionBtn, setselectionBtn] = useState("selection")
   const [selectedLeadArr, setselectedLeadArr] = useState([])
@@ -140,7 +141,6 @@ const ShareLeads = () => {
   };
 
   const selectionBtnFunc = (type) => {
-setSentName(false)
     setAllRowSelect(false)
     setselectedLeadArr([])
     if (type === "action") {
@@ -152,7 +152,7 @@ setSentName(false)
   }
 
   const selectionAllBtnFunc = (type) => {
-    setSentName(true)
+    setAllSent(true)
     if (type === "action") {
       setselectionBtn(type)
       allLeadsData.map((elem ,id)=>{
@@ -166,6 +166,7 @@ setSentName(false)
   }
 
   const selectionCheckboxFunc = (e, row) => {
+    setAllSent(false)
     setSelectPopup(false)
     if (!selectedLeadArr.includes(row._id)) {
       setselectedLeadArr([...selectedLeadArr, row._id])
@@ -175,7 +176,7 @@ setSentName(false)
     }
   }
 
-  console.log(selectedLeadArr,"arr")
+  // console.log(selectedLeadArr,"arr")
 
   const shareContentSLFunc = () => {
     setselectedArrPopup(false)
@@ -252,7 +253,7 @@ setSentName(false)
     if(selectedLeadArr.length){
     setsendMessagePopup(true)
    
-    const selecteLeadName =  sentName?allLeadsData:allLeadsData.filter((elem)=>{
+    const selecteLeadName =  allSent?allLeadsData:allLeadsData.filter((elem)=>{
       return selectedLeadArr.includes(elem._id);
     })
    setSentName(selecteLeadName.map((elem)=>elem))

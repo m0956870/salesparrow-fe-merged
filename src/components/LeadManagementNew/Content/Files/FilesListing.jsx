@@ -67,6 +67,7 @@ const FilesListing = () => {
             if(res.data.status){
                 setallLeadsData(res.data.result)
                 setpageLength(res.data.total_page);
+                settotalDataCount(res.data.count)
                 // toast.success("");
             }else{
                 toast.error(res.data.File);
@@ -136,11 +137,11 @@ const FilesListing = () => {
 
     const handleShare=(e , name , row)=>{
         if(name==="lead"){
-            navigate("/lead_management_share_lead",{state:{title:row.title, description:row.description,banner:row?.images[0]}} )
+            navigate("/lead_management_share_lead",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} )
         }else if(name==="parties"){
-            navigate("/lead_management_share_party",{state:{title:row.title, description:row.description,banner:row?.images[0]}} );
+            navigate("/lead_management_share_party",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} );
         }else{
-            navigate("/lead_management_share_customer",{state:{title:row.title, description:row.description,banner:row?.images[0]}} );
+            navigate("/lead_management_share_customer",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} );
         }
     }
 

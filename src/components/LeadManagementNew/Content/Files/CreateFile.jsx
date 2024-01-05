@@ -153,7 +153,7 @@ const CreateFile = (props) => {
             // ));
   
         } else {
-          console.log('File type not allowed. Please upload a PDF, JPG, JPEG, or PNG file.');
+          toast.warning('File type not allowed. Please upload a PDF, JPG, JPEG, or PNG file.');
         }
       }
   }

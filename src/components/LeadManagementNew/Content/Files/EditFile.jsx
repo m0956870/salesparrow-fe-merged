@@ -8,7 +8,6 @@ import YouTube from 'react-youtube';
 import axios from "axios";
 
 const CreateFile = (props) => {
-  console.log(props.fileData , "dfgh")
     const navigate = useNavigate();
   const [message, setMessage] = useState({
     title: "",
@@ -90,7 +89,7 @@ console.log(props.catalogue,"filedata")
 
   const handleImage = (e) => {
     const files = e.target.files;
-    console.log(files , "files")
+    
       setMessage(prevMessage=>({
         ...message,
         file:[...prevMessage.file , ...files]

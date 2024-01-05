@@ -635,5 +635,23 @@ export const updateFollowup_lead = async (data) => {
   }
 }
 
+export const createSharedMedia_lead = async (data) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "post",
+    url: getBaseUrl() + "lead_api/sharedMedia",
+    headers: { Authorization: `Bearer ${token}` },
+    data
+  };
+
+  try {
+    return await axios(config);
+  } catch (error) {
+    console.log(error)
+    return error.response
+  }
+}
+
 
 
