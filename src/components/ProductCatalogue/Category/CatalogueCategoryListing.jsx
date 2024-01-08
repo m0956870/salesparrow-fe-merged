@@ -18,8 +18,6 @@ import { deleteCategory, editCategory, fetchAllCategory } from "../../../api/pro
 
 import { useNavigate } from "react-router-dom";
 import { VIEW_CATALOGUE } from "../../../constants.js";
-import AddTrendingProductDialog from "./AddTrendingProductDialog.jsx";
-import EditTrendingProductDialog from "./EditTrendingProductDialog.jsx";
 
 import { useRef } from "react";
 import { BsFilterLeft } from "react-icons/bs"
@@ -28,9 +26,9 @@ import xlsx from "json-as-xlsx";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import isAllowed from "../../../utils/isAllowed.js";
-import { deleteCatalogueBanner, deleteTrendingProduct, getCatalogueListing, getTrendingProductListing } from "../../../api/catalogueAPI.js";
+import { deleteCatalogueBanner, deleteCatalogueCategory, deleteTrendingProduct, getCatalogueCategoryListing, getCatalogueListing, getTrendingProductListing } from "../../../api/catalogueAPI.js";
 
-const TrendingProductListing = () => {
+const CatalogueCategoryListing = () => {
   const navigate = useNavigate();
   const [isLoading, setisLoading] = useState(false);
 
@@ -39,10 +37,6 @@ const TrendingProductListing = () => {
   const [exportBtnLoading, setexportBtnLoading] = useState(false)
   const [pdfBtnLoading, setpdfBtnLoading] = useState(false)
   const [permissionAllowed, setpermissionAllowed] = useState(false)
-
-  const [addCategoryPopup, setaddCategoryPopup] = useState();
-  const [editCategoryPopup, seteditCategoryPopup] = useState();
-  const [currCardData, setcurrCardData] = useState([])
 
   const [allCategory, setallCategory] = useState([]);
   const [pageCount, setpageCount] = useState(1);
@@ -61,18 +55,6 @@ const TrendingProductListing = () => {
     getCatalogueListingFunc({ ...filterData, page: pageCount });
   }, [pageCount]);
 
-  useEffect(() => {
-    if (addCategoryPopup === false) {
-      getCatalogueListingFunc(filterData)
-    }
-  }, [addCategoryPopup])
-
-  useEffect(() => {
-    if (editCategoryPopup === false) {
-      getCatalogueListingFunc(filterData)
-    }
-  }, [editCategoryPopup])
-
   const getCatalogueListingFunc = async (filterData) => {
     setisLoading(true);
     if (!await isAllowed(VIEW_CATALOGUE)) {
@@ -82,7 +64,7 @@ const TrendingProductListing = () => {
       setpermissionAllowed(true)
     }
 
-    getTrendingProductListing(filterData).then((res) => {
+    getCatalogueCategoryListing(filterData).then((res) => {
       if (res.data.status) {
         setallCategory(res.data.data);
         setpageLength(res.data.total_pages);
@@ -97,10 +79,10 @@ const TrendingProductListing = () => {
   const deleteBeatFunc = async () => {
     // console.log(currentGroup);
     try {
-      let res = await deleteTrendingProduct(currentGroup._id);
+      let res = await deleteCatalogueCategory(currentGroup._id);
       // console.log(res);
       if (res.data.status) {
-        toast.success("Product Deleted Successfully!");
+        toast.success("Category Deleted Successfully!");
         setdeletePopup(false);
         setisLoading(true);
         getCatalogueListingFunc(filterData);
@@ -140,7 +122,7 @@ const TrendingProductListing = () => {
       setpdfBtnLoading(true)
       setfilterDivExtended(false);
       if (allCategory.length < 1) return toast.error("Report list is empty!");
-      return saveToPdf(pdfView, "Catalogue Trending Products");
+      return saveToPdf(pdfView, "Catalogue Categories");
     }
   }
 
@@ -189,15 +171,15 @@ const TrendingProductListing = () => {
       active: true,
     },
     {
-      label: 'Product Name',
-      key: 'key',
-      type: "product_value",
+      label: 'Category',
+      key: 'name',
+      type: "category_value",
       active: true,
     },
     {
-      label: 'Priority',
-      key: 'priority',
-      type: "value",
+      label: 'Product Name',
+      key: 'key',
+      type: "product_value",
       active: true,
     },
     {
@@ -221,18 +203,24 @@ const TrendingProductListing = () => {
   const TCComponent = ({ data }) => {
     let { row, col } = data;
     if (col.type === "image") {
-      return <StyledTableCell>{row.product_id.display_image ? <img style={{ height: "2rem", width: "3rem" }} src={row.product_id.display_image} alt="" /> : null}</StyledTableCell>;
+      return <StyledTableCell>{row.banner_img ? <img style={{ height: "2rem", width: "3rem" }} src={row.banner_img} alt="" /> : null}</StyledTableCell>;
+    } else if (col.type === "category_value") {
+      return <StyledTableCell >{row.category_id[col.key]}</StyledTableCell>;
     } else if (col.type === "product_value") {
-      return <StyledTableCell >{row.product_id.productName}</StyledTableCell>;
+      return <StyledTableCell >
+        {row.products.length === 0 ? "-" :
+          row.products?.map(product => (
+            <div>
+              {product.productName}
+            </div>
+          ))}
+      </StyledTableCell>;
     } else if (col.type === "action") {
       return (
         <div style={{ whiteSpace: "nowrap" }} >
           <StyledTableCell>
             <BorderColorIcon
-              onClick={() => {
-                seteditCategoryPopup(true)
-                setcurrCardData(row)
-              }}
+              onClick={() => navigate("/edit_catalogue_category", { state: row })}
               style={{ fontSize: "1rem", color: "var(--main-color)", marginLeft: "0.5rem", }}
             />
             <DeleteIcon
@@ -288,7 +276,7 @@ const TrendingProductListing = () => {
           <div className="icon">
             <img src={group} alt="icon" />
           </div>
-          <div className="title">Trending Products</div>
+          <div className="title">Category Listing</div>
         </div>
         <div className="beat_right employee_head">
           {/* <img src={excel_out} className="excel_icon" onClick={() => exportFunc()} alt="icon" /> */}
@@ -336,7 +324,7 @@ const TrendingProductListing = () => {
                 </div>
               </div>
             </div>
-            {permissionAllowed && <div className="add_new_side_btn" onClick={() => setaddCategoryPopup(true)}>
+            {permissionAllowed && <div className="add_new_side_btn" onClick={() => navigate("/add_catalogue_category")}>
               Add New
             </div>}
           </div>
@@ -421,18 +409,8 @@ const TrendingProductListing = () => {
         </DialogContent>
         <DialogActions></DialogActions>
       </Dialog>
-
-      <AddTrendingProductDialog
-        open={addCategoryPopup}
-        close={() => setaddCategoryPopup(!addCategoryPopup)}
-      />
-      <EditTrendingProductDialog
-        open={editCategoryPopup}
-        close={() => seteditCategoryPopup(!editCategoryPopup)}
-        currCardData={currCardData}
-      />
     </div>
   );
 };
 
-export default TrendingProductListing;
+export default CatalogueCategoryListing;

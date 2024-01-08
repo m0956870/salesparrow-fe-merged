@@ -220,10 +220,14 @@ import BannerReview from "./components/LeadManagementNew/Content/Banner/BannerRe
 import ShareLead from "./components/LeadManagementNew/Clients/Lead/ShareLead";
 import FollowUpsDashboard from "./components/LeadManagementNew/Followups/FollowUpsDashboard";
 import FollowupsLead from "./components/LeadManagementNew/Followups/FollowupsLead";
-import BannerListing from "./components/ProductCatalogue/Banner/BannerListing";
-import TrendingProductListing from "./components/ProductCatalogue/TrendingProduct/TrendingProductListing";
 
 // catalogue
+import BannerListing from "./components/ProductCatalogue/Banner/BannerListing";
+import TrendingProductListing from "./components/ProductCatalogue/TrendingProduct/TrendingProductListing";
+import CatalogueCategoryListing from "./components/ProductCatalogue/Category/CatalogueCategoryListing";
+import AddCategory from "./components/ProductCatalogue/Category/AddCategory";
+import EditCategory from "./components/ProductCatalogue/Category/EditCategory";
+
 
 
 const routeArray = [
@@ -312,7 +316,9 @@ const routeArray = [
   // Catalogue
   { params: "catalogue_banner", component: <BannerListing /> },
   { params: "catalogue_trending_product", component: <TrendingProductListing /> },
-  { params: "catalogue_category", component: <BannerListing /> },
+  { params: "catalogue_category", component: <CatalogueCategoryListing /> },
+  { params: "add_catalogue_category", component: <AddCategory /> },
+  { params: "edit_catalogue_category", component: <EditCategory /> },
 
   // MAPPING
   { params: "employee_party_mapping_listing", component: <EmpPartyMappingListing /> },

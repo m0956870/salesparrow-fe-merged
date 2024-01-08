@@ -126,7 +126,7 @@ export const updateTrendingProduct = async (data) => {
 
 export const deleteTrendingProduct = async (id) => {
     const token = localStorage.getItem("token");
-    
+
     let config = {
         method: "delete",
         url: getBaseUrl() + `auth_api/catalogue/trending_product/${id}`,
@@ -158,11 +158,12 @@ export const getCatalogueCategoryListing = async (data) => {
 
 export const addCatalogueCategory = async (profilePic, data) => {
     const token = localStorage.getItem("token");
+    console.log("first", profilePic, data)
 
     let formData = new FormData();
     formData.append("image", profilePic);
     formData.append("category_id", data.category_id);
-    formData.append("products", data.products);
+    formData.append("products", JSON.stringify(data.products));
 
     let config = {
         method: "post",
@@ -185,7 +186,7 @@ export const updateCatalogueCategory = async (profilePic, data) => {
     formData.append("image", profilePic);
     formData.append("id", data.id);
     formData.append("category_id", data.category_id);
-    formData.append("products", data.products);
+    formData.append("products", JSON.stringify(data.products));
 
     let config = {
         method: "patch",

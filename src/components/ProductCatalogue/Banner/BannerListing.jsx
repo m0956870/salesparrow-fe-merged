@@ -140,7 +140,7 @@ const BannerListing = () => {
       setpdfBtnLoading(true)
       setfilterDivExtended(false);
       if (allCategory.length < 1) return toast.error("Report list is empty!");
-      return saveToPdf(pdfView, "Monthly Attendence Report (All Employee)");
+      return saveToPdf(pdfView, "Catalogue Banners");
     }
   }
 
