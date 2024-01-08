@@ -4,10 +4,9 @@ import { createFile, createMessage, updateFile } from "../../../../api/leadApi";
 import { toast } from "react-toastify";
 import ManageImage from "./ManageImage";
 import { useNavigate } from "react-router-dom";
-import YouTube from 'react-youtube';
 import axios from "axios";
 
-const CreateFile = (props) => {
+const EditFile = (props) => {
     const navigate = useNavigate();
   const [message, setMessage] = useState({
     title: "",
@@ -21,22 +20,12 @@ const CreateFile = (props) => {
   });
   const [imagePreviews, setImagePreviews] = useState([]);
   const [fileName , setFileName] = useState("+ Add File Attachment")
-  const [thumbnails, setThumbnails] = useState([]);
+  const [thumbnails, setThumbnails] = useState();
   const [youtubeLink, setyoutubeLink] = useState([]);
+ 
 
-  useEffect(() => {
-    setMessage({
-      ...message,
-      title: props.fileData.title,
-      body: props.fileData.description,
-      websiteLink:props.fileData.websiteUrl,
-      youtubeLink:props.fileData.mediaUrl,
-      file:props?.fileData?.images
-    });
-    setImagePreviews(props?.fileData?.images)
-    // setImagePreviews(prevState=>[...prevState , ...props?.fileData?.images?.map((elem)=>elem)])
-  }, [props.fileData,]);
-console.log(props.catalogue,"filedata")
+
+
 
   const handleUpdate =async() => {
     if(props.fileData.fileType==="CATALOGUE"){
@@ -50,13 +39,14 @@ console.log(props.catalogue,"filedata")
         let formFile = new FormData();
         formFile.append("title" ,message?.title)
         formFile.append("fileType" , "Pdf")
-       
+        formFile.append("fileId" , props.fileData._id)
         formFile.append("pdf" , message?.fileAttachment)
         try {
           const res = await updateFile(formFile);
           if (res.data.status) {
             toast.success(res.data.message);
             props.close()
+            props.getFile()
           } else {
             toast.error(res.data.message);
           }
@@ -129,14 +119,15 @@ console.log(props.catalogue,"filedata")
       const response = await axios.get(
         `https://www.youtube.com/oembed?url=${link}&format=json`
       );
-      setThumbnails((prevThumbnails) => [...prevThumbnails, response.data.thumbnail_url]);
+      // setThumbnails((prevThumbnails) => [...prevThumbnails, response.data.thumbnail_url]);
+      setThumbnails(response.data.thumbnail_url);
     } catch (error) {
       console.error('Error fetching YouTube data:', error);
     }
-    setMessage({
-        ...message,
-        youtubeLink:""
-     })
+    // setMessage({
+    //     ...message,
+    //     youtubeLink:""
+    //  })
   };
 
   const handleFile=(e)=>{
@@ -166,6 +157,32 @@ console.log(props.catalogue,"filedata")
     });
   };
 
+  useEffect(() => {
+      setMessage({
+        ...message,
+        title: props.fileData.title,
+        body: props.fileData.description,
+        websiteLink: props.fileData.websiteUrl,
+        youtubeLink: props.fileData.mediaUrl,
+        file: props?.fileData?.images,
+        websiteName: props?.fileData?.websiteName,
+      });
+  
+      if (props && props.fileData && props.fileData.pdf && props.fileData.pdf.length > 0) {
+        setFileName(props.fileData.pdf[0].split('/').pop());
+      } else {
+        setFileName("+ add file");
+      }
+      setImagePreviews(props?.fileData?.images);
+      setyoutubeLink(props.fileData.mediaUrl);
+  }, [props.fileData]);
+
+  useEffect(()=>{
+    setTimeout(() => {
+      getThumbnail(props.fileData.mediaUrl);
+    }, 500);
+    //
+  },[props.fileData.mediaUrl])
 
   return (
     <Dialog
@@ -219,11 +236,11 @@ console.log(props.catalogue,"filedata")
             </div>
            {imagePreviews?.length>0?<p style={{color:"#28A9E2" , cursor:"pointer" , marginLeft:"5px" , textDecoration:"underline"}} onClick={handleManageImage}>Manage Image</p>:""} 
             
-           {thumbnails.map((thumbnail, index) => (
-        <div key={index}>
-          <img src={thumbnail} alt={`Thumbnail ${index}`} width={"100%"}/>
-        </div>
-      ))}
+    
+        {thumbnails?<div  style={{position:"relative"}}>
+          <img src={thumbnails} alt='Thumbnail' width={"100%"}/>
+        </div>:""}
+      
             <textarea
               className="msg_body_txtarea_title"
               name="youtubeLink"
@@ -269,4 +286,4 @@ console.log(props.catalogue,"filedata")
   );
 };
 
-export default CreateFile;
+export default EditFile;

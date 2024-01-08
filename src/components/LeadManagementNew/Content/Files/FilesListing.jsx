@@ -205,8 +205,8 @@ const FilesListing = () => {
                                                 <StyledTableCell>
                                                     {row.fileType==="PDF"?row.title+"(Uploaded)":row.title}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="left"><img src={row.images[0]} width={"10%"}/></StyledTableCell>
-                                                <StyledTableCell align="left">{row.description}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.fileType==="PDF"?<a href={row.pdf[0]} target='blank' className='team-assign'>View File</a>:<img src={row.images[0]} width={"10%"}/>}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.sharedCount}</StyledTableCell>
                                                 <StyledTableCell align="left" className='position-relative'>
                                                     <BorderColorIcon
                                                         onClick={() => {
@@ -231,7 +231,7 @@ const FilesListing = () => {
                                                      <div className='option_lists' >
                                                        <div className='option_lists_div option_lists_first'>Share With</div>
                                                        <div className='option_lists_div' onClick={(e)=>handleShare(e,"lead",row)}>Leads</div>
-                                                       <div className='option_lists_div'onClick={(e)=>handleShare(e,"customer",row)}>Customes</div>
+                                                       <div className='option_lists_div'onClick={(e)=>handleShare(e,"customer",row)}>Customer</div>
                                                        <div className='option_lists_div'onClick={(e)=>handleShare(e,"parties",row)}>Parties</div>
                                                      </div>
                                                    :""}
@@ -304,6 +304,7 @@ const FilesListing = () => {
                 setManageImageList={setManageImageList}
                 catalogue={catalogue}
                 setCatalogue={setCatalogue}
+                getFile={getFileList}
             />
             <EditFile
                 open={editFilePopup}
@@ -316,6 +317,7 @@ const FilesListing = () => {
                 manageImageList={manageImageList}
                 catalogue={catalogue}
                 setManageImageList={setManageImageList}
+                getFile={getFileList}
             />
             <ManageImage
             manageImage={manageImage}

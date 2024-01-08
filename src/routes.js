@@ -227,6 +227,7 @@ import TrendingProductListing from "./components/ProductCatalogue/TrendingProduc
 import CatalogueCategoryListing from "./components/ProductCatalogue/Category/CatalogueCategoryListing";
 import AddCategory from "./components/ProductCatalogue/Category/AddCategory";
 import EditCategory from "./components/ProductCatalogue/Category/EditCategory";
+import TeamAssign from "./components/LeadManagementNew/Clients/Teams/TeamAssign";
 
 
 
@@ -437,7 +438,8 @@ const routeArray = [
 
   // Lead Management - Clients
   { params: 'lead_management_content', component: <LMContent /> },
-
+  // Lead Management - Clients----Team
+  { params: 'team-assign-lead', component: <TeamAssign /> },
   // Lead Management Followups....................................................................
   { params: 'lead_management_followups', component: <FollowUpsDashboard /> },
   { params: 'followups_lead', component: <FollowupsLead /> },

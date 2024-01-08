@@ -51,6 +51,8 @@ const Preview = () => {
     }
   };
 
+  console.log(location.state, "state")
+
   const getThumbnail = async (link) => {
     try {
       const response = await axios.get(
@@ -71,9 +73,10 @@ const Preview = () => {
 
   useEffect(() => {
     getadminprofile();
-    if (location?.state?.youtubeList) {
-      location?.state?.youtubeList.forEach((link) => getThumbnail(link));
-    }
+    // if (location?.state?.youtubeList) {
+    //   location?.state?.youtubeList.forEach((link) => getThumbnail(link));
+    // }
+    getThumbnail(location?.state?.youtubeList)
   }, []);
 
   const handleYoutube=(url)=>{
@@ -131,7 +134,7 @@ const Preview = () => {
           <Grid container style={{ display: "flex", justifyContent: "center" }}>
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
-                <h3>{location?.state?.message?.title}</h3>
+                <h3 style={{textAlign:"center"}}>{location?.state?.message?.title}</h3>
                 <p>{location?.state?.message?.body}</p>
               </div>
             </Grid>
@@ -139,7 +142,7 @@ const Preview = () => {
           <Grid container style={{ display: "flex", justifyContent: "center" }}>
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
-                <h3>Website Add</h3>
+                <h3 style={{textAlign:"center"}}>Website Add</h3>
                 <a
                   href={location?.state?.message?.websiteLink}
                   target="_blank"
@@ -192,14 +195,13 @@ const Preview = () => {
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
                 <h3>Youtube Video</h3>
-               
               </div>
             </Grid>
           </Grid>
           <Grid  container
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
               marginBottom: "2rem",
             }}>
             {thumbnails.map((thumbnail, index) => {

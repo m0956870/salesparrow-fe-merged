@@ -19,8 +19,11 @@ import TableCell from '@mui/material/TableCell';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { CircularProgress, Pagination } from "@mui/material"
 import { getCustomers } from '../../../../api/leadApi'
+import fetchAllEmployee from '../../../../api/employeeAPI'
+import { useNavigate } from 'react-router-dom'
 
 const Teams = () => {
+    const navigate = useNavigate()
     const [isLoading, setisLoading] = useState(false)
 
     const [teamsData, setteamsData] = useState([])
@@ -30,22 +33,22 @@ const Teams = () => {
 
     const [filterData, setfilterData] = useState({
         type: "teams",
-        status: "",
+        status: "active",
         limit: "10",
     })
 
     useEffect(() => {
-        getCustomersFunc(filterData)
+        getTeamFunc(filterData)
     }, [])
 
-    async function getCustomersFunc(filterData) {
+    async function getTeamFunc(filterData) {
         setisLoading(true)
-        let { data } = await getCustomers(filterData)
+        let { data } = await fetchAllEmployee(filterData)
         // console.log("data", data)
         if (data.status) {
             setteamsData(data.result)
             setpageLength(data.page_length)
-            settotalDataCount(data.total)
+            settotalDataCount(data.count)
             setisLoading(false)
         } else {
             console.log("Some Error!")
@@ -60,7 +63,7 @@ const Teams = () => {
 
     const topFilterHandleInput = async (e) => {
         setfilterData({ ...filterData, [e.target.name]: e.target.value })
-        getCustomersFunc({ ...filterData, [e.target.name]: e.target.value })
+        getTeamFunc({ ...filterData, [e.target.name]: e.target.value })
     }
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -95,6 +98,10 @@ const Teams = () => {
     // };
     // limitFunc()
 
+    const handleTeamAssign=(row)=>{
+     navigate("/team-assign-lead", {state:{id:row.id}})
+    }
+
     return (
         <div id="lm_clients_main_containers">
             <div className="top_filter_section">
@@ -113,12 +120,12 @@ const Teams = () => {
                     </select> */}
                 </div>
                 <div className="top_right_filter">
-                    <div className="other_functionality_section">
+                    {/* <div className="other_functionality_section">
                         <div className="section_options"><img src={img1} /></div>
                         <div className="section_options"><img src={img2} /></div>
                         <div className="section_options"><img src={img3} /></div>
                         <div className="section_options"><img src={img4} /></div>
-                    </div>
+                    </div> */}
                     {/* <div className="top_right_create_btn_icon">
                         <TfiPlus className="create_btn_icon" /> <span>Create New</span>
                     </div> */}
@@ -139,15 +146,21 @@ const Teams = () => {
                                         <StyledTableCell>Name</StyledTableCell>
                                         <StyledTableCell align="left">Designation</StyledTableCell>
                                         <StyledTableCell align="left">State</StyledTableCell>
+                                        <StyledTableCell align="left">Mobile No.</StyledTableCell>
+                                        <StyledTableCell align="left">Lead Assign</StyledTableCell>
+                                        <StyledTableCell align="left">Profile</StyledTableCell>
                                         {/* <StyledTableCell align="left">Action</StyledTableCell> */}
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {teamsData?.map((row, i) => (
                                         <StyledTableRow key={i}>
-                                            <StyledTableCell>{row.emp_name}</StyledTableCell>
-                                            <StyledTableCell align="left">{row.designation}</StyledTableCell>
-                                            <StyledTableCell align="left">{row.state}</StyledTableCell>
+                                            <StyledTableCell>{row.employeeName}</StyledTableCell>
+                                            <StyledTableCell align="left">{row.role}</StyledTableCell>
+                                            <StyledTableCell align="left">{row.state.name}</StyledTableCell>
+                                            <StyledTableCell align="left">{row.phone}</StyledTableCell>
+                                            <StyledTableCell align="left" className="team-assign" onClick={()=>handleTeamAssign(row)}>Lead assign</StyledTableCell>
+                                            <StyledTableCell align="left" className="team-assign" onClick={() => navigate("/edit_employee", { state: row })}>Profile</StyledTableCell>
                                             {/* <StyledTableCell align="left">
                                                     <BorderColorIcon style={{ fontSize: '1rem', color: 'var(--main-color)' }} />
                                                     <DeleteIcon style={{ fontSize: '1rem', color: 'red', marginLeft: '0.5rem' }} />
