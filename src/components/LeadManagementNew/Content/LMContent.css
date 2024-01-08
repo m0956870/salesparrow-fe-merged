@@ -80,6 +80,7 @@
   padding: 0.7rem 1rem;
   text-align: center;
   width: 40%;
+  cursor: pointer;
 }
 
 .msg_body_section .msg_body_title {
@@ -311,6 +312,9 @@
   .preview_banner {
     max-width: 100vw !important;
     height: 15rem !important;
+  }
+  .youtube_icon{
+     font-size: 30px;
   }
 }
 

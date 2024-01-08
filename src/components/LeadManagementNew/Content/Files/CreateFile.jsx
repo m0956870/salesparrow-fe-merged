@@ -43,7 +43,8 @@ const CreateFile = (props) => {
         const res = await createFile(formFile);
         if (res.data.status) {
           toast.success(res.data.message);
-          props.close()
+          props.close();
+          props.getFile();
         } else {
           toast.error(res.data.message);
         }

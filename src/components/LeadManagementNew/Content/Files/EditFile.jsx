@@ -4,11 +4,9 @@ import { createFile, createMessage, updateFile } from "../../../../api/leadApi";
 import { toast } from "react-toastify";
 import ManageImage from "./ManageImage";
 import { useNavigate } from "react-router-dom";
-import YouTube from 'react-youtube';
 import axios from "axios";
-import CloseIcon from '@mui/icons-material/Close';
 
-const CreateFile = (props) => {
+const EditFile = (props) => {
     const navigate = useNavigate();
   const [message, setMessage] = useState({
     title: "",
@@ -41,13 +39,14 @@ const CreateFile = (props) => {
         let formFile = new FormData();
         formFile.append("title" ,message?.title)
         formFile.append("fileType" , "Pdf")
-       
+        formFile.append("fileId" , props.fileData._id)
         formFile.append("pdf" , message?.fileAttachment)
         try {
           const res = await updateFile(formFile);
           if (res.data.status) {
             toast.success(res.data.message);
             props.close()
+            props.getFile()
           } else {
             toast.error(res.data.message);
           }
@@ -125,10 +124,10 @@ const CreateFile = (props) => {
     } catch (error) {
       console.error('Error fetching YouTube data:', error);
     }
-    setMessage({
-        ...message,
-        youtubeLink:""
-     })
+    // setMessage({
+    //     ...message,
+    //     youtubeLink:""
+    //  })
   };
 
   const handleFile=(e)=>{
@@ -159,7 +158,6 @@ const CreateFile = (props) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
       setMessage({
         ...message,
         title: props.fileData.title,
@@ -170,22 +168,21 @@ const CreateFile = (props) => {
         websiteName: props?.fileData?.websiteName,
       });
   
-      setFileName(props?.fileData?.pdf?.[0] && props.fileData.pdf[0].split('/').pop());
-      setImagePreviews(props?.fileData?.images);
-  
-      try {
-        await getThumbnail(props.fileData.mediaUrl);
-      } catch (error) {
-        console.error("Error fetching thumbnail:", error);
+      if (props && props.fileData && props.fileData.pdf && props.fileData.pdf.length > 0) {
+        setFileName(props.fileData.pdf[0].split('/').pop());
+      } else {
+        setFileName("+ add file");
       }
-    };
-  
-    fetchData();
+      setImagePreviews(props?.fileData?.images);
+      setyoutubeLink(props.fileData.mediaUrl);
   }, [props.fileData]);
-  
 
-  console.log(props.fileData,"filedata")
-  console.log(message,"message")
+  useEffect(()=>{
+    setTimeout(() => {
+      getThumbnail(props.fileData.mediaUrl);
+    }, 500);
+    //
+  },[props.fileData.mediaUrl])
 
   return (
     <Dialog
@@ -289,4 +286,4 @@ const CreateFile = (props) => {
   );
 };
 
-export default CreateFile;
+export default EditFile;

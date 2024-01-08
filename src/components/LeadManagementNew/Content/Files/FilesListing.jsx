@@ -231,7 +231,7 @@ const FilesListing = () => {
                                                      <div className='option_lists' >
                                                        <div className='option_lists_div option_lists_first'>Share With</div>
                                                        <div className='option_lists_div' onClick={(e)=>handleShare(e,"lead",row)}>Leads</div>
-                                                       <div className='option_lists_div'onClick={(e)=>handleShare(e,"customer",row)}>Customes</div>
+                                                       <div className='option_lists_div'onClick={(e)=>handleShare(e,"customer",row)}>Customer</div>
                                                        <div className='option_lists_div'onClick={(e)=>handleShare(e,"parties",row)}>Parties</div>
                                                      </div>
                                                    :""}
@@ -304,6 +304,7 @@ const FilesListing = () => {
                 setManageImageList={setManageImageList}
                 catalogue={catalogue}
                 setCatalogue={setCatalogue}
+                getFile={getFileList}
             />
             <EditFile
                 open={editFilePopup}
@@ -316,6 +317,7 @@ const FilesListing = () => {
                 manageImageList={manageImageList}
                 catalogue={catalogue}
                 setManageImageList={setManageImageList}
+                getFile={getFileList}
             />
             <ManageImage
             manageImage={manageImage}

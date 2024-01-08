@@ -51,6 +51,8 @@ const Preview = () => {
     }
   };
 
+  console.log(location.state, "state")
+
   const getThumbnail = async (link) => {
     try {
       const response = await axios.get(
@@ -71,9 +73,10 @@ const Preview = () => {
 
   useEffect(() => {
     getadminprofile();
-    if (location?.state?.youtubeList) {
-      location?.state?.youtubeList.forEach((link) => getThumbnail(link));
-    }
+    // if (location?.state?.youtubeList) {
+    //   location?.state?.youtubeList.forEach((link) => getThumbnail(link));
+    // }
+    getThumbnail(location?.state?.youtubeList)
   }, []);
 
   const handleYoutube=(url)=>{
@@ -192,14 +195,13 @@ const Preview = () => {
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
                 <h3>Youtube Video</h3>
-               
               </div>
             </Grid>
           </Grid>
           <Grid  container
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
               marginBottom: "2rem",
             }}>
             {thumbnails.map((thumbnail, index) => {
