@@ -6,6 +6,7 @@ import ManageImage from "./ManageImage";
 import { useNavigate } from "react-router-dom";
 import YouTube from 'react-youtube';
 import axios from "axios";
+import CloseIcon from '@mui/icons-material/Close';
 
 const CreateFile = (props) => {
     const navigate = useNavigate();
@@ -21,22 +22,12 @@ const CreateFile = (props) => {
   });
   const [imagePreviews, setImagePreviews] = useState([]);
   const [fileName , setFileName] = useState("+ Add File Attachment")
-  const [thumbnails, setThumbnails] = useState([]);
+  const [thumbnails, setThumbnails] = useState();
   const [youtubeLink, setyoutubeLink] = useState([]);
+ 
 
-  useEffect(() => {
-    setMessage({
-      ...message,
-      title: props.fileData.title,
-      body: props.fileData.description,
-      websiteLink:props.fileData.websiteUrl,
-      youtubeLink:props.fileData.mediaUrl,
-      file:props?.fileData?.images
-    });
-    setImagePreviews(props?.fileData?.images)
-    // setImagePreviews(prevState=>[...prevState , ...props?.fileData?.images?.map((elem)=>elem)])
-  }, [props.fileData,]);
-console.log(props.catalogue,"filedata")
+
+
 
   const handleUpdate =async() => {
     if(props.fileData.fileType==="CATALOGUE"){
@@ -129,7 +120,8 @@ console.log(props.catalogue,"filedata")
       const response = await axios.get(
         `https://www.youtube.com/oembed?url=${link}&format=json`
       );
-      setThumbnails((prevThumbnails) => [...prevThumbnails, response.data.thumbnail_url]);
+      // setThumbnails((prevThumbnails) => [...prevThumbnails, response.data.thumbnail_url]);
+      setThumbnails(response.data.thumbnail_url);
     } catch (error) {
       console.error('Error fetching YouTube data:', error);
     }
@@ -166,6 +158,34 @@ console.log(props.catalogue,"filedata")
     });
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setMessage({
+        ...message,
+        title: props.fileData.title,
+        body: props.fileData.description,
+        websiteLink: props.fileData.websiteUrl,
+        youtubeLink: props.fileData.mediaUrl,
+        file: props?.fileData?.images,
+        websiteName: props?.fileData?.websiteName,
+      });
+  
+      setFileName(props?.fileData?.pdf?.[0] && props.fileData.pdf[0].split('/').pop());
+      setImagePreviews(props?.fileData?.images);
+  
+      try {
+        await getThumbnail(props.fileData.mediaUrl);
+      } catch (error) {
+        console.error("Error fetching thumbnail:", error);
+      }
+    };
+  
+    fetchData();
+  }, [props.fileData]);
+  
+
+  console.log(props.fileData,"filedata")
+  console.log(message,"message")
 
   return (
     <Dialog
@@ -219,11 +239,11 @@ console.log(props.catalogue,"filedata")
             </div>
            {imagePreviews?.length>0?<p style={{color:"#28A9E2" , cursor:"pointer" , marginLeft:"5px" , textDecoration:"underline"}} onClick={handleManageImage}>Manage Image</p>:""} 
             
-           {thumbnails.map((thumbnail, index) => (
-        <div key={index}>
-          <img src={thumbnail} alt={`Thumbnail ${index}`} width={"100%"}/>
-        </div>
-      ))}
+    
+        {thumbnails?<div  style={{position:"relative"}}>
+          <img src={thumbnails} alt='Thumbnail' width={"100%"}/>
+        </div>:""}
+      
             <textarea
               className="msg_body_txtarea_title"
               name="youtubeLink"

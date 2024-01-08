@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getLead_follwups, getLeads, saveFollowup_lead, updateFollowup_lead } from "../../../api/leadApi";
-import { Dialog } from "@mui/material";
+import { CircularProgress, Dialog } from "@mui/material";
 import { AiOutlineShareAlt, AiOutlineTeam } from "react-icons/ai";
 import { toast } from "react-toastify";
 
@@ -78,6 +78,10 @@ const FollowupsLead = () => {
  const [lastDateObject, setLastDateObject] = useState(null);
  const [nextDateObject, setNextDateObject] = useState(null);
 
+ const [addLoading , setAddLoading] = useState(false)
+ const [updateLoading , setUpdateLoading] = useState(true)
+ const [loadingElementId , setLoadingElementId] = useState(null)
+
  let todayDate = new Date();
   useEffect(() => {
     if (lastActivityEl.current)
@@ -125,7 +129,8 @@ const FollowupsLead = () => {
     return `${year}-${month}-${day}`;
   }
 
-  const handleScheduleUpdate = (name) => {
+  const handleScheduleUpdate = (name , id) => {
+     setLoadingElementId(id);
     switch (name) {
       case "today":
         var d = new Date(todayDate.setDate(todayDate.getDate()));
@@ -212,9 +217,11 @@ let formatedDate = formatDate(currentDate)
             toast.success("Success")
             setAddPopup(false)
             getLeadapiFollowup();
+            setLoadingElementId(null);
         }
     } catch (error) {
         console.log(error)
+        setLoadingElementId(null);
     }
   };
 
@@ -244,6 +251,7 @@ let formatedDate = formatDate(currentDate)
   };
 
   const handleSaveActivity = async() => {
+    setAddLoading(true)
     let data = {
         type: activityName,
         description: description, //optional
@@ -256,9 +264,11 @@ let formatedDate = formatDate(currentDate)
             toast.success("Success")
             setaddActivity(false)
             getLeadapiFollowup();
+            setAddLoading(false)
         }
     } catch (error) {
         console.log(error)
+        setAddLoading(false)
     }
   };
 
@@ -461,13 +471,16 @@ let formatedDate = formatDate(currentDate)
               return (
                 <div
                   className="ll_sl_tabs"
-                   onClick={() => handleScheduleUpdate(elem.label)}
+                   onClick={() => handleScheduleUpdate(elem.label , id)}
                 >
-                  <div className="followup_schedule">{elem.name}</div>
+                  <div className="followup_schedule">{updateLoading && loadingElementId === id ? (
+        <CircularProgress style={{ color: "#fff" }} size={26} />
+      ) : (
+        elem.name
+      )}</div>
                 </div>
               );
             })}
-            {/* <div><input type="datetime-local"/></div> */}
           </div>
         </div>
       </Dialog>
@@ -541,7 +554,12 @@ let formatedDate = formatDate(currentDate)
             </div>
           </div>
           <div className="followup_activity_btn">
-            <button onClick={handleSaveActivity}>Add Activity</button>
+            <button onClick={handleSaveActivity}>
+            {addLoading ? (
+            <CircularProgress style={{ color: "#fff" }} size={26} />
+          ) : (
+            "Add Activity"
+          )}</button>
           </div>
         </div>
       </Dialog>

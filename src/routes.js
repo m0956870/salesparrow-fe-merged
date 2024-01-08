@@ -222,6 +222,7 @@ import FollowUpsDashboard from "./components/LeadManagementNew/Followups/FollowU
 import FollowupsLead from "./components/LeadManagementNew/Followups/FollowupsLead";
 import BannerListing from "./components/ProductCatalogue/Banner/BannerListing";
 import TrendingProductListing from "./components/ProductCatalogue/TrendingProduct/TrendingProductListing";
+import TeamAssign from "./components/LeadManagementNew/Clients/Teams/TeamAssign";
 
 // catalogue
 
@@ -431,7 +432,8 @@ const routeArray = [
 
   // Lead Management - Clients
   { params: 'lead_management_content', component: <LMContent /> },
-
+  // Lead Management - Clients----Team
+  { params: 'team-assign-lead', component: <TeamAssign /> },
   // Lead Management Followups....................................................................
   { params: 'lead_management_followups', component: <FollowUpsDashboard /> },
   { params: 'followups_lead', component: <FollowupsLead /> },

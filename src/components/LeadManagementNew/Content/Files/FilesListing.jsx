@@ -205,8 +205,8 @@ const FilesListing = () => {
                                                 <StyledTableCell>
                                                     {row.fileType==="PDF"?row.title+"(Uploaded)":row.title}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="left"><img src={row.images[0]} width={"10%"}/></StyledTableCell>
-                                                <StyledTableCell align="left">{row.description}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.fileType==="PDF"?<a href={row.pdf[0]} target='blank' className='team-assign'>View File</a>:<img src={row.images[0]} width={"10%"}/>}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.sharedCount}</StyledTableCell>
                                                 <StyledTableCell align="left" className='position-relative'>
                                                     <BorderColorIcon
                                                         onClick={() => {

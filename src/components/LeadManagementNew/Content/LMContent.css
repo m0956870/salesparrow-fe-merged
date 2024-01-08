@@ -335,7 +335,7 @@
   width: 100%;
 }
 .preview_text {
-  border: 1px solid #a5a5a5;
+  border: 2px solid #28a9e2;
   margin: 2rem !important;
   border-radius: 8px;
   display: flex;

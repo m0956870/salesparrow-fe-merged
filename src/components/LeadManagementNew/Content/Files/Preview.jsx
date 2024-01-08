@@ -131,7 +131,7 @@ const Preview = () => {
           <Grid container style={{ display: "flex", justifyContent: "center" }}>
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
-                <h3>{location?.state?.message?.title}</h3>
+                <h3 style={{textAlign:"center"}}>{location?.state?.message?.title}</h3>
                 <p>{location?.state?.message?.body}</p>
               </div>
             </Grid>
@@ -139,7 +139,7 @@ const Preview = () => {
           <Grid container style={{ display: "flex", justifyContent: "center" }}>
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
-                <h3>Website Add</h3>
+                <h3 style={{textAlign:"center"}}>Website Add</h3>
                 <a
                   href={location?.state?.message?.websiteLink}
                   target="_blank"

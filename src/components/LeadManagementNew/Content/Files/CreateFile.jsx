@@ -21,7 +21,7 @@ const CreateFile = (props) => {
   });
   const [imagePreviews, setImagePreviews] = useState([]);
   const [fileName , setFileName] = useState("+ Add File Attachment")
-  const [thumbnails, setThumbnails] = useState([]);
+  const [thumbnails, setThumbnails] = useState();
   const [youtubeLink, setyoutubeLink] = useState([]);
 
 
@@ -120,7 +120,8 @@ const CreateFile = (props) => {
       const response = await axios.get(
         `https://www.youtube.com/oembed?url=${link}&format=json`
       );
-      setThumbnails((prevThumbnails) => [...prevThumbnails, response.data.thumbnail_url]);
+      setThumbnails(response.data.thumbnail_url);
+      // setThumbnails((prevThumbnails) => [...prevThumbnails, response.data.thumbnail_url]);
     } catch (error) {
       console.error('Error fetching YouTube data:', error);
     }
@@ -218,11 +219,9 @@ const CreateFile = (props) => {
             </div>
            {imagePreviews.length>0?<p style={{color:"#28A9E2" , cursor:"pointer" , marginLeft:"5px" , textDecoration:"underline"}} onClick={handleManageImage}>Manage Image</p>:""} 
             
-           {thumbnails.map((thumbnail, index) => (
-        <div key={index}>
-          <img src={thumbnail} alt={`Thumbnail ${index}`} width={"100%"}/>
-        </div>
-      ))}
+           {thumbnails?<div  style={{position:"relative"}}>
+          <img src={thumbnails} alt='Thumbnail' width={"100%"}/>
+        </div>:""}
             <textarea
               className="msg_body_txtarea_title"
               name="youtubeLink"
