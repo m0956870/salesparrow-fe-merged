@@ -241,6 +241,42 @@ export const getCustomers = async (data) => {
   }
 }
 
+export const deleteParty = async (data) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "delete",
+    url: getBaseUrl() + "auth_api/deleteParty",
+    headers: { Authorization: `Bearer ${token}` },
+    data,
+  };
+
+  try {
+    return await axios(config);
+  } catch (error) {
+    console.log(error)
+    return error.response
+  }
+}
+
+export const deleteCustomer = async (data) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "delete",
+    url: getBaseUrl() + "auth_api/deleteCustomer",
+    headers: { Authorization: `Bearer ${token}` },
+    data,
+  };
+
+  try {
+    return await axios(config);
+  } catch (error) {
+    console.log(error)
+    return error.response
+  }
+}
+
 // Client - Group
 export const createGroup = async (data) => {
   const token = localStorage.getItem("token");
@@ -498,6 +534,18 @@ export const getFileData = async (queryParams) => {
   const token = localStorage.getItem('token');
   return await axios({
     url: getBaseUrl() + 'lead_api/file',
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    // params: queryParams,
+  });
+};
+
+export const getHistory_data = async (queryParams) => {
+  const token = localStorage.getItem('token');
+  return await axios({
+    url: getBaseUrl() + `lead_api/sharedHistory/${queryParams}`,
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,

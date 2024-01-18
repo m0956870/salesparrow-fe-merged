@@ -14,6 +14,7 @@ import { Dialog, DialogActions, DialogTitle, DialogContent, Pagination, Circular
 import { useNavigate } from "react-router-dom";
 import CreateFile from './CreateFile';
 import EditFile from './EditFile';
+import FileShareHistory from './FileShareHistory';
 import { toast } from 'react-toastify';
 import { deleteFile, deleteMessage, getFileData, getMessageData } from '../../../../api/leadApi';
 import "../../Home/LMHome.css"
@@ -41,8 +42,10 @@ const FilesListing = () => {
 
     const [addFilePopup, setaddFilePopup] = useState(false)
     const [editFilePopup, seteditFilePopup] = useState(false)
+    const [shareHistoryPopup, setshareHistoryPopup] = useState(false)
     const [manageImage , setManageImage] = useState(false)
     const [manageImageList , setManageImageList] = useState([])
+    const [imageList , setImageList] = useState({})
     const [catalogue , setCatalogue] = useState(false)
 
     const [filterData, setfilterData] = useState({
@@ -202,7 +205,13 @@ const FilesListing = () => {
                                     <TableBody>
                                         {allLeadsData?.map((row, i) => (
                                             <StyledTableRow key={i}>
-                                                <StyledTableCell>
+                                                <StyledTableCell 
+                                                style={{cursor:"pointer"}}
+                                                onClick={() => {
+                                                setcurrentGroup(row);
+                                                setshareHistoryPopup(true)
+                                                setCatalogue(row.fileType==="PDF"?false:true)
+                                                        }}>
                                                     {row.fileType==="PDF"?row.title+"(Uploaded)":row.title}
                                                 </StyledTableCell>
                                                 <StyledTableCell align="left">{row.fileType==="PDF"?<a href={row.pdf[0]} target='blank' className='team-assign'>View File</a>:<img src={row.images[0]} width={"10%"}/>}</StyledTableCell>
@@ -305,6 +314,8 @@ const FilesListing = () => {
                 catalogue={catalogue}
                 setCatalogue={setCatalogue}
                 getFile={getFileList}
+                imageList={imageList}
+                setImageList={setImageList}
             />
             <EditFile
                 open={editFilePopup}
@@ -318,6 +329,8 @@ const FilesListing = () => {
                 catalogue={catalogue}
                 setManageImageList={setManageImageList}
                 getFile={getFileList}
+                imageList={imageList}
+                setImageList={setImageList}
             />
             <ManageImage
             manageImage={manageImage}
@@ -328,6 +341,14 @@ const FilesListing = () => {
             setaddFilePopup={setaddFilePopup}
             seteditFilePopup={seteditFilePopup}
             editFilePopup={editFilePopup}
+            imageList={imageList}
+            setImageList={setImageList}
+            />
+            <FileShareHistory 
+            open={shareHistoryPopup}
+            close={() => setshareHistoryPopup(!shareHistoryPopup)}
+            fileData={currentGroup}
+            catalogue={catalogue}
             />
         </>
     )

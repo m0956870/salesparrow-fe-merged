@@ -33,7 +33,8 @@ import fetchAllEmployee from "../../../../api/employeeAPI"
 const LeadListing = () => {
   const navigate = useNavigate()
   const [isLoading, setisLoading] = useState(false)
-
+  const [listingLoading, setlistingLoading] = useState(false)
+  
   const [allLeadsData, setallLeadsData] = useState([])
   const [pageCount, setpageCount] = useState(1);
   const [pageLength, setpageLength] = useState();
@@ -44,7 +45,8 @@ const LeadListing = () => {
   const [allLeadGroups, setallLeadGroups] = useState([]);
 
   const [selectionBtn, setselectionBtn] = useState("selection")
-  const [selectedLeadArr, setselectedLeadArr] = useState([])
+  const [selectedLeadArr, setselectedLeadArr] = useState([]);
+  const [selectedLeadId , setSelectedLeadId] = useState([]);
   const [selectedArrPopup, setselectedArrPopup] = useState(false);
   const [share, setShare] = useState({
     popUp:false,
@@ -89,17 +91,16 @@ const LeadListing = () => {
   }, [])
 
   async function getAllLeadsFunc(filterData) {
-    setisLoading(true)
+    setlistingLoading(true)
     let { data } = await getCustomers(filterData)
     if (data.status) {
       setallLeadsData(data.result)
       setpageLength(data.page_length)
       settotalDataCount(data.total)
-      setisLoading(false)
     } else {
       console.log("Some Error!")
-      setisLoading(false)
     }
+    setlistingLoading(false)
   }
 
   async function getGroupDataFunc() {
@@ -113,7 +114,6 @@ const LeadListing = () => {
       setisLoading(false)
     }
   }
-  // console.log("allGrpData", allGrpData)
 
   const filterHandleInput = (e, state) => {
     setfilterData({ ...filterData, [e.target.name]: e.target.value })
@@ -147,15 +147,18 @@ const LeadListing = () => {
     }
   }
 
-  const selectionCheckboxFunc = (e, row) => {
-    if (!selectedLeadArr.includes(row._id)) {
+  const selectionCheckboxFunc = (e, row, ind) => {
+    if (!selectedLeadId.includes(row._id)) {
+      setSelectedLeadId([...selectedLeadId, row._id])
       setselectedLeadArr([...selectedLeadArr, row])
     } else {
-      let filteredArr = selectedLeadArr.filter(_id => _id !== row._id)
+      let filteredArr = selectedLeadArr.filter((i,id) => id !== ind)
       setselectedLeadArr(filteredArr)
+
+      let filteredArrId = selectedLeadId.filter(_id => _id !== row._id)
+      setSelectedLeadId(filteredArrId)
     }
   }
-  console.log(selectedLeadArr,"selectedLeadArr")
 
   const shareContentSLFunc = () => {
     setShare({
@@ -163,11 +166,11 @@ const LeadListing = () => {
       popUp:!share.popUp,
       // id:id
   })
-    // setselectedArrPopup(false)
   }
+
   const assignToTeamSLFunc = () => {
     setselectedArrPopup(false)
-    navigate("/lead_management_team_listing", { state: selectedLeadArr })
+    navigate("/lead_management_team_listing", { state: selectedLeadArr,pageType:"lead" })
   }
 
   const manageGroupSLFunc = async () => {
@@ -361,7 +364,7 @@ const LeadListing = () => {
       )} */}
 
 
-      {isLoading ? (
+      {listingLoading ? (
         <div style={{ margin: "auto", }} >
           <CircularProgress />
         </div>
@@ -372,6 +375,7 @@ const LeadListing = () => {
               <Table sx={{ minWidth: 700 }} aria-label="customized table">
                 <TableHead>
                   <TableRow>
+                  <StyledTableCell>S. No.</StyledTableCell>
                     <StyledTableCell>Lead Name</StyledTableCell>
                     <StyledTableCell align="left">Mobile Number</StyledTableCell>
                     <StyledTableCell align="left">State</StyledTableCell>
@@ -388,16 +392,20 @@ const LeadListing = () => {
                   {allLeadsData?.map((row, i) => (
                     <StyledTableRow key={i}>
                       <StyledTableCell>
+                      
                         {selectionBtn === "action" && (
                           <input
-                            onChange={(e) => selectionCheckboxFunc(e, row)}
+                            onChange={(e) => selectionCheckboxFunc(e, row , i)}
                             checked={selectedLeadArr.includes(row)}
                             type="checkbox"
                             style={{ marginRight: "0.5rem" }}
                           />
                         )}
-                        {row.leadName}
+                        {i+1}
                       </StyledTableCell>
+                      <StyledTableCell align="left" style={{cursor:"pointer"}} 
+                      onClick={()=>handleNavigateFollowups(row._id)}>
+                        {row.leadName}</StyledTableCell>
                       <StyledTableCell align="left">{row.mobileNumber}</StyledTableCell>
                       <StyledTableCell align="left">{row.state?.name}</StyledTableCell>
                       <StyledTableCell align="left">{row.leadSource}</StyledTableCell>
@@ -418,10 +426,10 @@ const LeadListing = () => {
                           }}
                           style={{ fontSize: '1rem', color: 'red', marginLeft: '0.5rem' }}
                         />
-                         <RiShareBoxFill
+                         {/* <RiShareBoxFill
                         onClick={()=>handleNavigateFollowups(row._id)}
-                      style={{ fontSize: '1rem', color: 'var(--main-color)', marginLeft: '0.5rem' }}
-                    />
+                      style={{ fontSize: '0.8rem', color: 'var(--main-color)', marginLeft: '0.5rem' }}
+                    /> */}
                       </StyledTableCell>
                     </StyledTableRow>
                   ))}

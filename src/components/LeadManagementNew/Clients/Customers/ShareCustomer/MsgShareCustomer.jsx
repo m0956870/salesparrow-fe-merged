@@ -11,15 +11,15 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { Dialog, DialogActions, DialogTitle, DialogContent, Pagination, CircularProgress } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import CreateMessage from './CreateMessage';
-import EditMessage from './EditMessage';
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { deleteMessage, getMessageData } from '../../../../api/leadApi';
-import "../../Home/LMHome.css"
+import { deleteMessage, getMessageData } from '../../../../../api/leadApi';
+import "../../../Home/LMHome.css"
+import SendLeadCustomerPopUp from './SendCustomerPopUp';
 
-const MessageListing = () => {
+const MsgShareCustomer = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [isLoading, setisLoading] = useState(false)
     const [allLeadsData, setallLeadsData] = useState([])
@@ -28,6 +28,12 @@ const MessageListing = () => {
     const [totalDataCount, settotalDataCount] = useState();
 
     const [search, setSearch] = useState('');
+    const [sendMessagePopup , setsendMessagePopup] = useState(false)
+
+    const [message, setMessage] = useState({
+        title: "",
+        body: "",
+      });
 
     const [share, setShare] = useState({
         popUp:false,
@@ -39,7 +45,6 @@ const MessageListing = () => {
     const [currentGroup, setcurrentGroup] = useState({});
 
     const [addMessagePopup, setaddMessagePopup] = useState(false)
-    const [editMessagePopup, seteditMessagePopup] = useState(false)
 
     const [filterData, setfilterData] = useState({
         type: "leads",
@@ -62,8 +67,7 @@ const MessageListing = () => {
             const res = await getMessageData(data);
             if(res.data.status){
                 setallLeadsData(res.data.result)
-                setpageLength(res.data.total_page);
-                settotalDataCount(res.data.count)
+                setpageLength(res.data.count);
                 // toast.success("");
             }else{
                 toast.error(res.data.message);
@@ -78,27 +82,7 @@ const MessageListing = () => {
         // getAllLeadsFunc({ ...filterData, [e.target.name]: e.target.value })
     }
 
-    const deleteLContentMessageFunc = async (list) => {
-        const data = {
-            id: list._id,
-            // is_delete: '1',
-          };
-          try {
-            // setApiRes({ loading: true, error: '' });
-            setdeletePopup(false);
-            const res = await deleteMessage(data);
-            if (res.data.status) {
-            //   setApiRes({ loading: false, error: '' });
-            getMessageList().finally(() => toast.success('Message deleted successfully'));
-            } else {
-            //   setApiRes({ loading: false, error: res.data.message });
-              toast.error(res.data.message);
-            }
-          } catch (error) {
-            // setApiRes({ loading: false, error: error.message });
-            toast.error(error.message);
-          }
-    }
+   
 
     // Table Design
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -123,22 +107,14 @@ const MessageListing = () => {
         borderBottom: "2px solid #00000011",
     }));
 
-    const handleSharePopUp=(id)=>{
-        setShare({
-            ...share,
-            popUp:!share.popUp,
-            id:id
+    const handleSharePopUp=(row)=>{
+        setsendMessagePopup(true);
+        setMessage({
+            ...message,
+            title:row.title,
+            body:row.description,
+            name:"message"
         })
-    }
-
-    const handleShare=(e , name , row)=>{
-        if(name==="lead"){
-            navigate("/lead_management_share_lead",{state:{title:row.title, description:row.description}} )
-        }else if(name==="parties"){
-            navigate("/lead_management_share_party",{state:{title:row.title, description:row.description}} );
-        }else{
-            navigate("/lead_management_share_customer",{state:{title:row.title, description:row.description}} );
-        }
     }
 
     return (
@@ -158,11 +134,7 @@ const MessageListing = () => {
                             <option value="InActive" style={{ color: "red" }}>InActive</option>
                         </select>
                     </div>
-                    <div className="top_right_filter">
-                        <div onClick={() => setaddMessagePopup(true)} className="top_right_create_btn_icon">
-                            <TfiPlus className="create_btn_icon" /> <span>Create New</span>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 {isLoading ? (
@@ -192,7 +164,6 @@ const MessageListing = () => {
                                                     <BorderColorIcon
                                                         onClick={() => {
                                                             setcurrentGroup(row);
-                                                            seteditMessagePopup(true)
                                                         }}
                                                         style={{ fontSize: '1rem', color: 'var(--main-color)' }}
                                                     />
@@ -204,18 +175,9 @@ const MessageListing = () => {
                                                         style={{ fontSize: '1rem', color: 'red', marginLeft: '0.5rem' }}
                                                     />
                                                     <RiShareBoxFill
-                                                       onClick={()=>handleSharePopUp(row._id)}
+                                                       onClick={()=>handleSharePopUp(row)}
                                                       style={{ fontSize: '1rem', color: 'var(--main-color)', marginLeft: '0.5rem' }}
                                                     />
-                                                    {share.popUp && share.id===row._id ?
-                                                     <div className='option_lists' >
-                                                       <div className='option_lists_div option_lists_first'>Share With</div>
-                                                       <div className='option_lists_div' onClick={(e)=>handleShare(e,"lead",row)}>Leads</div>
-                                                       <div className='option_lists_div'onClick={(e)=>handleShare(e,"customer",row)}>Customer</div>
-                                                       <div className='option_lists_div'onClick={(e)=>handleShare(e,"parties",row)}>Parties</div>
-                                                     </div>
-                                                   :""}
-                                                    
                                                 </StyledTableCell>
                                             </StyledTableRow>
                                         ))}
@@ -245,47 +207,16 @@ const MessageListing = () => {
                 )}
             </div>
 
-            <Dialog
-                open={deletePopup}
-                aria-labelledby="form-dialog-title"
-                maxWidth="xs"
-                fullWidth={true}
-                onClose={() => setdeletePopup(false)}
-            >
-                <DialogTitle className="dialog_title">
-                    <div>Do you want to delete {currentGroup.leadName}?</div>
-                </DialogTitle>
-                <DialogContent className="cardpopup_content">
-                    <div style={{ display: "flex", gap: "1rem" }}>
-                        <div
-                            className="employee_gl_popup"
-                            onClick={() => setdeletePopup(false)}
-                        >
-                            Cancel
-                        </div>
-                        <div
-                            className="employee_gl_popup_del"
-                            onClick={() => deleteLContentMessageFunc(currentGroup)}
-                        >
-                            Delete
-                        </div>
-                    </div>
-                </DialogContent>
-                <DialogActions></DialogActions>
-            </Dialog>
+    <SendLeadCustomerPopUp
+      open={sendMessagePopup}
+      close={() => setsendMessagePopup(!sendMessagePopup)}
+      messageData={message}
+      sentLead={location?.state?.id}
+      pageType={location?.state?.pageType}
+      />
 
-            <CreateMessage
-                open={addMessagePopup}
-                close={() => setaddMessagePopup(!addMessagePopup)}
-            />
-            <EditMessage
-                open={editMessagePopup}
-                close={() => seteditMessagePopup(!editMessagePopup)}
-                messageData={currentGroup}
-                getMessageList={getMessageList}
-            />
         </>
     )
 }
 
-export default MessageListing
+export default MsgShareCustomer

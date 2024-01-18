@@ -9,7 +9,7 @@ import img4 from "../../../../images/pdf_download.png"
 // import SearchIcon from '@mui/icons-material/Search';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import { RiShareBoxFill } from "react-icons/ri";
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
@@ -17,26 +17,40 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { tableCellClasses } from '@mui/material/TableCell';
-import { CircularProgress, Pagination } from "@mui/material"
+import { CircularProgress, Dialog, DialogContent, DialogTitle, Pagination } from "@mui/material"
 
 // APIs
 import getStateFunc from "../../../../api/locationAPI";
 import fetchAllEmployee from "../../../../api/employeeAPI";
 import fetchAllBeat from "../../../../api/beatAPI";
-import { getCustomers } from '../../../../api/leadApi'
+import { deleteCustomer, deleteMultipleLead, getCustomers } from '../../../../api/leadApi'
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineShareAlt, AiOutlineTeam } from 'react-icons/ai'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const CustomersTab = ({ retailerData }) => {
-    // console.log("retailerData", retailerData)
+    const navigate = useNavigate()
     const [isLoading, setisLoading] = useState(false)
 
     const [tabData, settabData] = useState([])
     const [pageCount, setpageCount] = useState(1);
     const [pageLength, setpageLength] = useState(1);
     const [totalDataCount, settotalDataCount] = useState();
+    const [selectedLeadArr, setselectedLeadArr] = useState([])
+    const [selectedLeadId , setSelectedLeadId] = useState([]);
+    const [selectedArrPopup, setselectedArrPopup] = useState(false);
+
+    const [deletePopup, setdeletePopup] = useState(false);
+    const [currentGroup, setcurrentGroup] = useState({});
 
     const [allState, setallState] = useState([]);
     const [allEmployee, setallEmployee] = useState([]);
     const [allBeat, setAllBeat] = useState([]);
+    const [selectionBtn, setselectionBtn] = useState("selection");
+    const [share, setShare] = useState({
+        popUp:false,
+        id:""
+    });
 
     const [filterData, setfilterData] = useState({
         type: "customers",
@@ -104,6 +118,76 @@ const CustomersTab = ({ retailerData }) => {
         borderBottom: "2px solid #00000011",
     }));
 
+    
+  const selectionBtnFunc = (type) => {
+    if (type === "action") {
+      setselectionBtn(type)
+    } else {
+      if (selectedLeadArr.length === 0) return toast.error("Select Leads First!")
+      setselectedArrPopup(true)
+    }
+  }
+
+  const selectionCheckboxFunc = (e, row, ind) => {
+    if (!selectedLeadId.includes(row._id)) {
+      setSelectedLeadId([...selectedLeadId, row._id])
+      setselectedLeadArr([...selectedLeadArr, row])
+    } else {
+      let filteredArr = selectedLeadArr.filter((i,id) => id !== ind)
+      setselectedLeadArr(filteredArr)
+
+      let filteredArrId = selectedLeadId.filter(_id => _id !== row._id)
+      setSelectedLeadId(filteredArrId)
+    }
+  }
+
+  const deleteLeadFunc = async () => {
+    setisLoading(true)
+    let res = await deleteCustomer({ id: currentGroup._id });
+    if (res.data.status) {
+      setdeletePopup(false);
+      toast.success("Lead Deleted Successfully!");
+      filterFunc()
+      setisLoading(false)
+    } else {
+      toast.error(res.data.message);
+      setisLoading(false);
+    }
+
+  };
+
+
+  const shareContentSLFunc = () => {
+    setShare({
+      ...share,
+      popUp:!share.popUp,
+      // id:id
+  })
+  }
+
+  const assignToTeamSLFunc = () => {
+    setselectedArrPopup(false)
+    navigate("/lead_management_team_listing", { state: selectedLeadArr })
+  }
+
+  const manageGroupSLFunc = async () => {
+    setselectedArrPopup(false)
+    // setremoveGrpPopup(true)
+  }
+
+  const handleShare=(e , type)=>{
+    navigate("/share_customer_page" , {state:{name:type , id:selectedLeadArr , pageType:"customer"}})
+}
+
+
+  const handleSharePopUp=(id)=>{
+    setShare({
+        ...share,
+        popUp:!share.popUp,
+        id:id
+    })
+}
+
     return (
         <div id="lm_clients_main_containers">
             <div className="top_filter_section">
@@ -131,6 +215,19 @@ const CustomersTab = ({ retailerData }) => {
                     {/* <div className="top_right_create_btn_icon">
                         <TfiPlus className="create_btn_icon" /> <span>Create New</span>
                     </div> */}
+                    {tabData?.length !== 0 && (
+            <>
+              {selectionBtn === "selection" ? (
+                <div onClick={() => selectionBtnFunc("action")} className="top_right_create_btn_icon" style={{ marginLeft: "0.8rem" }}>
+                  Select Leads
+                </div>
+              ) : (
+                <div onClick={() => selectionBtnFunc("selection")} className="top_right_create_btn_icon" style={{ marginLeft: "0.8rem" }}>
+                  Selection Actions
+                </div>
+              )}
+            </>
+          )}
                 </div>
             </div>
 
@@ -181,7 +278,17 @@ const CustomersTab = ({ retailerData }) => {
                                 <TableBody>
                                     {tabData?.map((row, i) => (
                                         <StyledTableRow key={i}>
-                                            <StyledTableCell component="th" scope="row">{row.customer_name}</StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                            {selectionBtn === "action" && (
+                                         <input
+                                              onChange={(e) => selectionCheckboxFunc(e, row,i)}
+                                              checked={selectedLeadArr.includes(row)}
+                                              type="checkbox"
+                                              style={{ marginRight: "0.5rem" }}
+                                            />
+                                          )}
+                                                {row.customer_name}
+                                                </StyledTableCell>
                                             <StyledTableCell align="left">{row.beat_name}</StyledTableCell>
                                             <StyledTableCell align="left">{row.mobile_number}</StyledTableCell>
                                             <StyledTableCell align="left" component="th" scope="row">
@@ -189,9 +296,15 @@ const CustomersTab = ({ retailerData }) => {
                                                     {row.status}
                                                 </span>
                                             </StyledTableCell>
-                                            {/* <StyledTableCell align="left">
-                                               <BorderColorIcon style={{ fontSize: '1rem', color: 'var(--main-color)' }} />
-                                               <DeleteIcon style={{ fontSize: '1rem', color: 'red', marginLeft: '0.5rem' }} />
+                                            {/* <StyledTableCell align="left" className='position-relative'>
+                                           
+                                               <DeleteIcon 
+                                                onClick={() => {
+                                                  setdeletePopup(true);
+                                                  setcurrentGroup(row);
+                                                }}
+                                               style={{ fontSize: '1rem', color: 'red', marginLeft: '0.5rem' }} />
+                                               
                                            </StyledTableCell> */}
                                         </StyledTableRow>
                                     ))}
@@ -219,6 +332,75 @@ const CustomersTab = ({ retailerData }) => {
                     )}
                 </>
             )}
+
+            {/* POP UP....................... */}
+            <Dialog
+        open={selectedArrPopup}
+        aria-labelledby="form-dialog-title"
+        maxWidth="sm"
+        fullWidth={true}
+        onClose={() => setselectedArrPopup(false)}
+      >
+        <div className="ll_sl_popup" >
+          <div className="ll_sl_popup_heading">Options</div>
+          <div className="ll_sl_options_tabs">
+            <div onClick={() => shareContentSLFunc()} className="ll_sl_tabs">
+              <div className="tab_icon"><AiOutlineShareAlt className="icon" /></div>
+              <div className="tab_name">Share Content</div>
+              {share.popUp  ?
+              <div className='option_lists_lead' >
+                <div className='option_lists_div option_lists_first'>Share With</div>
+               <div className='option_lists_div' onClick={(e)=>handleShare(e,"Message")}>Message</div>
+               <div className='option_lists_div'onClick={(e)=>handleShare(e,"Banner")}>Banner</div>
+               <div className='option_lists_div'onClick={(e)=>handleShare(e,"Files")}>Files</div>
+                 </div>
+               :""}
+            </div>
+            {/* <div onClick={() => assignToTeamSLFunc()} className="ll_sl_tabs">
+              <div className="tab_icon"><AiOutlineTeam className="icon" /></div>
+              <div className="tab_name">Assign to team</div>
+            </div>
+            <div onClick={() => manageGroupSLFunc()} className="ll_sl_tabs">
+              <div className="tab_icon"><AiOutlineEdit className="icon" /></div>
+              <div className="tab_name">Manage group</div>
+            </div>
+            <div onClick={() => deleteSLFunc()} className="ll_sl_tabs">
+              <div className="tab_icon"><AiOutlineDelete className="icon" /></div>
+              <div className="tab_name">Delete</div>
+            </div> */}
+          </div>
+        </div>
+      </Dialog>
+
+{/* deletempopup */}
+
+<Dialog
+        open={deletePopup}
+        aria-labelledby="form-dialog-title"
+        maxWidth="xs"
+        fullWidth={true}
+        onClose={() => setdeletePopup(false)}
+      >
+        <DialogTitle className="dialog_title">
+          <div>Do you want to delete {currentGroup.leadName}?</div>
+        </DialogTitle>
+        <DialogContent className="cardpopup_content">
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <div
+              className="employee_gl_popup"
+              onClick={() => setdeletePopup(false)}
+            >
+              Cancel
+            </div>
+            <div
+              className="employee_gl_popup_del"
+              onClick={() => deleteLeadFunc()}
+            >
+              Delete
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>      
         </div >
     )
 }

@@ -82,6 +82,7 @@ const FollowupsLead = () => {
  const [addLoading , setAddLoading] = useState(false)
  const [updateLoading , setUpdateLoading] = useState(false)
  const [loadingElementId , setLoadingElementId] = useState(null)
+ const [isLoading , setisLoading] = useState(false)
 
  let todayDate = new Date();
   useEffect(() => {
@@ -102,7 +103,7 @@ const FollowupsLead = () => {
     const res = await getLead_follwups(data);
     try {
       if (res.data.status) {
-        setfollowupData(res.data.Data);
+        setfollowupData(res.data.data);
       }
     } catch (error) {
       console.log(error);
@@ -177,7 +178,7 @@ const FollowupsLead = () => {
    
   }, [scheduleData]);
 
-  let dateArray = followupData.map((elem)=> {return elem.date})
+  let dateArray = followupData?.map((elem)=> {return elem.date})
 
 
 useEffect(() => {
@@ -203,7 +204,7 @@ let formatedDate = formatDate(currentDate)
   }
 }, [followupData]);
 
-  const matchingElement = followupData.find(elem => {
+  const matchingElement = followupData?.find(elem => {
     const formattedElemDate = formatDate(elem?.date);
     const formattedNextDate = formatDate(nextDateObject);
     return formattedElemDate == formattedNextDate;
@@ -279,6 +280,7 @@ let formatedDate = formatDate(currentDate)
   };
 
   async function getLeadList() {
+    setisLoading(true)
     const data = {
       lead_id: location.state.id,
       is_customer: '0',
@@ -293,10 +295,12 @@ let formatedDate = formatDate(currentDate)
     try {
       const res = await getLeads(data);
       setLeadList(res.data.results);
+      setisLoading(false)
     } catch (error) {
     
       toast.error(error.message);
       console.log('get leads catch error', error.message);
+      setisLoading(false)
     }
   }
 
@@ -314,7 +318,7 @@ let formatedDate = formatDate(currentDate)
     },
     {
       label: "Display Name",
-      value: "lorem ipsum",
+      value: leadList[0]?.displayName,
       backgroundColor: "linear-gradient(50deg, #327e95 62%, #84d6cd 100%)",
     },
     {
@@ -369,6 +373,8 @@ let formatedDate = formatDate(currentDate)
     },
   ];
 
+  console.log(followupData , "follow>>>>>>>>>>>>>>>>>>>>>")
+
   return (
     <div className="container">
       <div className="beat_heading">
@@ -379,6 +385,12 @@ let formatedDate = formatDate(currentDate)
           <div className="title">Follow Ups</div>
         </div>
       </div>
+      {isLoading?
+       <div style={{ margin: "auto", }} >
+                    <CircularProgress />
+                </div>
+                :
+      <>
       <div className="followups_lead_abc">
         {leadInfo.map((data, i) => (
           <div
@@ -597,7 +609,7 @@ let formatedDate = formatDate(currentDate)
           )}</button>
           </div>
         </div>
-      </Dialog>
+      </Dialog></>}
     </div>
   );
 };

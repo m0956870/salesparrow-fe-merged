@@ -220,6 +220,7 @@ import BannerReview from "./components/LeadManagementNew/Content/Banner/BannerRe
 import ShareLead from "./components/LeadManagementNew/Clients/Lead/ShareLead";
 import FollowUpsDashboard from "./components/LeadManagementNew/Followups/FollowUpsDashboard";
 import FollowupsLead from "./components/LeadManagementNew/Followups/FollowupsLead";
+import FollowUpListing from "./components/LeadManagementNew/Followups/FollowUpListing";
 
 // catalogue
 import BannerListing from "./components/ProductCatalogue/Banner/BannerListing";
@@ -228,6 +229,7 @@ import CatalogueCategoryListing from "./components/ProductCatalogue/Category/Cat
 import AddCategory from "./components/ProductCatalogue/Category/AddCategory";
 import EditCategory from "./components/ProductCatalogue/Category/EditCategory";
 import TeamAssign from "./components/LeadManagementNew/Clients/Teams/TeamAssign";
+import ShareCustomerPage from "./components/LeadManagementNew/Clients/Customers/ShareCustomerPage";
 
 
 
@@ -424,6 +426,9 @@ const routeArray = [
   // Lead Management - Home
   { params: 'lead_management_home', component: <LMHome /> },
 
+  // Leand management  - customer
+  { params: 'share_customer_page', component: <ShareCustomerPage /> },
+
   // Lead Management - Clients
   { params: 'lead_management_clients', component: <LMClients /> },
   { params: 'add_lead', component: <AddLead /> },
@@ -443,6 +448,7 @@ const routeArray = [
   // Lead Management Followups....................................................................
   { params: 'lead_management_followups', component: <FollowUpsDashboard /> },
   { params: 'followups_lead', component: <FollowupsLead /> },
+  { params: 'followups_listing', component: <FollowUpListing /> },
 
   // SETTING
   { params: "settings", component: <Settings /> },

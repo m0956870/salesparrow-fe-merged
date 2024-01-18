@@ -18,11 +18,11 @@ const BannerReview = () => {
 
   const handleShare=(e , name , row)=>{
     if(name==="lead"){
-        navigate("/lead_management_share_lead",{state:{ description:description,banner:location?.state?.data?.banner_image}} )
+        navigate("/lead_management_share_lead",{state:{ description:description,banner:location?.state?.data?.banner_image,name:"banner"}} )
     }else if(name==="parties"){
-        navigate("/lead_management_share_party",{state:{ description:description,banner:location?.state?.data?.banner_image}} );
+        navigate("/lead_management_share_party",{state:{ description:description,banner:location?.state?.data?.banner_image,name:"banner"}} );
     }else{
-        navigate("/lead_management_share_customer",{state:{ description:description,banner:location?.state?.data?.banner_image}} );
+        navigate("/lead_management_share_customer",{state:{ description:description,banner:location?.state?.data?.banner_image,name:"banner"}} );
     }
 }
 
@@ -38,12 +38,12 @@ const handleSharePopUp=()=>{
       <Grid container>
         <div className="banner_review">
           <h3>Review and Send</h3>
-          <h4>
+          {/* <h4>
             Sending to{" "}
             <span className="banner_title" style={{ padding: "0px" }}>
               Bhavesh khajuriya
             </span>
-          </h4>
+          </h4> */}
         </div>
         <Grid item xs={12}>
           <div className="preview_banner">

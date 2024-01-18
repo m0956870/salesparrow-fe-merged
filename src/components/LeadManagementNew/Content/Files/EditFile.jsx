@@ -21,7 +21,7 @@ const EditFile = (props) => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [fileName , setFileName] = useState("+ Add File Attachment")
   const [thumbnails, setThumbnails] = useState();
-  const [youtubeLink, setyoutubeLink] = useState([]);
+  const [youtubeLink, setyoutubeLink] = useState();
  
 
 
@@ -64,12 +64,11 @@ const EditFile = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if(name==="youtubeLink"){
-      setyoutubeLink(previews=>[...previews ,value]);
+      setyoutubeLink(value);
         const youtubeLinks = value.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/g );
       
-          if (youtubeLinks) {
-            youtubeLinks.forEach((link) => getThumbnail(link));
-          }
+         getThumbnail(youtubeLinks);
+          
     }
     setMessage({
       ...message,
@@ -101,16 +100,24 @@ const EditFile = (props) => {
   };
 
   useEffect(()=>{
-   if(props.setManageImageList){
-    setImagePreviews(props.manageImageList)
-}
-  },[props.manageImageList])
+    if(props.imageList.imageShows){
+     setImagePreviews(props?.imageList?.imageShows)
+     setMessage({
+      ...message,
+      file:props?.imageList?.imgList
+     })
+ }
+   },[props?.imageList.imageShows])
 
 
   const handleManageImage=()=>{
     // props.close()
     props.setManageImage(true)
     props.setManageImageList(imagePreviews)
+    props.setImageList({
+      imageShows: imagePreviews, // Assuming imagePreviews is an array
+      imgList: message.file // Assuming message.file is an array
+    });
   }
 
   const getThumbnail = async (link) => {

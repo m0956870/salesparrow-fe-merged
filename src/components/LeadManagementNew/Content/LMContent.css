@@ -464,3 +464,29 @@
   top: 35%;
 }
 
+.share_history_btn{
+  background-color: var(--main-color);
+    border-radius: 0.3rem;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.7rem 1rem;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    margin: 1rem 0rem;
+}
+.share_history_box{
+  /* background-color: var(--main-color); */
+    border-radius: 0.3rem;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.7rem 1rem;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    margin: 1rem 0rem;
+    border: 1px solid var(--main-color);
+}
+

@@ -136,6 +136,7 @@ const ShareCustomer = () => {
       setselectedCustomerArr(filteredArr)
     }
   }
+  console.log(selectedCustomerArr, "arr")
 
   const filterFunc = () => {
     // getSecDataFunc(filterData)

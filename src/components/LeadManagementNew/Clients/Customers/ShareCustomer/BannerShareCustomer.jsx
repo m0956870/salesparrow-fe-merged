@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import "../../../Content/LMContent.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import CategoryBannerListing from "../../../Content/Banner/CategoryBannerListing"
-import SendLeadMessage from "./SendLeadsMessage";
+import SendLeadCustomerPopUp from "./SendCustomerPopUp";
 
-const BannerShareLead = () => {
+const BannerShareCustomer = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -89,7 +89,7 @@ const BannerShareLead = () => {
       <CategoryBannerListing catName={catName} setCatListActive={setCatListActive} />
       }
 
-<SendLeadMessage
+<SendLeadCustomerPopUp
       open={sendMessagePopup}
       close={() => setsendMessagePopup(!sendMessagePopup)}
       messageData={message}
@@ -101,4 +101,4 @@ const BannerShareLead = () => {
   );
 };
 
-export default BannerShareLead;
+export default BannerShareCustomer;

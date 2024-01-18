@@ -51,13 +51,13 @@ const Preview = () => {
     }
   };
 
-  console.log(location.state, "state")
-
   const getThumbnail = async (link) => {
+    console.log("get thumbe")
     try {
       const response = await axios.get(
         `https://www.youtube.com/oembed?url=${link}&format=json`
       );
+      console.log(response , "resp....")
       let youtubedata={
         thumbnailurl:response.data.thumbnail_url,
         url:link
@@ -84,13 +84,21 @@ const Preview = () => {
   }
 
   const handleDone=async()=>{
+    let imageUrlArray = []
     let formFile = new FormData();
     formFile.append("title" , location?.state?.message?.title)
     formFile.append("description" , location?.state?.message?.body)
     formFile.append("fileType" , location?.state?.fileType?"Catalogue":"Pdf")
     Array.from(location?.state?.message?.file).map((file, index) => {
-      formFile.append("file", file);
+      if (typeof file === 'string' && file.startsWith('http')) {
+        imageUrlArray.push(file)
+      } else if (file instanceof Blob || file instanceof File) {
+        formFile.append("file", file);
+      }
     });
+    if (imageUrlArray.length > 0) {
+      formFile.append("imageUrl", JSON.stringify(imageUrlArray));
+    }
     formFile.append("pdf" , location?.state?.message?.fileAttachment)
     formFile.append("mediaUrl" , location?.state?.youtubeList)
     formFile.append("websiteUrl" , location?.state?.message.websiteLink)
@@ -114,9 +122,13 @@ const Preview = () => {
     }
   }    
 
+  console.log( location?.state?.youtubeList ,">>>>>>>>>><<<<<<<<<<<")
+
   const handleBack=()=>{
     navigate(-1)
   }
+
+ 
 
   return (
     <Container maxWidth="lg">
@@ -184,7 +196,7 @@ const Preview = () => {
               .map((elem, id) => {
                 return (
                   <>
-                    <Grid item xs={5} className="preview_list_img">
+                    <Grid item xs={5} className="preview_list_img" key={id}>
                       <img src={elem} />
                     </Grid>
                   </>

@@ -4,12 +4,12 @@ import group from "../../../../images/group.png";
 
 import { CircularProgress } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import MessageShareLead from "./ShareFolder/MessageShareLead";
-import FileShareLead from "./ShareFolder/FileShareLead";
-import BannerShareLead from "./ShareFolder/BannerShareLead";
+import FileShareCustomer from "./ShareCustomer/FileShareCustomer";
+import MsgShareCustomer from "./ShareCustomer/MsgShareCustomer";
+import BannerShareCustomer from "./ShareCustomer/BannerShareCustomer";
 
 
-const ShareLead = () => {
+const ShareCustomerPage = () => {
     const location = useLocation();
   const [isLoading, setisLoading] = useState(false)
 //   const [activeTab, setactiveTab] = useState("Message");
@@ -21,7 +21,7 @@ const ShareLead = () => {
           <div className="icon">
             <img src={group} alt="icon" />
           </div>
-          <div className="title">Content</div>
+          <div className="title">Client</div>
         </div>
         <div className="beat_right">
         </div>
@@ -47,9 +47,9 @@ const ShareLead = () => {
         </div>
       ) : (
         <>
-          {location?.state?.name === "Message" && <MessageShareLead />}
-          {location?.state?.name === "Files" && <FileShareLead />}
-          {location?.state?.name === "Banner" && <BannerShareLead />}
+          {location?.state?.name === "Message" && <MsgShareCustomer />}
+          {location?.state?.name === "Files" && <FileShareCustomer />}
+          {location?.state?.name === "Banner" && <BannerShareCustomer />}
         </>
       )}
 
@@ -58,4 +58,4 @@ const ShareLead = () => {
   )
 }
 
-export default ShareLead
+export default ShareCustomerPage;

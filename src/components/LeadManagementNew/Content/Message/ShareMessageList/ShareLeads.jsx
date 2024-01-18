@@ -34,6 +34,7 @@ const ShareLeads = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [isLoading, setisLoading] = useState(false)
+  const [listingLoading, setlistingLoading] = useState(false)
 
   const [allLeadsData, setallLeadsData] = useState([])
   const [pageCount, setpageCount] = useState(1);
@@ -91,7 +92,7 @@ const ShareLeads = () => {
   }, [])
 
   async function getAllLeadsFunc(filterData) {
-    setisLoading(true)
+    setlistingLoading(true)
     let { data } = await getCustomers(filterData)
     if (data.status) {
       setallLeadsData(data.result)
@@ -102,6 +103,7 @@ const ShareLeads = () => {
       console.log("Some Error!")
       setisLoading(false)
     }
+    setlistingLoading(false)
   }
 
   async function getGroupDataFunc() {
@@ -175,8 +177,6 @@ const ShareLeads = () => {
       setselectedLeadArr(filteredArr)
     }
   }
-
-  // console.log(selectedLeadArr,"arr")
 
   const shareContentSLFunc = () => {
     setselectedArrPopup(false)
@@ -379,7 +379,7 @@ const ShareLeads = () => {
       )} */}
 
 
-      {isLoading ? (
+      {listingLoading ? (
         <div style={{ margin: "auto", }} >
           <CircularProgress />
         </div>

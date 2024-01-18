@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {Dialog,DialogActions,DialogTitle,DialogContent,CircularProgress,} from "@mui/material";
 import { createFile, createMessage } from "../../../../api/leadApi";
 import { toast } from "react-toastify";
@@ -6,9 +6,11 @@ import ManageImage from "./ManageImage";
 import { useNavigate } from "react-router-dom";
 import YouTube from 'react-youtube';
 import axios from "axios";
+import { AdminContext } from "../../../../App";
 
 const CreateFile = (props) => {
     const navigate = useNavigate();
+    const { state, dispatch } = useContext(AdminContext);
   const [message, setMessage] = useState({
     title: "",
     body: "",
@@ -82,14 +84,27 @@ const CreateFile = (props) => {
       setMessage(prevMessage=>({
         ...message,
         file:[...prevMessage.file , ...files]
+        
       }))
+    //   dispatch({
+    //     type: "FILEIMAGE",
+    //     payload: { ...state, file: e.target.files },
+    // });
       const imageFiles = Array.from(files).filter((file) => {
         return ["image/jpeg", "image/png", "image/svg+xml"].includes(file.type);
       });
 
       Promise.all(imageFiles.map((file) => getImageDataUrl(file))).then(
         (newPreviews) => {
-          setImagePreviews(previews=>[...previews , ...newPreviews]);
+          setImagePreviews((previews) => {
+            // Check if previews is iterable (array)
+            if (Array.isArray(previews)) {
+              return [...previews, ...newPreviews];
+            } else {
+              // If not iterable, handle the case accordingly (create a new array or other logic)
+              return [...newPreviews];
+            }
+          });
         }
       );
     
@@ -103,16 +118,20 @@ const CreateFile = (props) => {
   };
 
   useEffect(()=>{
-   if(props.setManageImageList){
-    setImagePreviews(props.manageImageList)
+   if(props.imageList.imageShows){
+    setImagePreviews(props?.imageList?.imageShows)
 }
-  },[props.manageImageList])
+  },[props?.imageList.imageShows])
 
 
   const handleManageImage=()=>{
     props.close()
     props.setManageImage(true)
     props.setManageImageList(imagePreviews)
+    props.setImageList({
+      imageShows: imagePreviews, // Assuming imagePreviews is an array
+      imgList: message.file // Assuming message.file is an array
+    });
   }
 
   const getThumbnail = async (link) => {
@@ -202,7 +221,7 @@ const CreateFile = (props) => {
               Image (* Required)
             </div>
            <div className="msg_body_txtarea_title msg_body_txtarea_ImageBox ">
-              {imagePreviews.map((preview, index) => (
+              {imagePreviews?.map((preview, index) => (
                 <img
                   key={index}
                   src={preview}
@@ -218,7 +237,7 @@ const CreateFile = (props) => {
               />
               <label htmlFor="input-img" className="add_image_btn">+Add Image</label></>:""}
             </div>
-           {imagePreviews.length>0?<p style={{color:"#28A9E2" , cursor:"pointer" , marginLeft:"5px" , textDecoration:"underline"}} onClick={handleManageImage}>Manage Image</p>:""} 
+           {imagePreviews?.length>0?<p style={{color:"#28A9E2" , cursor:"pointer" , marginLeft:"5px" , textDecoration:"underline"}} onClick={handleManageImage}>Manage Image</p>:""} 
             
            {thumbnails?<div  style={{position:"relative"}}>
           <img src={thumbnails} alt='Thumbnail' width={"100%"}/>
