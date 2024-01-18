@@ -54,6 +54,7 @@ const EditCategory = () => {
             setallProduct(res.data.result);
             setgroupEmp([])
             setselectedName([])
+            setgroupEmp(res.data.result.map(res => res.id));
         } else {
             console.log(res.data.message);
             toast.error("Some Error!");
@@ -110,7 +111,7 @@ const EditCategory = () => {
                 <div className="title">Edit Category</div>
             </div>
 
-            <div className="party_container">
+            {/* <div className="party_container">
                 <div className="profile_details">
                     <div className="avatar">
                         <Avatar
@@ -130,7 +131,7 @@ const EditCategory = () => {
                         </label>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="party_container">
                 <div className="grouping_title">Product List</div>

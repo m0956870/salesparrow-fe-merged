@@ -15,7 +15,7 @@ async function isAllowed(module) {
             return isIncludedFunc(company, "sfa", module);
         }
     } else {
-        console.log("else")
+        if(!sfa.billed) return true;
         return false;
     }
 }
