@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import group from "../../images/group.png";
 import { toast } from 'react-toastify';
@@ -36,6 +36,11 @@ const Plan = () => {
     }
     setbtnLoading(false);
   }
+
+  useEffect(() => {
+    console.log("userCount", userCount, typeof userCount, userCount > plan.minimum_user ? 0 : plan.discount)
+  }, [userCount])
+
 
   return (
     <div className="container">
@@ -77,7 +82,7 @@ const Plan = () => {
               onChange={(e) => {
                 if (isNaN(e.target.value)) return;
                 setUserCount(e.target.value);
-                setTotalPayment((e.target.value * durationCount * plan.cost_per_user_per_month) - ((e.target.value * durationCount * plan.cost_per_user_per_month / 100) * plan.discount));
+                setTotalPayment((e.target.value * durationCount * plan.cost_per_user_per_month) - ((e.target.value * durationCount * plan.cost_per_user_per_month / 100) * (e.target.value >= plan.minimum_user ? plan.discount : 0)));
               }}
             />
             <label>Select Duration (Months)</label>
@@ -86,7 +91,7 @@ const Plan = () => {
               value={durationCount}
               onChange={(e) => {
                 setDurationCount(e.target.value);
-                setTotalPayment((userCount * e.target.value * plan.cost_per_user_per_month) - ((e.target.value * userCount * plan.cost_per_user_per_month / 100) * plan.discount));
+                setTotalPayment((userCount * e.target.value * plan.cost_per_user_per_month) - ((e.target.value * userCount * plan.cost_per_user_per_month / 100) * (userCount >= plan.minimum_user ? plan.discount : 0)));
                 setEndDate(new Date(new Date().setMonth(new Date(Date.now()).getMonth() + Number(e.target.value))).toLocaleDateString());
               }}
             >
@@ -108,25 +113,28 @@ const Plan = () => {
               < option value="12">12</option>
             </select>
           </div>
-          <div className="discount_section">
-            <svg className='svg' xmlns='http://www.w3.org/2000/svg' viewBox='-97 0 256 256' fill='orange' width='256'>
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-              <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
-            </svg>
-            <div className="svg_get">GET</div>
-            <div className="svg_discount">{plan.discount}%</div>
-            <div className="svg_discount_title">Discount</div>
-            <div className="svg_min_user">Minimum {plan.minimum_user} users</div>
-          </div>
+
+          {plan.discount !== "0" && (
+            <div onClick={() => console.log(plan.discount, typeof plan.discount)} className="discount_section">
+              <svg className='svg' xmlns='http://www.w3.org/2000/svg' viewBox='-97 0 256 256' fill='orange' width='256'>
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+                <path d='M48 240 L48 16 L32 0 L16 16 L16 240 L32 256 Z' />
+              </svg>
+              <div className="svg_get">GET</div>
+              <div className="svg_discount">{plan.discount}%</div>
+              <div className="svg_discount_title">Discount</div>
+              <div className="svg_min_user">Minimum {plan.minimum_user} users</div>
+            </div>
+          )}
         </div>
 
         <div className="ems_head" style={{ marginBottom: "-1rem", padding: "0 1rem", color: "#000", background: "#f9f9fa" }} >
@@ -158,7 +166,7 @@ const Plan = () => {
 
         <div className="ems_head" style={{ padding: "1rem", borderRadius: "0.4rem", boxShadow: "var(--box-shadow)" }} >
           <div className="ems_head_left">
-            <h2>{userCount || 0} users * {durationCount} months * {plan.cost_per_user_per_month} - {plan.discount}%</h2>
+            <h2>{userCount || 0} users * {durationCount} months * {plan.cost_per_user_per_month} - {(userCount >= plan.minimum_user ? plan.discount : 0)}%</h2>
           </div>
           <div className="ems_head_right">
 

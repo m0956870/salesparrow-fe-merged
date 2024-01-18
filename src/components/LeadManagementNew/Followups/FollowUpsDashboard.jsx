@@ -17,7 +17,10 @@ const FollowUpsDashboard = () => {
         try {
             if(res.data.status){
               setState(res?.data?.data)
+<<<<<<< HEAD
               setisLoading(false)
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
             }
         } catch (error) {
             console.log(error)
@@ -28,6 +31,7 @@ const FollowUpsDashboard = () => {
     useEffect(()=>{
        getFollowupsData();
     },[])
+  console.log(state?.overdue.length, "state")
 
     const handleClick = (type)=>{
      navigate("/followups_listing" ,{state:{type:type}})
@@ -51,6 +55,7 @@ const FollowUpsDashboard = () => {
         
       </div>
       <div className="lm_client_tab_container">
+<<<<<<< HEAD
        
         <Grid container >
           <Grid item  xs={12} lg={4}>
@@ -58,22 +63,42 @@ const FollowUpsDashboard = () => {
               <div className="followups_dashboard_overdue" onClick={()=>handleClick("overdue")}>
                 <h2 style={{textAlign:"center"}}>Overdue</h2>
                 <h2>{state?.overdue?.length}</h2>
+=======
+        <Grid container >
+          <Grid item  xs={12} lg={4}>
+            <div className="followups_dashboard_box">
+              <div className="followups_dashboard_overdue">
+                <h2>Overdue</h2>
+                <h2>{state?.overdue.length}</h2>
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
               </div>
             </div>
           </Grid>
           <Grid item  xs={12} lg={4}>
             <div className="followups_dashboard_box">
+<<<<<<< HEAD
               <div className="followups_dashboard_upcoming" onClick={()=>handleClick("upcoming")}>
                 <h2 style={{textAlign:"center"}}>Upcoming</h2>
                 <h2>{state?.upcoming?.length}</h2>
+=======
+              <div className="followups_dashboard_upcoming">
+                <h2>Upcoming</h2>
+                <h2>{state?.upcoming.length}</h2>
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
               </div>
             </div>
           </Grid>
           <Grid item  xs={12} lg={4}>
             <div className="followups_dashboard_box">
+<<<<<<< HEAD
               <div className="followups_dashboard_someday" onClick={()=>handleClick("today")}>
                 <h2 style={{textAlign:"center"}}>Today</h2>
                 <h2>{state?.today?.length}</h2>
+=======
+              <div className="followups_dashboard_someday">
+                <h2>Someday</h2>
+                <h2>{state?.someDay.length}</h2>
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
               </div>
             </div>
           </Grid>
@@ -103,8 +128,13 @@ const FollowUpsDashboard = () => {
               <div style={{display:"flex" , justifyContent:"center"}}>
                 <div>
                   <div className="followups_overdue"></div>
+<<<<<<< HEAD
                   <h4 style={{textAlign:"center"}}>Overdue</h4>
                   <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.overdue?.length}</h4>
+=======
+                  <h4>Overdue</h4>
+                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.overdue.length}</h4>
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
                 </div>
               </div>
             </Grid>
@@ -112,8 +142,13 @@ const FollowUpsDashboard = () => {
               <div style={{display:"flex" , justifyContent:"center"}}>
                 <div>
                   <div className="followups_upcoming"></div>
+<<<<<<< HEAD
                   <h4 style={{textAlign:"center"}}>Upcoming</h4>
                   <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.upcoming?.length}</h4>
+=======
+                  <h4>Upcoming</h4>
+                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.upcoming.length}</h4>
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
                 </div>
               </div>
             </Grid>
@@ -121,8 +156,13 @@ const FollowUpsDashboard = () => {
               <div style={{display:"flex" , justifyContent:"center"}}>
                 <div>
                   <div className="followups_someday"></div>
+<<<<<<< HEAD
                   <h4 style={{textAlign:"center"}}>Today</h4>
                   <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.today?.length}</h4>
+=======
+                  <h4>Someday</h4>
+                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.someDay.length}</h4>
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
                 </div>
               </div>
             </Grid>

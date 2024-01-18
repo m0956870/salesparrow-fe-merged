@@ -178,6 +178,11 @@ const ShareLeads = () => {
     }
   }
 
+<<<<<<< HEAD
+=======
+  // console.log(selectedLeadArr,"arr")
+
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
   const shareContentSLFunc = () => {
     setselectedArrPopup(false)
   }

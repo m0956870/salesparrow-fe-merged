@@ -47,7 +47,10 @@ function App() {
           <Route path="/:route/:id" element={<Home2new />}></Route>
           <Route path="/preview" element={<Preview />}></Route>
           <Route path="/whatsapp-preview/:id1/:id2" element={<WhatsAppPreview />}></Route>
+<<<<<<< HEAD
           <Route path="/whatsapp-preview/:id1" element={<WhatsAppPreview />}></Route>
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
         </Routes>
       </AdminContext.Provider>
     </>

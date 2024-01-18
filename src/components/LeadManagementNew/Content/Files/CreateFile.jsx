@@ -84,12 +84,16 @@ const CreateFile = (props) => {
       setMessage(prevMessage=>({
         ...message,
         file:[...prevMessage.file , ...files]
+<<<<<<< HEAD
         
       }))
     //   dispatch({
     //     type: "FILEIMAGE",
     //     payload: { ...state, file: e.target.files },
     // });
+=======
+      }))
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
       const imageFiles = Array.from(files).filter((file) => {
         return ["image/jpeg", "image/png", "image/svg+xml"].includes(file.type);
       });

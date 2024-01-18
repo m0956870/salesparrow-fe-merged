@@ -27,6 +27,10 @@ const AddCategory = () => {
   useEffect(() => {
     fetchAllCategory().then((res) => setallCategory(res.data.result));
   }, [])
+<<<<<<< HEAD
+=======
+  console.log("groupEmp", groupEmp)
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
 
   const categoryHandleInput = async (e) => {
@@ -36,6 +40,10 @@ const AddCategory = () => {
       setallProduct(res.data.result);
       setgroupEmp([])
       setselectedName([])
+<<<<<<< HEAD
+=======
+      setgroupEmp(res.data.result.map(res => res.id));
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
     } else {
       console.log(res.data.message);
       toast.error("Some Error!");
@@ -55,7 +63,11 @@ const AddCategory = () => {
   };
 
   const handleCreateEmpGroup = async () => {
+<<<<<<< HEAD
     if (!profilePic) return toast.error("Please select banner image!")
+=======
+    // if (!profilePic) return toast.error("Please select banner image!")
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
     if (!groupID) return toast.error("Please select category!")
     if (groupEmp.length === 0) return toast.error("Please select products!")
 
@@ -102,7 +114,11 @@ const AddCategory = () => {
         <div className="title">Add Caatogery</div>
       </div>
 
+<<<<<<< HEAD
       <div className="party_container">
+=======
+      {/* <div className="party_container">
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
         <div className="profile_details">
           <div className="avatar">
             <Avatar
@@ -122,7 +138,11 @@ const AddCategory = () => {
             </label>
           </div>
         </div>
+<<<<<<< HEAD
       </div>
+=======
+      </div> */}
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
       <div className="party_container">
         <div className="grouping_title">Product List</div>

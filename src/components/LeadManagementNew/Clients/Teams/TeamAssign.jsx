@@ -164,6 +164,7 @@ const TeamAssign = () => {
        }
     }
 
+<<<<<<< HEAD
     const selectionCheckboxFunc = (e, row) => {
       if (!selectedLeadArr.includes(row._id)) {
         setselectedLeadArr([...selectedLeadArr, row._id])
@@ -173,6 +174,17 @@ const TeamAssign = () => {
       }
     }
 
+=======
+  const selectionCheckboxFunc = (e, row) => {
+    if (!selectedLeadArr.includes(row._id)) {
+      setselectedLeadArr([...selectedLeadArr, row])
+    } else {
+      let filteredArr = selectedLeadArr.filter(_id => _id !== row._id)
+      setselectedLeadArr(filteredArr)
+    }
+  }
+  console.log(selectedLeadArr,"selectedLeadArr")
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
   const shareContentSLFunc = () => {
     setShare({
@@ -408,7 +420,11 @@ const TeamAssign = () => {
                         {selectionBtn === "action" && (
                           <input
                             onChange={(e) => selectionCheckboxFunc(e, row)}
+<<<<<<< HEAD
                             checked={selectedLeadArr.includes(row._id)}
+=======
+                            checked={selectedLeadArr.includes(row)}
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
                             type="checkbox"
                             style={{ marginRight: "0.5rem" }}
                           />

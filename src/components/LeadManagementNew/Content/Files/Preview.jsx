@@ -51,6 +51,8 @@ const Preview = () => {
     }
   };
 
+  console.log(location.state, "state")
+
   const getThumbnail = async (link) => {
     console.log("get thumbe")
     try {
@@ -121,8 +123,11 @@ const Preview = () => {
       // setApiRes({ loading: false, error: error.message || 'An error occurred' });
     }
   }    
+<<<<<<< HEAD
 
   console.log( location?.state?.youtubeList ,">>>>>>>>>><<<<<<<<<<<")
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
   const handleBack=()=>{
     navigate(-1)

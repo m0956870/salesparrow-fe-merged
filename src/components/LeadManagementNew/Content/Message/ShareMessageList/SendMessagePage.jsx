@@ -13,7 +13,10 @@ import { FaWhatsappSquare } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const SendMessagePage = (props) => {
+<<<<<<< HEAD
   const inputRef = useRef(null)
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
   const navigate = useNavigate();
   const [message, setMessage] = useState({
     title: "",
@@ -29,6 +32,37 @@ const SendMessagePage = (props) => {
       banner:props?.messageData?.banner
     });
   }, [props?.messageData?._id,]);
+<<<<<<< HEAD
+=======
+
+
+  const handleUpdate = async () => {
+    let data = {
+      id: props?.messageData?._id,
+      title: message.title,
+      body: message.body,
+    };
+    try {
+      const res = await updateMessage(data);
+      if (res.data.status) {
+        toast.success(res.data.message);
+        props?.getMessageList()
+      } else {
+        toast.error(res.data.message);
+      }
+      props?.close();
+      setMessage({
+        ...message,
+        title: "",
+        body: "",
+      });
+    } catch (error) {
+      toast.error(error.message);
+      // setApiRes({ loading: false, error: res.data.message });
+    }
+  };
+
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,6 +72,7 @@ const SendMessagePage = (props) => {
     });
   };
 
+<<<<<<< HEAD
   const handleSetText = () =>{
     const input = inputRef.current;
    
@@ -62,14 +97,29 @@ const SendMessagePage = (props) => {
       let data = {
         media: props.messageData.leadId,
         sharedWith: shareWithId,
+=======
+
+  const handleSend=async(elem)=>{
+    if(props.messageData.name==="file"){
+
+      let data = {
+        media: props.messageData.leadId,
+        sharedWith: elem.id,
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
         userType: props.name
       };
       try {
         const res = await createSharedMedia_lead(data);
+<<<<<<< HEAD
 
         if (res.data.status) {
           toast.success(res.data.message);
           const whatsappLink =`https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}?text=${res.data.url}`;
+=======
+        if (res.data.status) {
+          toast.success(res.data.message);
+          const whatsappLink =`https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=${res.data.url}`;
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
           window.location.href = whatsappLink;
         } else {
           toast.error(res.data.message);
@@ -82,6 +132,7 @@ const SendMessagePage = (props) => {
         });
       } catch (error) {
         toast.error(error.message);
+<<<<<<< HEAD
       }
     
     }else if(props.messageData.name==="banner"){
@@ -93,6 +144,14 @@ const SendMessagePage = (props) => {
       let updatedBody = message?.body?.replace(/@Client Name/g, name);
       const whatsappLink = `https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}`;
      window.location.href = whatsappLink;
+=======
+        // setApiRes({ loading: false, error: res.data.message });
+      }
+    
+    }else{
+      const whatsappLink = `https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(message.body)}`;
+      window.location.href = whatsappLink;
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
     }
   }
 
@@ -136,7 +195,12 @@ const SendMessagePage = (props) => {
               <>
               <div className="msg_total_send ">
                     <div className="image_body_list">
+<<<<<<< HEAD
                     <div><p >{name}</p>
+=======
+                      {/* <div className="">{elem.leadName.toString().charAt(0)}</div> */}
+                    <div><p >{props?.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName}</p>
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
                       <p>
                         {props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}
                       </p></div>
@@ -153,7 +217,13 @@ const SendMessagePage = (props) => {
             <div>Total Sent</div>
             <div>{props?.sentName?.length}</div>
           </div>
+<<<<<<< HEAD
          
+=======
+          {/* <div className="content_create_msg_btn" onClick={handleUpdate}>
+            Save Message
+          </div> */}
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
         </div>
       </DialogContent>
     </Dialog>

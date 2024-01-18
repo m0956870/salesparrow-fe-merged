@@ -60,6 +60,7 @@ const ManageImage = (props) => {
 })
   }
 
+<<<<<<< HEAD
   console.log(props.imageList , "imageList")
 
 
@@ -69,6 +70,16 @@ const handleBack=()=>{
     }
          props.close()
 }
+=======
+
+  const handleBack=()=>{
+    // props.setaddFilePopup(true)
+if(!props.editFilePopup){
+  props.setaddFilePopup(true)
+}
+    props.close()
+  }
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
   const handleViewFull =(id)=>{
     const image = imageRef.current;

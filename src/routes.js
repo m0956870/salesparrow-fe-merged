@@ -231,6 +231,14 @@ import EditCategory from "./components/ProductCatalogue/Category/EditCategory";
 import TeamAssign from "./components/LeadManagementNew/Clients/Teams/TeamAssign";
 import ShareCustomerPage from "./components/LeadManagementNew/Clients/Customers/ShareCustomerPage";
 
+// catalogue
+import BannerListing from "./components/ProductCatalogue/Banner/BannerListing";
+import TrendingProductListing from "./components/ProductCatalogue/TrendingProduct/TrendingProductListing";
+import CatalogueCategoryListing from "./components/ProductCatalogue/Category/CatalogueCategoryListing";
+import AddCategory from "./components/ProductCatalogue/Category/AddCategory";
+import EditCategory from "./components/ProductCatalogue/Category/EditCategory";
+import TeamAssign from "./components/LeadManagementNew/Clients/Teams/TeamAssign";
+
 
 
 const routeArray = [

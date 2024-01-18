@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useCallback } from "react";
+=======
+import React, { useState, useEffect } from "react";
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -31,7 +35,10 @@ const WhatsAppPreview = () => {
   const [details, setDetails] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
   const [fileDetails,setFileDetails] = useState([])
+<<<<<<< HEAD
   const [pdf , setpdf] = useState(false);
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
   const getadminprofile = async () => {
     const token = localStorage.getItem("token");
@@ -55,12 +62,18 @@ const WhatsAppPreview = () => {
   };
 
   const getThumbnail = async (link) => {
+<<<<<<< HEAD
     console.log(link)
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
     try {
       const response = await axios.get(
         `https://www.youtube.com/oembed?url=${link}&format=json`
       );
+<<<<<<< HEAD
       console.log(response , 'resp')
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
       let youtubedata={
         thumbnailurl:response.data.thumbnail_url,
         url:link
@@ -73,20 +86,29 @@ const WhatsAppPreview = () => {
       console.error("Error fetching YouTube data:", error);
     }
   };
+<<<<<<< HEAD
 
 
+=======
+  console.log(thumbnails,"thumbnail")
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
   const getFileDetails = async () => {
     const token = localStorage.getItem("token");
     try {
       var config = {
         method: "get",
+<<<<<<< HEAD
         url: id2 ? getBaseUrl()+`lead_api/file/${id1}/${id2}` : getBaseUrl()+`lead_api/file/${id1}`,
+=======
+        url: getBaseUrl()+`lead_api/file/${id1}/${id2}`,
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${token}`,
         },
       };
       let res = await axios(config);
+<<<<<<< HEAD
       if (res?.data?.status) {
         if(res?.data?.data?.fileType==="PDF"){
            setpdf(true)
@@ -95,12 +117,21 @@ const WhatsAppPreview = () => {
           setFileDetails(res?.data?.data)
         }
        console.log(res.data.data)
+=======
+      if (res.data.status) {
+       setFileDetails(res.data.data)
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
       }
     } catch (error) {
       console.log(error);
     }
   };  
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
   const handleYoutube=(url)=>{
     window.open(url, '_blank');
   }
@@ -132,12 +163,20 @@ const WhatsAppPreview = () => {
     }
   }
 
+<<<<<<< HEAD
+=======
+//   const handleBack=()=>{
+//     navigate(-1)
+//   }
+
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
   useEffect(() => {
     getFileDetails()
     getadminprofile();
     // if (fileDetails?.youtubeList) {
     //   fileDetails?.youtubeList.forEach((link) => getThumbnail(link));
     // }
+<<<<<<< HEAD
   }, []);
 
   useEffect(()=>{
@@ -274,6 +313,132 @@ const WhatsAppPreview = () => {
       </Grid>
     </div>
       }
+=======
+    getThumbnail(fileDetails.mediaUrl)
+  }, []);
+
+
+
+console.log(fileDetails,"sdfg")
+  return (
+    <Container maxWidth="lg">
+      <div className="page_preview">
+        <Grid container>
+          <Grid item xs={12}>
+            <div className="preview_heading">Page Preview</div>
+          </Grid>
+          <hr />
+          <Grid item xs={12}>
+            <div className="preview_banner">
+              {fileDetails?.images?<img src={fileDetails?.images[0]} />:""}
+            </div>
+          </Grid>
+          <Grid container style={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={10} className="preview_text">
+              <div className="preview_text1">
+                <h3>{fileDetails?.title}</h3>
+                <p>{fileDetails?.description}</p>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid container style={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={10} className="preview_text">
+              <div className="preview_text1">
+                <h3>Website Add</h3>
+                <a
+                  href={fileDetails?.websiteUrl}
+                  target="_blank"
+                  className="align-center"
+                >
+                  {fileDetails?.websiteName}
+                </a>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid container style={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={6} md={10} sm={10} className="preview_text">
+              <div className="preview_text2">
+                <h3>Want to find out more</h3>
+                <a
+                  href={`https://api.whatsapp.com/send?phone=+${details?.phone}&text=Hi%20I%20Found%20Your%20Business%20On%20Homeshiftingmart`}
+                  target="_blank"
+                  className="align-center"
+                >
+                  <IoLogoWhatsapp
+                    style={{ color: "green" }}
+                    fontSize={"28px"}
+                  />{" "}
+                  Connect me
+                </a>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "2rem",
+            }}
+          >
+            {fileDetails?.images
+              ?.slice(1, fileDetails?.images.length)
+              .map((elem, id) => {
+                return (
+                  <>
+                    <Grid item xs={5} className="preview_list_img">
+                      <img src={elem} />
+                    </Grid>
+                  </>
+                );
+              })}
+          </Grid>
+          <Grid container style={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={10} className="preview_text">
+              <div className="preview_text1">
+                <h3>Youtube Video</h3>
+               
+              </div>
+            </Grid>
+          </Grid>
+          <Grid  container
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "2rem",
+            }}>
+            {thumbnails.map((thumbnail, index) => {
+              return (
+                <Grid item xs={6} className="preview_list_img" onClick={()=>handleYoutube(thumbnail.url)}>
+                    <img
+                      src={thumbnail.thumbnailurl}
+                      alt={`Thumbnail ${index}`}
+                      width={"100%"}
+                    />
+                    <FaYoutube className="youtube_icon"/>
+                  </Grid>
+              );
+            })}
+          </Grid>
+          {/* <Grid item xs={12}>
+            <div className="preview_profile_img_div">
+              <img src={details.profileImage} className="preview_profile_img" />
+            </div>
+            <div style={{ textAlign: "center", marginTop: "1rem" }}>
+              <h2>{details?.company_name}</h2>
+              <p>{details?.phone}</p>
+              <p>{details?.companyShortCode}</p>
+            </div>
+          </Grid>
+          <Grid container style={{ display: "flex", justifyContent: "center" }}>
+            <Grid xs={8} className="preview_btn">
+              <button onClick={handleBack}>Back</button>
+              <button onClick={handleDone}>Done</button>
+            </Grid>
+          </Grid> */}
+        </Grid>
+      </div>
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
     </Container>
   );
 };

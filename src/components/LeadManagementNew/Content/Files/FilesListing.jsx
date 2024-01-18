@@ -314,8 +314,11 @@ const FilesListing = () => {
                 catalogue={catalogue}
                 setCatalogue={setCatalogue}
                 getFile={getFileList}
+<<<<<<< HEAD
                 imageList={imageList}
                 setImageList={setImageList}
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
             />
             <EditFile
                 open={editFilePopup}
@@ -329,8 +332,11 @@ const FilesListing = () => {
                 catalogue={catalogue}
                 setManageImageList={setManageImageList}
                 getFile={getFileList}
+<<<<<<< HEAD
                 imageList={imageList}
                 setImageList={setImageList}
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
             />
             <ManageImage
             manageImage={manageImage}
@@ -341,6 +347,7 @@ const FilesListing = () => {
             setaddFilePopup={setaddFilePopup}
             seteditFilePopup={seteditFilePopup}
             editFilePopup={editFilePopup}
+<<<<<<< HEAD
             imageList={imageList}
             setImageList={setImageList}
             />
@@ -349,6 +356,8 @@ const FilesListing = () => {
             close={() => setshareHistoryPopup(!shareHistoryPopup)}
             fileData={currentGroup}
             catalogue={catalogue}
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
             />
         </>
     )

@@ -135,4 +135,9 @@
 .table_scroll_container {
   width: 79.4vw;
   overflow-x: scroll;
+  transition: all ease 0.3s;
+}
+
+#close .container .table_scroll_container {
+  width: 88.3vw;
 }

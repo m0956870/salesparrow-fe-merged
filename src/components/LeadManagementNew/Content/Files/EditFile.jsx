@@ -21,7 +21,11 @@ const EditFile = (props) => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [fileName , setFileName] = useState("+ Add File Attachment")
   const [thumbnails, setThumbnails] = useState();
+<<<<<<< HEAD
   const [youtubeLink, setyoutubeLink] = useState();
+=======
+  const [youtubeLink, setyoutubeLink] = useState([]);
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
  
 
 

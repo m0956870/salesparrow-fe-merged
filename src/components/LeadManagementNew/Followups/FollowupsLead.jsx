@@ -82,7 +82,10 @@ const FollowupsLead = () => {
  const [addLoading , setAddLoading] = useState(false)
  const [updateLoading , setUpdateLoading] = useState(false)
  const [loadingElementId , setLoadingElementId] = useState(null)
+<<<<<<< HEAD
  const [isLoading , setisLoading] = useState(false)
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
  let todayDate = new Date();
   useEffect(() => {
@@ -178,7 +181,11 @@ const FollowupsLead = () => {
    
   }, [scheduleData]);
 
+<<<<<<< HEAD
   let dateArray = followupData?.map((elem)=> {return elem.date})
+=======
+  let dateArray = followupData.map((elem)=> {return elem.date})
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
 
 
 useEffect(() => {
@@ -204,7 +211,11 @@ let formatedDate = formatDate(currentDate)
   }
 }, [followupData]);
 
+<<<<<<< HEAD
   const matchingElement = followupData?.find(elem => {
+=======
+  const matchingElement = followupData.find(elem => {
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
     const formattedElemDate = formatDate(elem?.date);
     const formattedNextDate = formatDate(nextDateObject);
     return formattedElemDate == formattedNextDate;
@@ -373,8 +384,11 @@ let formatedDate = formatDate(currentDate)
     },
   ];
 
+<<<<<<< HEAD
   console.log(followupData , "follow>>>>>>>>>>>>>>>>>>>>>")
 
+=======
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
   return (
     <div className="container">
       <div className="beat_heading">

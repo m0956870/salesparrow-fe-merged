@@ -203,7 +203,11 @@ const CatalogueCategoryListing = () => {
   const TCComponent = ({ data }) => {
     let { row, col } = data;
     if (col.type === "image") {
+<<<<<<< HEAD
       return <StyledTableCell>{row.banner_img ? <img style={{ height: "2rem", width: "3rem" }} src={row.banner_img} alt="" /> : null}</StyledTableCell>;
+=======
+      return <StyledTableCell><img style={{ height: "2rem", width: "3rem" }} src={row.category_id.image} alt="" /></StyledTableCell>;
+>>>>>>> 04fedc3911e1dd3321940bd01676f64ef01e52f2
     } else if (col.type === "category_value") {
       return <StyledTableCell >{row.category_id[col.key]}</StyledTableCell>;
     } else if (col.type === "product_value") {
