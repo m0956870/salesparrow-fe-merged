@@ -221,6 +221,14 @@ import ShareLead from "./components/LeadManagementNew/Clients/Lead/ShareLead";
 import FollowUpsDashboard from "./components/LeadManagementNew/Followups/FollowUpsDashboard";
 import FollowupsLead from "./components/LeadManagementNew/Followups/FollowupsLead";
 
+// catalogue
+import BannerListing from "./components/ProductCatalogue/Banner/BannerListing";
+import TrendingProductListing from "./components/ProductCatalogue/TrendingProduct/TrendingProductListing";
+import CatalogueCategoryListing from "./components/ProductCatalogue/Category/CatalogueCategoryListing";
+import AddCategory from "./components/ProductCatalogue/Category/AddCategory";
+import EditCategory from "./components/ProductCatalogue/Category/EditCategory";
+import TeamAssign from "./components/LeadManagementNew/Clients/Teams/TeamAssign";
+
 
 
 const routeArray = [
@@ -305,6 +313,13 @@ const routeArray = [
 
   { params: "product_list", component: <ProductList /> },
   { params: "focused_product", component: <FocusedProduct /> },
+  
+  // Catalogue
+  { params: "catalogue_banner", component: <BannerListing /> },
+  { params: "catalogue_trending_product", component: <TrendingProductListing /> },
+  { params: "catalogue_category", component: <CatalogueCategoryListing /> },
+  { params: "add_catalogue_category", component: <AddCategory /> },
+  { params: "edit_catalogue_category", component: <EditCategory /> },
 
   // MAPPING
   { params: "employee_party_mapping_listing", component: <EmpPartyMappingListing /> },
@@ -423,7 +438,8 @@ const routeArray = [
 
   // Lead Management - Clients
   { params: 'lead_management_content', component: <LMContent /> },
-
+  // Lead Management - Clients----Team
+  { params: 'team-assign-lead', component: <TeamAssign /> },
   // Lead Management Followups....................................................................
   { params: 'lead_management_followups', component: <FollowUpsDashboard /> },
   { params: 'followups_lead', component: <FollowupsLead /> },

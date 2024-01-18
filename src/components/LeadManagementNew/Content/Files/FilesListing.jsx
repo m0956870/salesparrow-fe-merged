@@ -67,6 +67,7 @@ const FilesListing = () => {
             if(res.data.status){
                 setallLeadsData(res.data.result)
                 setpageLength(res.data.total_page);
+                settotalDataCount(res.data.count)
                 // toast.success("");
             }else{
                 toast.error(res.data.File);
@@ -136,11 +137,11 @@ const FilesListing = () => {
 
     const handleShare=(e , name , row)=>{
         if(name==="lead"){
-            navigate("/lead_management_share_lead",{state:{title:row.title, description:row.description,banner:row?.images[0]}} )
+            navigate("/lead_management_share_lead",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} )
         }else if(name==="parties"){
-            navigate("/lead_management_share_party",{state:{title:row.title, description:row.description,banner:row?.images[0]}} );
+            navigate("/lead_management_share_party",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} );
         }else{
-            navigate("/lead_management_share_customer",{state:{title:row.title, description:row.description,banner:row?.images[0]}} );
+            navigate("/lead_management_share_customer",{state:{title:row.title, description:row.description,banner:row?.images[0] ,leadId:row._id, name:"file"}} );
         }
     }
 
@@ -204,13 +205,14 @@ const FilesListing = () => {
                                                 <StyledTableCell>
                                                     {row.fileType==="PDF"?row.title+"(Uploaded)":row.title}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="left"><img src={row.images[0]}/></StyledTableCell>
-                                                <StyledTableCell align="left">{row.description}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.fileType==="PDF"?<a href={row.pdf[0]} target='blank' className='team-assign'>View File</a>:<img src={row.images[0]} width={"10%"}/>}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.sharedCount}</StyledTableCell>
                                                 <StyledTableCell align="left" className='position-relative'>
                                                     <BorderColorIcon
                                                         onClick={() => {
                                                             setcurrentGroup(row);
                                                             seteditFilePopup(true)
+                                                            setCatalogue(row.fileType==="PDF"?false:true)
                                                         }}
                                                         style={{ fontSize: '1rem', color: 'var(--main-color)' }}
                                                     />
@@ -229,7 +231,7 @@ const FilesListing = () => {
                                                      <div className='option_lists' >
                                                        <div className='option_lists_div option_lists_first'>Share With</div>
                                                        <div className='option_lists_div' onClick={(e)=>handleShare(e,"lead",row)}>Leads</div>
-                                                       <div className='option_lists_div'onClick={(e)=>handleShare(e,"customer",row)}>Customes</div>
+                                                       <div className='option_lists_div'onClick={(e)=>handleShare(e,"customer",row)}>Customer</div>
                                                        <div className='option_lists_div'onClick={(e)=>handleShare(e,"parties",row)}>Parties</div>
                                                      </div>
                                                    :""}
@@ -302,16 +304,20 @@ const FilesListing = () => {
                 setManageImageList={setManageImageList}
                 catalogue={catalogue}
                 setCatalogue={setCatalogue}
+                getFile={getFileList}
             />
             <EditFile
                 open={editFilePopup}
                 close={() => seteditFilePopup(!editFilePopup)}
+                seteditFilePopup={seteditFilePopup}
                 fileData={currentGroup}
                 getFileList={getFileList}
                 manageImage={manageImage}
                 setManageImage={setManageImage}
                 manageImageList={manageImageList}
+                catalogue={catalogue}
                 setManageImageList={setManageImageList}
+                getFile={getFileList}
             />
             <ManageImage
             manageImage={manageImage}
@@ -320,6 +326,8 @@ const FilesListing = () => {
             manageImageList={manageImageList}
             setManageImageList={setManageImageList}
             setaddFilePopup={setaddFilePopup}
+            seteditFilePopup={seteditFilePopup}
+            editFilePopup={editFilePopup}
             />
         </>
     )

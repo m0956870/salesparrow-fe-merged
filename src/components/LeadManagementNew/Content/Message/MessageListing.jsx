@@ -63,6 +63,7 @@ const MessageListing = () => {
             if(res.data.status){
                 setallLeadsData(res.data.result)
                 setpageLength(res.data.total_page);
+                settotalDataCount(res.data.count)
                 // toast.success("");
             }else{
                 toast.error(res.data.message);

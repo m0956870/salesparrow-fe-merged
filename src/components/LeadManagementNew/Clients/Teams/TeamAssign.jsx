@@ -1,14 +1,14 @@
-import "../../../Clients/LMClients.css"
+import "../LMClients.css"
 import React, { useEffect, useState } from 'react'
 import { TfiPlus } from "react-icons/tfi"
 import { AiOutlineShareAlt, AiOutlineTeam, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai"
 // import { BiSelectMultiple } from "react-icons/bi"
 
 // import selectionImg from "../../../../images/selection.png"
-// import img1 from "../../../../../images/column_filter.png"
-// import img2 from "../../../../../images/excel_import.png"
-// import img3 from "../../../../../images/excel_export.png"
-// import img4 from "../../../../../images/pdf_download.png"
+import img1 from "../../../../images/column_filter.png"
+import img2 from "../../../../images/excel_import.png"
+import img3 from "../../../../images/excel_export.png"
+import img4 from "../../../../images/pdf_download.png"
 
 // import SearchIcon from '@mui/icons-material/Search';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -19,20 +19,20 @@ import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
+import { RiShareBoxFill } from "react-icons/ri";
 import TableCell from '@mui/material/TableCell';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { Dialog, DialogActions, DialogTitle, DialogContent } from "@mui/material";
 import { CircularProgress, Pagination } from "@mui/material"
-import { deleteLead, deleteMultipleLead, getCustomers, getGroups, manageLeadGroup, manageLeadGroupFromLead } from "../../../../../api/leadApi"
+import { assignToEmp, deleteLead, deleteMultipleLead, getCustomers, getGroups, manageLeadGroup, manageLeadGroupFromLead } from "../../../../api/leadApi"
 import { toast } from "react-toastify"
 import { useLocation, useNavigate } from "react-router-dom"
-import getStateFunc from "../../../../../api/locationAPI"
-import fetchAllEmployee from "../../../../../api/employeeAPI"
-import SendMessagePage from "./SendMessagePage"
+import getStateFunc from "../../../../api/locationAPI"
+import fetchAllEmployee from "../../../../api/employeeAPI"
 
-const ShareLeads = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
+const TeamAssign = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setisLoading] = useState(false)
 
   const [allLeadsData, setallLeadsData] = useState([])
@@ -43,15 +43,14 @@ const ShareLeads = () => {
   const [allState, setallState] = useState([]);
   const [allEmployee, setallEmployee] = useState([]);
   const [allLeadGroups, setallLeadGroups] = useState([]);
-  const [sendMessagePopup, setsendMessagePopup] = useState(false)
-  const [sentName , setSentName] = useState([])
-  const [allSent , setAllSent] = useState(false);
 
   const [selectionBtn, setselectionBtn] = useState("selection")
   const [selectedLeadArr, setselectedLeadArr] = useState([])
   const [selectedArrPopup, setselectedArrPopup] = useState(false);
-  const [selectPopup , setSelectPopup] = useState(false)
-  const [allRowSelect, setAllRowSelect] = useState(false)
+  const [share, setShare] = useState({
+    popUp:false,
+    id:""
+});
 
   // grp data
   const [allGrpData, setallGrpData] = useState([])
@@ -140,46 +139,48 @@ const ShareLeads = () => {
 
   };
 
-  const selectionBtnFunc = (type) => {
-    setAllRowSelect(false)
-    setselectedLeadArr([])
+  const selectionBtnFunc = async(type) => {
     if (type === "action") {
       setselectionBtn(type)
     } else {
-      if (selectedLeadArr.length === 0) return toast.error("Select Leads First!")
-      setselectedArrPopup(true)
-    }
-  }
+    //   if (selectedLeadArr.length === 0) return toast.error("Select Leads First!")
+    //   setselectedArrPopup(true)
+    if (!selectedLeadArr) return toast.error("Select Team First!")
 
-  const selectionAllBtnFunc = (type) => {
-    setAllSent(true)
-    if (type === "action") {
-      setselectionBtn(type)
-      allLeadsData.map((elem ,id)=>{
-        setselectedLeadArr([...selectedLeadArr, elem.id])
-      })
-      setAllRowSelect(true)
-    } else {
-      if (selectedLeadArr.length === 0) return toast.error("Select Leads First!")
-      setselectedArrPopup(true)
+        let postData = {
+            leadIdArr: selectedLeadArr,
+            emp_id: location?.state?.id,
+        }
+        // setbtnLoading(true)
+        let { data } = await assignToEmp(postData)
+        if (data.status) {
+            navigate("/lead_management_clients")
+            toast.success("All Leads Assigned to Team Successfully!")
+            // setbtnLoading(false)
+        } else {
+            console.log("Some Error!")
+            // setbtnLoading(false)
+        }
+       }
     }
-  }
 
   const selectionCheckboxFunc = (e, row) => {
-    setAllSent(false)
-    setSelectPopup(false)
     if (!selectedLeadArr.includes(row._id)) {
-      setselectedLeadArr([...selectedLeadArr, row._id])
+      setselectedLeadArr([...selectedLeadArr, row])
     } else {
       let filteredArr = selectedLeadArr.filter(_id => _id !== row._id)
       setselectedLeadArr(filteredArr)
     }
   }
-
-  // console.log(selectedLeadArr,"arr")
+  console.log(selectedLeadArr,"selectedLeadArr")
 
   const shareContentSLFunc = () => {
-    setselectedArrPopup(false)
+    setShare({
+      ...share,
+      popUp:!share.popUp,
+      // id:id
+  })
+    // setselectedArrPopup(false)
   }
   const assignToTeamSLFunc = () => {
     setselectedArrPopup(false)
@@ -249,19 +250,13 @@ const ShareLeads = () => {
     borderBottom: "2px solid #00000011",
   }));
 
-  const handleSendMessage=()=>{
-    if(selectedLeadArr.length){
-    setsendMessagePopup(true)
-   
-    const selecteLeadName =  allSent?allLeadsData:allLeadsData.filter((elem)=>{
-      return selectedLeadArr.includes(elem._id);
-    })
-   setSentName(selecteLeadName.map((elem)=>elem))
-  }else{
-    toast.warning("Please select party first")
-}
+  const handleShare=(e , type)=>{
+      navigate("/share_lead" , {state:{name:type , id:selectedLeadArr}})
   }
-  
+
+  const handleNavigateFollowups=(id)=>{
+     navigate('/followups_lead' , {state:{id:id}})
+  }
 
   return (
     <div id="lm_clients_main_containers">
@@ -279,26 +274,30 @@ const ShareLeads = () => {
             <option value="InActive" style={{ color: "red" }}>InActive</option>
           </select>
         </div>
-        <div className="top_right_filter position-relative">
-          
+        <div className="top_right_filter">
+          <div className="other_functionality_section">
+            <div className="section_options"><img src={img1} /></div>
+            <div className="section_options"><img src={img2} /></div>
+            <div className="section_options"><img src={img3} /></div>
+            <div className="section_options"><img src={img4} /></div>
+          </div>
+          <div onClick={() => navigate("/add_lead")} className="top_right_create_btn_icon">
+            <TfiPlus className="create_btn_icon" />
+             <span>Create New</span>
+          </div>
           {allLeadsData?.length !== 0 && (
             <>
-             <div  className="top_right_create_btn_icon" onClick={handleSendMessage} style={{ marginLeft: "0.8rem" }}>
-                  Send
-                </div>
-                <div onClick={()=>{setSelectPopup(!selectPopup) ; setselectionBtn(!selectionBtn)}} className="top_right_create_btn_icon" style={{ marginLeft: "0.8rem" }}>
+              {selectionBtn === "selection" ? (
+                <div onClick={() => selectionBtnFunc("action")} className="top_right_create_btn_icon" style={{ marginLeft: "0.8rem" }}>
                   Select Leads
                 </div>
-               
+              ) : (
+                <div onClick={() => selectionBtnFunc("selection")} className="top_right_create_btn_icon" style={{ marginLeft: "0.8rem" }}>
+                  Assign
+                </div>
+              )}
             </>
           )}
-          {selectPopup ?
-              <div className='option_lists'style={{right:"90%" , top:"0%"}} >
-               <div className='option_lists_div'onClick={() => selectionAllBtnFunc("action")}>Select All</div>
-              <div className='option_lists_div' onClick={() => selectionBtnFunc("action")}>Bulk Select</div>
-       
-        </div>
-    :""}
         </div>
       </div>
 
@@ -409,7 +408,7 @@ const ShareLeads = () => {
                         {selectionBtn === "action" && (
                           <input
                             onChange={(e) => selectionCheckboxFunc(e, row)}
-                            checked={allRowSelect?true:selectedLeadArr.includes(row._id)}
+                            checked={selectedLeadArr.includes(row)}
                             type="checkbox"
                             style={{ marginRight: "0.5rem" }}
                           />
@@ -436,6 +435,10 @@ const ShareLeads = () => {
                           }}
                           style={{ fontSize: '1rem', color: 'red', marginLeft: '0.5rem' }}
                         />
+                         <RiShareBoxFill
+                        onClick={()=>handleNavigateFollowups(row._id)}
+                      style={{ fontSize: '1rem', color: 'var(--main-color)', marginLeft: '0.5rem' }}
+                    />
                       </StyledTableCell>
                     </StyledTableRow>
                   ))}
@@ -507,6 +510,14 @@ const ShareLeads = () => {
             <div onClick={() => shareContentSLFunc()} className="ll_sl_tabs">
               <div className="tab_icon"><AiOutlineShareAlt className="icon" /></div>
               <div className="tab_name">Share Content</div>
+              {share.popUp  ?
+              <div className='option_lists_lead' >
+                <div className='option_lists_div option_lists_first'>Share With</div>
+               <div className='option_lists_div' onClick={(e)=>handleShare(e,"Message")}>Message</div>
+               <div className='option_lists_div'onClick={(e)=>handleShare(e,"Banner")}>Banner</div>
+               <div className='option_lists_div'onClick={(e)=>handleShare(e,"Files")}>Files</div>
+                 </div>
+               :""}
             </div>
             <div onClick={() => assignToTeamSLFunc()} className="ll_sl_tabs">
               <div className="tab_icon"><AiOutlineTeam className="icon" /></div>
@@ -556,15 +567,8 @@ const ShareLeads = () => {
           )}
         </div>
       </Dialog>
-      <SendMessagePage
-      open={sendMessagePopup}
-      close={() => setsendMessagePopup(!sendMessagePopup)}
-      messageData={location.state}
-      sentName={sentName}
-      name="lead"
- />
     </div >
   )
 }
 
-export default ShareLeads
+export default TeamAssign

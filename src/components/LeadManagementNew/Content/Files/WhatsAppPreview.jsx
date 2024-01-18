@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import "../LMContent.css";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getBaseUrl } from "../../../../utils/baseUrl";
 import axios from "axios";
 import { FaYoutube } from "react-icons/fa";
@@ -23,12 +23,14 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const Preview = () => {
+const WhatsAppPreview = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const {id1, id2} = useParams();
 
   const [details, setDetails] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
+  const [fileDetails,setFileDetails] = useState([])
 
   const getadminprofile = async () => {
     const token = localStorage.getItem("token");
@@ -51,8 +53,6 @@ const Preview = () => {
     }
   };
 
-  console.log(location.state, "state")
-
   const getThumbnail = async (link) => {
     try {
       const response = await axios.get(
@@ -70,14 +70,28 @@ const Preview = () => {
       console.error("Error fetching YouTube data:", error);
     }
   };
+  console.log(thumbnails,"thumbnail")
+  const getFileDetails = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      var config = {
+        method: "get",
+        url: getBaseUrl()+`lead_api/file/${id1}/${id2}`,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      };
+      let res = await axios(config);
+      if (res.data.status) {
+       setFileDetails(res.data.data)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };  
 
-  useEffect(() => {
-    getadminprofile();
-    // if (location?.state?.youtubeList) {
-    //   location?.state?.youtubeList.forEach((link) => getThumbnail(link));
-    // }
-    getThumbnail(location?.state?.youtubeList)
-  }, []);
+
 
   const handleYoutube=(url)=>{
     window.open(url, '_blank');
@@ -92,32 +106,40 @@ const Preview = () => {
       formFile.append("file", file);
     });
     formFile.append("pdf" , location?.state?.message?.fileAttachment)
-    formFile.append("mediaUrl" , location?.state?.youtubeList)
-    formFile.append("websiteUrl" , location?.state?.message.websiteLink)
-    formFile.append("websiteName" , location?.state?.message.websiteName)
-    if(location?.state?.update ){
-      formFile.append("fileId",  location?.state?.id );
-    }
-   
+    formFile.append("mediaURL" , location?.state?.youtubeList)
+    formFile.append("websiteURL" , location?.state?.message.websiteLink)
+    formFile.append("id", location?.state?.update ? location?.state?.id : "");
     try {
-      const res = await (location.state.update ? updateFile(formFile) : createFile(formFile));
-    
+      const res = await location.state.update?updateFile(formFile):createFile(formFile);
       if (res.data.status) {
         toast.success(res.data.message);
-        navigate(-1);
+        navigate(-1)
       } else {
         toast.error(res.data.message);
       }
+     
     } catch (error) {
-      toast.error(error.message || 'An error occurred');
-      // setApiRes({ loading: false, error: error.message || 'An error occurred' });
+      toast.error(error.message);
+      // setApiRes({ loading: false, error: res.data.message });
     }
-  }    
-
-  const handleBack=()=>{
-    navigate(-1)
   }
 
+//   const handleBack=()=>{
+//     navigate(-1)
+//   }
+
+  useEffect(() => {
+    getFileDetails()
+    getadminprofile();
+    // if (fileDetails?.youtubeList) {
+    //   fileDetails?.youtubeList.forEach((link) => getThumbnail(link));
+    // }
+    getThumbnail(fileDetails.mediaUrl)
+  }, []);
+
+
+
+console.log(fileDetails,"sdfg")
   return (
     <Container maxWidth="lg">
       <div className="page_preview">
@@ -128,27 +150,27 @@ const Preview = () => {
           <hr />
           <Grid item xs={12}>
             <div className="preview_banner">
-              <img src={location?.state?.imageList[0]} />
+              {fileDetails?.images?<img src={fileDetails?.images[0]} />:""}
             </div>
           </Grid>
           <Grid container style={{ display: "flex", justifyContent: "center" }}>
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
-                <h3 style={{textAlign:"center"}}>{location?.state?.message?.title}</h3>
-                <p>{location?.state?.message?.body}</p>
+                <h3>{fileDetails?.title}</h3>
+                <p>{fileDetails?.description}</p>
               </div>
             </Grid>
           </Grid>
           <Grid container style={{ display: "flex", justifyContent: "center" }}>
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
-                <h3 style={{textAlign:"center"}}>Website Add</h3>
+                <h3>Website Add</h3>
                 <a
-                  href={location?.state?.message?.websiteLink}
+                  href={fileDetails?.websiteUrl}
                   target="_blank"
                   className="align-center"
                 >
-                  {location?.state?.message?.websiteName}
+                  {fileDetails?.websiteName}
                 </a>
               </div>
             </Grid>
@@ -179,8 +201,8 @@ const Preview = () => {
               marginBottom: "2rem",
             }}
           >
-            {location?.state?.imageList
-              ?.slice(1, location?.state?.imageList.length)
+            {fileDetails?.images
+              ?.slice(1, fileDetails?.images.length)
               .map((elem, id) => {
                 return (
                   <>
@@ -195,6 +217,7 @@ const Preview = () => {
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
                 <h3>Youtube Video</h3>
+               
               </div>
             </Grid>
           </Grid>
@@ -206,7 +229,7 @@ const Preview = () => {
             }}>
             {thumbnails.map((thumbnail, index) => {
               return (
-                <Grid item xs={5} className="preview_list_img" onClick={()=>handleYoutube(thumbnail.url)}>
+                <Grid item xs={6} className="preview_list_img" onClick={()=>handleYoutube(thumbnail.url)}>
                     <img
                       src={thumbnail.thumbnailurl}
                       alt={`Thumbnail ${index}`}
@@ -217,7 +240,7 @@ const Preview = () => {
               );
             })}
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <div className="preview_profile_img_div">
               <img src={details.profileImage} className="preview_profile_img" />
             </div>
@@ -232,11 +255,11 @@ const Preview = () => {
               <button onClick={handleBack}>Back</button>
               <button onClick={handleDone}>Done</button>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     </Container>
   );
 };
 
-export default Preview;
+export default WhatsAppPreview;

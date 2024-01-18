@@ -44,8 +44,12 @@ const ManageImage = (props) => {
 })
   }
 
+
   const handleBack=()=>{
-    props.setaddFilePopup(true)
+    // props.setaddFilePopup(true)
+if(!props.editFilePopup){
+  props.setaddFilePopup(true)
+}
     props.close()
   }
 

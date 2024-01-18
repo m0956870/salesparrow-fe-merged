@@ -83,7 +83,7 @@
 .followups_lead_abc{
     background-color: #ffffff;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     padding: 1rem;
     gap: 1rem;
     border-radius: 10px;
@@ -115,7 +115,7 @@
     margin: 0rem 5rem;
     padding: 0.8rem;
     border-radius: 10px;
-    margin-top: 2rem;
+    margin-top: 1rem;
     color: #ffff;
     width: 220px;
 }

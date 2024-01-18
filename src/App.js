@@ -23,6 +23,7 @@ import { reducer, initialState } from "./reducer/adminReducer";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import WhatsAppPreview from "./components/LeadManagementNew/Content/Files/WhatsAppPreview";
 
 export const AdminContext = createContext();
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/:route" element={<Home2new />}></Route>
           <Route path="/:route/:id" element={<Home2new />}></Route>
           <Route path="/preview" element={<Preview />}></Route>
+          <Route path="/whatsapp-preview/:id1/:id2" element={<WhatsAppPreview />}></Route>
         </Routes>
       </AdminContext.Provider>
     </>
