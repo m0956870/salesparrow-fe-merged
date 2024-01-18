@@ -50,11 +50,29 @@ const ProductCategory = () => {
   const [deletePopup, setdeletePopup] = useState(false);
   const [currentGroup, setcurrentGroup] = useState({});
 
+  useEffect(() => {
+    fetchAllCategoryFunc();
+  }, [pageCount]);
+
+  useEffect(() => {
+    if (addCategoryPopup === false) {
+      fetchAllCategoryFunc()
+    }
+  }, [addCategoryPopup])
+
+  useEffect(() => {
+    if (editCategoryPopup === false) {
+      fetchAllCategoryFunc()
+    }
+  }, [editCategoryPopup])
+
   const fetchAllCategoryFunc = async () => {
     setisLoading(true);
     if (!await isAllowed(PRODUCT_MANAGEMENT)) {
       toast.error("Module is not purchased!");
       return setisLoading(false);
+    } else {
+      setpermissionAllowed(true)
     }
 
     fetchAllCategory(pageCount).then((res) => {
@@ -68,10 +86,6 @@ const ProductCategory = () => {
       }
     });
   };
-
-  useEffect(() => {
-    fetchAllCategoryFunc();
-  }, [pageCount]);
 
   const searchCategoryFunc = async (e) => {
     // console.log(e.target.value);
@@ -136,18 +150,6 @@ const ProductCategory = () => {
       setisLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (addCategoryPopup === false) {
-      fetchAllCategoryFunc()
-    }
-  }, [addCategoryPopup])
-
-  useEffect(() => {
-    if (editCategoryPopup === false) {
-      fetchAllCategoryFunc()
-    }
-  }, [editCategoryPopup])
 
   // Import & Export
   let settings = {

@@ -136,6 +136,7 @@ const ShareCustomer = () => {
       setselectedCustomerArr(filteredArr)
     }
   }
+  console.log(selectedCustomerArr, "arr")
 
   const filterFunc = () => {
     // getSecDataFunc(filterData)
@@ -320,10 +321,6 @@ const ShareCustomer = () => {
     toast.warning("Please select party first")
 }
   }
- console.log(location , "Cfgh")
-
-
-
   return (
     <div className="container">
       <div className="beat_heading">

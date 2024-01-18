@@ -137,6 +137,19 @@ const Sidebar = ({ open }) => {
     },
     {
       index: 6,
+      icon: products,
+      icon_white: products_white,
+      title: "Product Catalogue",
+      navigate: "catalogue_banner",
+      show: false,
+      subItems: [
+        { name: "Banner", link: "/catalogue_banner" },
+        { name: "Trending Product", link: "/catalogue_trending_product" },
+        { name: "Category", link: "/catalogue_category" },
+      ],
+    },
+    {
+      index: 7,
       icon: mapping,
       icon_white: mapping_white,
       title: "Mapping",
@@ -159,7 +172,7 @@ const Sidebar = ({ open }) => {
       ],
     },
     {
-      index: 7,
+      index: 8,
       icon: tracking,
       icon_white: tracking_white,
       title: "Tracking",
@@ -174,7 +187,7 @@ const Sidebar = ({ open }) => {
       ],
     },
     {
-      index: 8,
+      index: 9,
       icon: report,
       icon_white: report_white,
       title: "Report",
@@ -210,7 +223,7 @@ const Sidebar = ({ open }) => {
       ],
     },
     {
-      index: 9,
+      index: 10,
       icon: transactions,
       icon_white: transactions_white,
       title: "Transactions",
@@ -229,7 +242,7 @@ const Sidebar = ({ open }) => {
       ],
     },
     {
-      index: 10,
+      index: 11,
       icon: scheme,
       icon_white: scheme_white,
       title: "Scheme Management",
@@ -242,7 +255,7 @@ const Sidebar = ({ open }) => {
       ],
     },
     {
-      index: 11,
+      index: 12,
       icon: lead,
       icon_white: lead_white,
       title: "Lead Management",
@@ -265,7 +278,7 @@ const Sidebar = ({ open }) => {
       ],
     },
     {
-      index: 12,
+      index: 13,
       icon: setting,
       icon_white: setting_white,
       title: "Settings",

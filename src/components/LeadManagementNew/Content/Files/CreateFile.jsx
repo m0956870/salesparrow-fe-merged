@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {Dialog,DialogActions,DialogTitle,DialogContent,CircularProgress,} from "@mui/material";
 import { createFile, createMessage } from "../../../../api/leadApi";
 import { toast } from "react-toastify";
@@ -6,9 +6,11 @@ import ManageImage from "./ManageImage";
 import { useNavigate } from "react-router-dom";
 import YouTube from 'react-youtube';
 import axios from "axios";
+import { AdminContext } from "../../../../App";
 
 const CreateFile = (props) => {
     const navigate = useNavigate();
+    const { state, dispatch } = useContext(AdminContext);
   const [message, setMessage] = useState({
     title: "",
     body: "",
@@ -21,13 +23,12 @@ const CreateFile = (props) => {
   });
   const [imagePreviews, setImagePreviews] = useState([]);
   const [fileName , setFileName] = useState("+ Add File Attachment")
-  const [thumbnails, setThumbnails] = useState([]);
+  const [thumbnails, setThumbnails] = useState();
   const [youtubeLink, setyoutubeLink] = useState([]);
 
 
   const handleCreate =async() => {
-
-  if(props.catalogue==="Catalogue"){
+  if(props.catalogue){
     if(message.title && message.body){
       navigate("/preview" ,{state:{message , imageList:imagePreviews , youtubeList:youtubeLink , fileName:fileName , fileType:props.catalogue}})
     }else{
@@ -44,7 +45,8 @@ const CreateFile = (props) => {
         const res = await createFile(formFile);
         if (res.data.status) {
           toast.success(res.data.message);
-          navigate(-1)
+          props.close();
+          props.getFile();
         } else {
           toast.error(res.data.message);
         }
@@ -79,22 +81,33 @@ const CreateFile = (props) => {
 
   const handleImage = (e) => {
     const files = e.target.files;
-
-    if (files) {
-      setMessage({
+      setMessage(prevMessage=>({
         ...message,
-        file:files
-      })
+        file:[...prevMessage.file , ...files]
+        
+      }))
+    //   dispatch({
+    //     type: "FILEIMAGE",
+    //     payload: { ...state, file: e.target.files },
+    // });
       const imageFiles = Array.from(files).filter((file) => {
         return ["image/jpeg", "image/png", "image/svg+xml"].includes(file.type);
       });
 
       Promise.all(imageFiles.map((file) => getImageDataUrl(file))).then(
         (newPreviews) => {
-          setImagePreviews(previews=>[...previews , ...newPreviews]);
+          setImagePreviews((previews) => {
+            // Check if previews is iterable (array)
+            if (Array.isArray(previews)) {
+              return [...previews, ...newPreviews];
+            } else {
+              // If not iterable, handle the case accordingly (create a new array or other logic)
+              return [...newPreviews];
+            }
+          });
         }
       );
-    }
+    
   };
 
   const getImageDataUrl = (file) => {
@@ -105,16 +118,20 @@ const CreateFile = (props) => {
   };
 
   useEffect(()=>{
-   if(props.setManageImageList){
-    setImagePreviews(props.manageImageList)
+   if(props.imageList.imageShows){
+    setImagePreviews(props?.imageList?.imageShows)
 }
-  },[props.manageImageList])
+  },[props?.imageList.imageShows])
 
 
   const handleManageImage=()=>{
     props.close()
     props.setManageImage(true)
     props.setManageImageList(imagePreviews)
+    props.setImageList({
+      imageShows: imagePreviews, // Assuming imagePreviews is an array
+      imgList: message.file // Assuming message.file is an array
+    });
   }
 
   const getThumbnail = async (link) => {
@@ -123,7 +140,8 @@ const CreateFile = (props) => {
       const response = await axios.get(
         `https://www.youtube.com/oembed?url=${link}&format=json`
       );
-      setThumbnails((prevThumbnails) => [...prevThumbnails, response.data.thumbnail_url]);
+      setThumbnails(response.data.thumbnail_url);
+      // setThumbnails((prevThumbnails) => [...prevThumbnails, response.data.thumbnail_url]);
     } catch (error) {
       console.error('Error fetching YouTube data:', error);
     }
@@ -156,7 +174,7 @@ const CreateFile = (props) => {
             // ));
   
         } else {
-          console.log('File type not allowed. Please upload a PDF, JPG, JPEG, or PNG file.');
+          toast.warning('File type not allowed. Please upload a PDF, JPG, JPEG, or PNG file.');
         }
       }
   }
@@ -203,7 +221,7 @@ const CreateFile = (props) => {
               Image (* Required)
             </div>
            <div className="msg_body_txtarea_title msg_body_txtarea_ImageBox ">
-              {imagePreviews.map((preview, index) => (
+              {imagePreviews?.map((preview, index) => (
                 <img
                   key={index}
                   src={preview}
@@ -213,19 +231,17 @@ const CreateFile = (props) => {
              {props.catalogue?<> <input
                 type="file"
                 id="input-img"
-                multiple 
+                multiple
                 onChange={handleImage}
                 style={{ display: "none" }}
               />
               <label htmlFor="input-img" className="add_image_btn">+Add Image</label></>:""}
             </div>
-           {imagePreviews.length>0?<p style={{color:"#28A9E2" , cursor:"pointer" , marginLeft:"5px" , textDecoration:"underline"}} onClick={handleManageImage}>Manage Image</p>:""} 
+           {imagePreviews?.length>0?<p style={{color:"#28A9E2" , cursor:"pointer" , marginLeft:"5px" , textDecoration:"underline"}} onClick={handleManageImage}>Manage Image</p>:""} 
             
-           {thumbnails.map((thumbnail, index) => (
-        <div key={index}>
-          <img src={thumbnail} alt={`Thumbnail ${index}`} width={"100%"}/>
-        </div>
-      ))}
+           {thumbnails?<div  style={{position:"relative"}}>
+          <img src={thumbnails} alt='Thumbnail' width={"100%"}/>
+        </div>:""}
             <textarea
               className="msg_body_txtarea_title"
               name="youtubeLink"

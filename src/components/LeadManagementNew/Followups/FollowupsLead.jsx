@@ -5,8 +5,8 @@ import { BsAlarm, BsApple, BsArchive, BsAward, BsPlus } from "react-icons/bs";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { getLead_follwups, getLeads, saveFollowup_lead } from "../../../api/leadApi";
-import { Dialog } from "@mui/material";
+import { getLead_follwups, getLeads, saveFollowup_lead, updateFollowup_lead } from "../../../api/leadApi";
+import { CircularProgress, Dialog } from "@mui/material";
 import { AiOutlineShareAlt, AiOutlineTeam } from "react-icons/ai";
 import { toast } from "react-toastify";
 
@@ -33,14 +33,14 @@ const schedule = [
     name: "1 Month from now",
     label: "1month",
   },
-  {
-    name: "Select custom date and time",
-    label: "customdate",
-  },
-  {
-    name: "never",
-    label: "never",
-  },
+  // {
+  //   name: "Select custom date and time",
+  //   label: "customdate",
+  // },
+  // {
+  //   name: "never",
+  //   label: "never",
+  // },
 ];
 
 const activityData = [
@@ -71,13 +71,20 @@ const FollowupsLead = () => {
   const [addPopup, setAddPopup] = useState(false);
   const [activity, setActivity] = useState(false);
   const [addActivity, setaddActivity] = useState(false);
-  const [scheduleData, setScheduleData] = useState("");
+  const [scheduleData , setScheduleData] = useState(false);
  const [activityName , setActivityName] = useState("")
  const [dateTime , setDateTime] = useState("")
  const [description , setDescription] = useState("")
+ const [lastDateObject, setLastDateObject] = useState(null);
+ const [nextDateObject, setNextDateObject] = useState(null);
+ const [dateTimePopup , setDateTimePopup] = useState(false);
 
-  const todayDate = new Date();
+ const [addLoading , setAddLoading] = useState(false)
+ const [updateLoading , setUpdateLoading] = useState(false)
+ const [loadingElementId , setLoadingElementId] = useState(null)
+ const [isLoading , setisLoading] = useState(false)
 
+ let todayDate = new Date();
   useEffect(() => {
     if (lastActivityEl.current)
       lastActivityEl.current.scrollIntoView({
@@ -96,67 +103,133 @@ const FollowupsLead = () => {
     const res = await getLead_follwups(data);
     try {
       if (res.data.status) {
-        setfollowupData(res.data.Data);
+        setfollowupData(res.data.data);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getLeadapiFollowup();
-    getLeadList()
-  }, []);
-
-  // const handleAddActivity = () => {
-   
-  // };
-
   
+  const handleAddActivity = () => {
+    setActivity(true);
+  };
+
   const handleUpdateActivity=()=>{
     setAddPopup(true);
   }
 
-  const handleAddActivity = (name) => {
-    
-    setActivity(true);
-    // switch (name) {
-    //   case "today":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate()));
-    //     setScheduleData(d.toLocaleString());
+  
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
+  }
 
-    //     break;
-    //   case "tomorrow":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate() + 1));
-    //     setScheduleData(d.toLocaleString());
+  const handleScheduleUpdate = (name , id) => {
+     setLoadingElementId(id);
+    switch (name) {
+      case "today":
+        var d = new Date(todayDate.setDate(todayDate.getDate()));
+        setScheduleData(formatDate(d.toLocaleString()));
 
-    //     break;
-    //   case "3days":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate() + 3));
-    //     setScheduleData(d.toLocaleString());
+        break;
+      case "tomorrow":
+        var d = new Date(todayDate.setDate(todayDate.getDate() + 1));
+        setScheduleData(formatDate(d.toLocaleString()));
 
-    //     break;
-    //   case "1week":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate() + 7));
-    //     setScheduleData(d.toLocaleString());
-    //     break;
+        break;
+      case "3days":
+        var d = new Date(todayDate.setDate(todayDate.getDate() + 3));
+        setScheduleData(formatDate(d.toLocaleString()));
 
-    //   case "1month":
-    //     var d = new Date(todayDate.setDate(todayDate.getDate() + 30));
-    //     setScheduleData(d.toLocaleString());
-    //     break;
+        break;
+      case "1week":
+        var d = new Date(todayDate.setDate(todayDate.getDate() + 7));
+        setScheduleData(formatDate(d.toLocaleString()));
+        break;
 
-    //   case "customdate":
-    //     setScheduleData("customdate");
-    //     break;
+      case "1month":
+        var d = new Date(todayDate.setDate(todayDate.getDate() + 30));
+        setScheduleData(formatDate(d.toLocaleString()));
+        break;
 
-    //   case "never":
-    //     setScheduleData("never");
-    //     break;
+      case "customdate":
+        setScheduleData("customdate");
+        break;
 
-    //   default:
-    //     break;
-    // }
+      case "never":
+        setScheduleData("never");
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if(scheduleData==="customdate"){
+       setDateTimePopup(true)
+    }else{
+      updateActivity(scheduleData);
+    }
+   
+  }, [scheduleData]);
+
+  let dateArray = followupData?.map((elem)=> {return elem.date})
+
+
+useEffect(() => {
+const currentDate = new Date();
+let formatedDate = formatDate(currentDate)
+  const parseDate = dateString => {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid date format: ' + dateString);
+    }
+    return date;
+  };
+
+  try {
+    const lastDate = dateArray.filter(date => date <= formatedDate);
+    const nextDate = dateArray.filter(date => date > formatedDate);
+    let maxDate = new Date(Math.max(...lastDate.map(dateString => new Date(dateString))))
+    let minDate = new Date(Math.min(...nextDate.map(dateString => new Date(dateString))))
+    setLastDateObject( maxDate.toISOString().split('T')[0]);
+    setNextDateObject( minDate.toISOString().split('T')[0]);
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+}, [followupData]);
+
+  const matchingElement = followupData?.find(elem => {
+    const formattedElemDate = formatDate(elem?.date);
+    const formattedNextDate = formatDate(nextDateObject);
+    return formattedElemDate == formattedNextDate;
+  });
+
+  const updateActivity = async() => {
+    console.log("123first")
+    let data = {
+        date:scheduleData,
+        id: matchingElement?._id
+    }
+    let res = await updateFollowup_lead(data)
+    try {
+        if(res.data.status){
+            toast.success("Success")
+            setAddPopup(false)
+            getLeadapiFollowup();
+            setLoadingElementId(null);
+        }
+    } catch (error) {
+        console.log(error)
+        setLoadingElementId(null);
+    }finally{
+      setDateTimePopup(false)
+    }
   };
 
   const handleActivityAdd = (name) => {
@@ -185,6 +258,7 @@ const FollowupsLead = () => {
   };
 
   const handleSaveActivity = async() => {
+    setAddLoading(true)
     let data = {
         type: activityName,
         description: description, //optional
@@ -196,13 +270,17 @@ const FollowupsLead = () => {
         if(res.data.status){
             toast.success("Success")
             setaddActivity(false)
+            getLeadapiFollowup();
+            setAddLoading(false)
         }
     } catch (error) {
         console.log(error)
+        setAddLoading(false)
     }
   };
 
   async function getLeadList() {
+    setisLoading(true)
     const data = {
       lead_id: location.state.id,
       is_customer: '0',
@@ -217,19 +295,19 @@ const FollowupsLead = () => {
     try {
       const res = await getLeads(data);
       setLeadList(res.data.results);
+      setisLoading(false)
     } catch (error) {
     
       toast.error(error.message);
       console.log('get leads catch error', error.message);
+      setisLoading(false)
     }
   }
 
-//   const nextDateFind = ()=>{
-//     let a=[];
-//     followupData.map((elem)=>{
-//         a.push()
-//     })
-//   }
+  useEffect(() => {
+    getLeadapiFollowup();
+    getLeadList()
+  }, []);
 
   const leadInfo = [
     {
@@ -240,7 +318,7 @@ const FollowupsLead = () => {
     },
     {
       label: "Display Name",
-      value: "lorem ipsum",
+      value: leadList[0]?.displayName,
       backgroundColor: "linear-gradient(50deg, #327e95 62%, #84d6cd 100%)",
     },
     {
@@ -295,7 +373,7 @@ const FollowupsLead = () => {
     },
   ];
 
-
+  console.log(followupData , "follow>>>>>>>>>>>>>>>>>>>>>")
 
   return (
     <div className="container">
@@ -307,6 +385,12 @@ const FollowupsLead = () => {
           <div className="title">Follow Ups</div>
         </div>
       </div>
+      {isLoading?
+       <div style={{ margin: "auto", }} >
+                    <CircularProgress />
+                </div>
+                :
+      <>
       <div className="followups_lead_abc">
         {leadInfo.map((data, i) => (
           <div
@@ -327,13 +411,11 @@ const FollowupsLead = () => {
         <div className="followups_123">
           <div className="followups_456" style={{ backgroundColor: "#522da9" }}>
             <label>Last Follow Up</label>
-            <div>{followupData.map((elem)=>{
-
-            })}</div>
+            <div>{lastDateObject ? lastDateObject: 'N/A'}</div>
           </div>
           <div className="followups_456" style={{ backgroundColor: "#ef0c76" }}>
             <label>Next Follow Up</label>
-            <div>12/02/2021</div>
+            <div>{nextDateObject ? nextDateObject: 'N/A'}</div>
           </div>
           <div className="followups_456" style={{ backgroundColor: "#63d19a" }}>
             <label>Status</label>
@@ -407,14 +489,46 @@ const FollowupsLead = () => {
               return (
                 <div
                   className="ll_sl_tabs"
-                  // onClick={() => handleSchedule(elem.label)}
+                   onClick={() => handleScheduleUpdate(elem.label , id)}
                 >
-                  <div className="followup_schedule">{elem.name}</div>
+                  <div className="followup_schedule">{updateLoading && loadingElementId === id ? (
+                  <CircularProgress style={{ color: "#fff" }} size={26} />
+                ) : (
+                  elem.name
+                )}</div>
                 </div>
               );
             })}
-            {/* <div><input type="datetime-local"/></div> */}
+            <div
+                  className="ll_sl_tabs"
+                   onClick={() => handleScheduleUpdate("customdate")}
+                >
+                  <div className="followup_schedule">Custome date</div>
+                </div>
+                {/* <div
+                  className="ll_sl_tabs"
+                   onClick={() => handleScheduleUpdate("never")}
+                >
+                  <div className="followup_schedule">Never</div>
+                </div> */}
+            {dateTimePopup?
+            <div className="ll_sl_tabs">
+              <input className="followup_schedule"
+              type="date" 
+            onChange={(e)=>setScheduleData(e.target.value.toString().split("T").join(" "))}
+            />
+            </div>
+            
+            :""}
           </div>
+          {dateTimePopup?<div className="followup_activity_btn">
+            <button onClick={updateActivity}>
+            {updateLoading ? (
+            <CircularProgress style={{ color: "#fff" }} size={26} />
+          ) : (
+            "Save"
+          )}</button>
+          </div>:""}
         </div>
       </Dialog>
 
@@ -487,10 +601,15 @@ const FollowupsLead = () => {
             </div>
           </div>
           <div className="followup_activity_btn">
-            <button onClick={handleSaveActivity}>Add Activity</button>
+            <button onClick={handleSaveActivity}>
+            {addLoading ? (
+            <CircularProgress style={{ color: "#fff" }} size={26} />
+          ) : (
+            "Add Activity"
+          )}</button>
           </div>
         </div>
-      </Dialog>
+      </Dialog></>}
     </div>
   );
 };

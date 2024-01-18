@@ -113,7 +113,8 @@ const MessageShareLead = () => {
         setMessage({
             ...message,
             title:row.title,
-            body:row.description
+            body:row.description,
+            name:"message"
         })
     }
 
@@ -212,6 +213,7 @@ const MessageShareLead = () => {
       close={() => setsendMessagePopup(!sendMessagePopup)}
       messageData={message}
       sentLead={location?.state?.id}
+     
       />
 
         </>

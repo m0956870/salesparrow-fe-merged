@@ -8,6 +8,7 @@ node_modules
 /build
 .env
 remaining.txt
+salesparrow-fe-merged
 
 /.pnp
 .pnp.js

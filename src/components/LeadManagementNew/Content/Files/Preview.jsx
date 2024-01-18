@@ -13,7 +13,7 @@ import { getBaseUrl } from "../../../../utils/baseUrl";
 import axios from "axios";
 import { FaYoutube } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { createFile } from "../../../../api/leadApi";
+import { createFile, updateFile } from "../../../../api/leadApi";
 
 const Item = styled(Paper)(({ theme }) => ({
   //   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -52,10 +52,12 @@ const Preview = () => {
   };
 
   const getThumbnail = async (link) => {
+    console.log("get thumbe")
     try {
       const response = await axios.get(
         `https://www.youtube.com/oembed?url=${link}&format=json`
       );
+      console.log(response , "resp....")
       let youtubedata={
         thumbnailurl:response.data.thumbnail_url,
         url:link
@@ -71,44 +73,62 @@ const Preview = () => {
 
   useEffect(() => {
     getadminprofile();
-    if (location?.state?.youtubeList) {
-      location?.state?.youtubeList.forEach((link) => getThumbnail(link));
-    }
+    // if (location?.state?.youtubeList) {
+    //   location?.state?.youtubeList.forEach((link) => getThumbnail(link));
+    // }
+    getThumbnail(location?.state?.youtubeList)
   }, []);
 
   const handleYoutube=(url)=>{
     window.open(url, '_blank');
   }
-  console.log(location?.state?.message?.file)
+
   const handleDone=async()=>{
+    let imageUrlArray = []
     let formFile = new FormData();
     formFile.append("title" , location?.state?.message?.title)
     formFile.append("description" , location?.state?.message?.body)
     formFile.append("fileType" , location?.state?.fileType?"Catalogue":"Pdf")
     Array.from(location?.state?.message?.file).map((file, index) => {
-      formFile.append("file", file);
+      if (typeof file === 'string' && file.startsWith('http')) {
+        imageUrlArray.push(file)
+      } else if (file instanceof Blob || file instanceof File) {
+        formFile.append("file", file);
+      }
     });
+    if (imageUrlArray.length > 0) {
+      formFile.append("imageUrl", JSON.stringify(imageUrlArray));
+    }
     formFile.append("pdf" , location?.state?.message?.fileAttachment)
-    formFile.append("mediaURL" , location?.state?.youtubeList)
-    formFile.append("websiteURL" , location?.state?.message.websiteLink)
+    formFile.append("mediaUrl" , location?.state?.youtubeList)
+    formFile.append("websiteUrl" , location?.state?.message.websiteLink)
+    formFile.append("websiteName" , location?.state?.message.websiteName)
+    if(location?.state?.update ){
+      formFile.append("fileId",  location?.state?.id );
+    }
+   
     try {
-      const res = await createFile(formFile);
+      const res = await (location.state.update ? updateFile(formFile) : createFile(formFile));
+    
       if (res.data.status) {
         toast.success(res.data.message);
-        navigate(-1)
+        navigate(-1);
       } else {
         toast.error(res.data.message);
       }
-     
     } catch (error) {
-      toast.error(error.message);
-      // setApiRes({ loading: false, error: res.data.message });
+      toast.error(error.message || 'An error occurred');
+      // setApiRes({ loading: false, error: error.message || 'An error occurred' });
     }
-  }
+  }    
+
+  console.log( location?.state?.youtubeList ,">>>>>>>>>><<<<<<<<<<<")
 
   const handleBack=()=>{
     navigate(-1)
   }
+
+ 
 
   return (
     <Container maxWidth="lg">
@@ -126,7 +146,7 @@ const Preview = () => {
           <Grid container style={{ display: "flex", justifyContent: "center" }}>
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
-                <h3>{location?.state?.message?.title}</h3>
+                <h3 style={{textAlign:"center"}}>{location?.state?.message?.title}</h3>
                 <p>{location?.state?.message?.body}</p>
               </div>
             </Grid>
@@ -134,7 +154,7 @@ const Preview = () => {
           <Grid container style={{ display: "flex", justifyContent: "center" }}>
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
-                <h3>Website Add</h3>
+                <h3 style={{textAlign:"center"}}>Website Add</h3>
                 <a
                   href={location?.state?.message?.websiteLink}
                   target="_blank"
@@ -176,7 +196,7 @@ const Preview = () => {
               .map((elem, id) => {
                 return (
                   <>
-                    <Grid item xs={5} className="preview_list_img">
+                    <Grid item xs={5} className="preview_list_img" key={id}>
                       <img src={elem} />
                     </Grid>
                   </>
@@ -187,14 +207,13 @@ const Preview = () => {
             <Grid item xs={10} className="preview_text">
               <div className="preview_text1">
                 <h3>Youtube Video</h3>
-               
               </div>
             </Grid>
           </Grid>
           <Grid  container
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
               marginBottom: "2rem",
             }}>
             {thumbnails.map((thumbnail, index) => {

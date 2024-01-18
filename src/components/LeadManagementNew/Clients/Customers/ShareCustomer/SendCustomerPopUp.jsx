@@ -10,11 +10,10 @@ import { toast } from "react-toastify";
 import { createSharedMedia_lead, updateMessage } from "../../../../../api/leadApi";
 import { SetMealSharp } from "@mui/icons-material";
 import { FaWhatsappSquare } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
-const SendMessagePage = (props) => {
+const SendLeadCustomerPopUp = (props) => {
   const inputRef = useRef(null)
-  const navigate = useNavigate();
+
   const [message, setMessage] = useState({
     title: "",
     body: "",
@@ -24,11 +23,12 @@ const SendMessagePage = (props) => {
   useEffect(() => {
     setMessage({
       ...message,
-      title: props?.messageData?.title,
-      body: props?.messageData?.description,
-      banner:props?.messageData?.banner
+      title: props.messageData.title,
+      body: props.messageData.body,
+      banner:props.messageData.banner
     });
-  }, [props?.messageData?._id,]);
+  }, [props.messageData,]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,20 +56,25 @@ const SendMessagePage = (props) => {
     }
    }
 
-  const handleSend=async(elem,name , shareWithId)=>{
+  const handleSend=async(elem , name)=>{
+    // const whatsappLink = `https://wa.me/${elem.mobile_number}?text=Hii%20,%20${encodeURIComponent(props?.pageType=="parties"?elem.party_name:elem.customer_name)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(message.body)}`;
+    //   window.location.href = whatsappLink;
+    
+
     if(props.messageData.name==="file"){
-      let updatedBody = message?.body?.replace(/@Client Name/g, name);
+      let updatedBody = message.body.replace(/@Client Name/g, name);
       let data = {
         media: props.messageData.leadId,
-        sharedWith: shareWithId,
-        userType: props.name
+        sharedWith: elem._id,
+        userType: props.pageType
       };
       try {
         const res = await createSharedMedia_lead(data);
 
         if (res.data.status) {
           toast.success(res.data.message);
-          const whatsappLink =`https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}?text=${res.data.url}`;
+          const whatsappLink =`https://wa.me/${elem.mobile_number}?text=Hii%20,%20${encodeURIComponent(props?.pageType=="party"?elem.party_name:elem.customer_name)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}?text=${res.data.url}`;
+          // window.open(whatsappLink, '_blank');
           window.location.href = whatsappLink;
         } else {
           toast.error(res.data.message);
@@ -82,19 +87,24 @@ const SendMessagePage = (props) => {
         });
       } catch (error) {
         toast.error(error.message);
+        // setApiRes({ loading: false, error: res.data.message });
       }
     
     }else if(props.messageData.name==="banner"){
-      let updatedBody = message?.body?.replace(/@Client Name/g, name);
-      const whatsappLink = `https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}?link=${props?.messageData?.banner}`;
-     window.location.href = whatsappLink;
+      let updatedBody = message.body.replace(/@Client Name/g, name);
+      // const whatsappLink = `https://wa.me/${elem.mobile_number}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}?link=${props?.messageData?.banner}`;
+      const whatsappLink = `https://wa.me/${elem.mobile_number}?text=Hii%20,%20%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}?link=${props?.messageData?.banner}`;
+      window.location.href = whatsappLink;
     }
     else{
-      let updatedBody = message?.body?.replace(/@Client Name/g, name);
-      const whatsappLink = `https://wa.me/${props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}`;
-     window.location.href = whatsappLink;
+      let updatedBody = message.body.replace(/@Client Name/g, name);
+      const whatsappLink = `https://wa.me/${elem.mobile_number}?text=Hii%20,%20%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}`;
+      // const whatsappLink = `https://wa.me/${elem.mobile_number}?text=Hii%20,%20${encodeURIComponent(props.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName)}%0Atitle%20-%20${encodeURIComponent(message.title)}%0Adescription%20-%20${encodeURIComponent(updatedBody)}`;
+      window.location.href = whatsappLink;
     }
   }
+
+  console.log(props, "props")
 
   return (
     <Dialog
@@ -126,22 +136,22 @@ const SendMessagePage = (props) => {
               onChange={handleChange}
               ref={inputRef}
             />
-            <div className="msg_body_title" style={{textAlign:"start", cursor:"pointer"}} onClick={handleSetText}>
+              <div className="msg_body_title" style={{textAlign:"start", cursor:"pointer"}} onClick={handleSetText}>
             Insert <span style={{color:"#1565c0" , textAlign:""}}>@Client Name</span></div>
           </div>
-          {props?.sentName?.map((elem , id)=>{
-            let name = props?.name=="lead"?elem.leadName:props?.name=="customer"?elem.customerName:elem.firmName;
-            let shareWithId = props?.name=="lead"?elem._id:props?.name=="customer"?elem.id:elem.id;
+          {props?.sentLead?.map((elem , id)=>{
+            let name = props?.pageType=="party"?elem.party_name:elem.customer_name
             return(
               <>
               <div className="msg_total_send ">
                     <div className="image_body_list">
+                      {/* <div className="">{elem.leadName.toString().charAt(0)}</div> */}
                     <div><p >{name}</p>
                       <p>
-                        {props?.name=="lead"?elem.mobileNumber:props?.name=="customer"?elem.mobileNo:elem.mobileNo}
+                        {elem.mobileNumber}
                       </p></div>
                     </div>
-                    <div className="content_create_msg_btn_whatsap" onClick={()=>handleSend(elem , name , shareWithId)}>
+                    <div className="content_create_msg_btn_whatsap" onClick={()=>handleSend(elem ,name)}>
                       <FaWhatsappSquare fontSize={"28px"}/> Send
                     </div>
                    
@@ -151,13 +161,15 @@ const SendMessagePage = (props) => {
           })}
           <div className="msg_total_send">
             <div>Total Sent</div>
-            <div>{props?.sentName?.length}</div>
+            <div>{props?.sentLead?.length}</div>
           </div>
-         
+          {/* <div className="content_create_msg_btn" onClick={handleUpdate}>
+            Send Message
+          </div> */}
         </div>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default SendMessagePage;
+export default SendLeadCustomerPopUp;

@@ -1,6 +1,7 @@
 import "./LMHome.css"
 import React, { useEffect, useState } from 'react'
 import group from "../../../images/group.png";
+import fetchAllEmployee from "../../../api/employeeAPI"
 
 import { Bar, Doughnut, PolarArea } from 'react-chartjs-2';
 
@@ -16,6 +17,7 @@ import { CircularProgress } from '@mui/material';
 const LMHome = () => {
   const [lmActiveTab, setlmActiveTab] = useState("leadstage")
   const [isLoading, setisLoading] = useState(false)
+  const [allEmployee, setallEmployee] = useState([]);
 
   const [leadStage, setleadStage] = useState()
   const [leadPotential, setleadPotential] = useState()
@@ -24,11 +26,14 @@ const LMHome = () => {
 
   const [filterData, setfilterData] = useState({
     type: "",
-    leadSource: ""
+    leadSource: "",
+    assignToEmp : "",
+    month: ""
   })
 
   useEffect(() => {
     getHomeTabsDataFunc("leadstage")
+    fetchAllEmployee().then(res => setallEmployee(res.data.result));
   }, [])
 
   async function getHomeTabsDataFunc(tabName) {
@@ -62,10 +67,10 @@ const LMHome = () => {
   // Filters
 
   const leadSourceFilterFunc = async (e) => {
-    setfilterData({ ...filterData, leadSource: e.target.value })
+    setfilterData({ ...filterData, [e.target.name]: e.target.value })
 
     setisLoading(true)
-    let { data } = await getHomeTabsData({ ...filterData, leadSource: e.target.value })
+    let { data } = await getHomeTabsData({ ...filterData, [e.target.name]: e.target.value })
     if (data.status) {
       console.log(data.result)
       if (lmActiveTab === "leadstage") {
@@ -100,7 +105,7 @@ const LMHome = () => {
       {/* Lead Home Select Filters */}
       <div className="lm_home_main_container">
         <div className="lm_home_filter">
-          <select className='lead_source' onChange={leadSourceFilterFunc} >
+          <select className='lead_source' name="leadSource" onChange={leadSourceFilterFunc} >
             <option value="">Lead Source</option>
             <option value="Facebook">Facebook</option>
             <option value="Instagram">Instagram</option>
@@ -109,18 +114,20 @@ const LMHome = () => {
             <option value="Website">Website</option>
             <option value="Manual">Manual</option>
           </select>
-          <select className='all_users'>
-            <option value="">All Users</option>
-            <option value="">Option1</option>
-            <option value="">Option2</option>
-          </select>
-          <select className='time_period'>
+          <select name="assignToEmp" onChange={leadSourceFilterFunc} >
+                        <option value="">All Employees</option>
+                        {allEmployee.length === 0 && <option disabled value="">No Employee Found</option>}
+                        {allEmployee?.map((employee) => (
+                            <option key={employee?.id} value={employee?.id} > {employee?.employeeName} </option>
+                        ))}
+                    </select>
+          <select name="month" className='time_period' onChange={leadSourceFilterFunc}>
             <option value="">Select Time Period</option>
-            <option value="">1 Month</option>
-            <option value="">3 Month</option>
-            <option value="">6 Month</option>
-            <option value="">12 Month</option>
-            <option value="">Lifetime</option>
+            <option value="1">1 Month</option>
+            <option value="3">3 Month</option>
+            <option value="6">6 Month</option>
+            <option value="12">12 Month</option>
+            <option value="0">Lifetime</option>
           </select>
         </div>
 

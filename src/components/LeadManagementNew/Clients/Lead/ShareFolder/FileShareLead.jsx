@@ -108,7 +108,9 @@ const FileShareLead = () => {
         setMessage({
             ...message,
             title:row.title,
-            body:row.description
+            body:row.description,
+            leadId:row._id,
+            name:"file"
         })
     }
 
@@ -153,10 +155,10 @@ const FileShareLead = () => {
                                         {allLeadsData?.map((row, i) => (
                                             <StyledTableRow key={i}>
                                                 <StyledTableCell>
-                                                    {row.title}
+                                                {row.fileType==="PDF"?row.title+"(Uploaded)":row.title}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="left">{row.images[0]}</StyledTableCell>
-                                                <StyledTableCell align="left">{row.description}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.fileType==="PDF"?<a href={row.pdf[0]} target='blank' className='team-assign'>View File</a>:<img src={row.images[0]} width={"10%"}/>}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.sharedCount}</StyledTableCell>
                                                 <StyledTableCell align="left" className='position-relative'>
                                                    
                                                    
@@ -200,6 +202,7 @@ const FileShareLead = () => {
       close={() => setsendMessagePopup(!sendMessagePopup)}
       messageData={message}
       sentLead={location?.state?.id}
+      name =  "lead"
       />
             
             

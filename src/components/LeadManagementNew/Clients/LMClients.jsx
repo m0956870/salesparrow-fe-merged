@@ -55,7 +55,11 @@ const LMClients = () => {
         setgroupTab(grp)
         setgroupTabSelected(false)
     }
-
+    
+    // useEffect(() => {
+    //     const url = "https://google.com";
+    //     window.navigation.navigate(url)
+    // }, []);
     return (
         <div className="container">
             <div className="beat_heading">
