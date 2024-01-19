@@ -1,0 +1,23 @@
+.retailers_select {
+    margin-bottom: 2rem;
+}
+
+.retailers_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.retailers_tab select {
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    color: gray;
+}
+

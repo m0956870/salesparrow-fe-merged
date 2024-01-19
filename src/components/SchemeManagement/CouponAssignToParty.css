@@ -1,0 +1,101 @@
+.coupon {
+    gap: 2rem
+}
+
+.coupon select {
+    margin: 0.6rem 0;
+    padding: 1.2rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    color: gray;
+}
+
+.coupon input {
+    margin: 0.6rem 0;
+    padding: 1.2rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    color: gray;
+}
+
+.assign_container {
+    box-shadow: var(--box-shadow);
+    padding: 1rem;
+    background-color: #fff;
+    margin-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.assign_head {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 2rem;
+}
+
+.head_div {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.head_div .assign_heading {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.head_div .assign_detail {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+}
+.head_div .assign_select {
+   padding: 0.1rem 1rem 0.1rem 0;
+   margin-left: 1rem;
+}
+
+.grid_box {
+    border: 2px solid lightgray;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.grid_box .count {
+    border: 1px solid lightgray;
+    padding: 0.1rem 2rem;
+    font-size: 0.8rem;
+    color: gray;
+    cursor: pointer;
+}
+
+.grid_box .clicked {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+
+.assign_btn {
+    background-color: var(--main-color);
+    color: #fff;
+    font-size: 1rem;
+    padding: 1rem 2.5rem;
+    border-radius: 0.3rem;
+    width: 30%;
+    margin: 3rem auto;
+    display: grid;
+    place-items: center;
+}

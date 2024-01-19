@@ -1,0 +1,47 @@
+.addemployee_form {
+    width: 80%;
+}
+
+.addbeat_left select {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    color: gray;
+}
+.addbeat_right select {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    color: gray;
+}
+
+.transport_div {
+    text-align: center;
+    margin-right: 2rem;
+    color: #fff;
+    border-radius: 0.3rem;
+    padding: 0.3rem 1rem;
+    color: #000 !important;
+    border: 1px solid ;
+    border: none;
+    background-color: #f9f9f9 !important;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.active_transport {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+}

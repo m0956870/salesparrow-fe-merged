@@ -1,0 +1,186 @@
+.all_sfa_plan_section {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+  margin: 2rem 0 4rem 0;
+}
+
+.all_sfa_plan_section .relative_div .sfa_plan_container {
+  width: 100%;
+  border-radius: 0.4rem;
+  color: #fae06f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0 2rem 0;
+}
+
+.all_sfa_plan_section .relative_div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.relative_div .sfa_subscribe_btn {
+  background-color: #fae06f;
+  padding: 0.3rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 1rem;
+  position: absolute;
+  bottom: -3%;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.sfa_plan_container .sfa_discount {
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.sfa_plan_container .sfa_cost_per_month {
+  font-size: 3.5rem;
+  font-weight: 600;
+}
+
+.sfa_plan_container .sfe_feature_section {
+  background-color: rgb(115, 19, 59);
+  width: 100%;
+  margin-top: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sfe_feature_section .sfa_feature_title {
+  align-self: center;
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+
+.sfa_features_incldes {
+  padding: 0.5rem 0;
+}
+
+.sfa_features_incldes .sfa_feature {
+  font-size: 0.9rem;
+  margin: 0.3rem 0.8rem;
+}
+
+/* plan */
+
+.subs_plan_container {
+  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.subs_plan_container .plan_purchase_btn {
+  align-self: center;
+  background-color: #cc00ff;
+  color: #fff;
+  padding: 0.7rem 2.5rem;
+  font-weight: 500;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.svg path {
+  transform-origin: 12.5% 50%;
+}
+.svg path:nth-child(1) {
+  transform: rotate(calc(0 * (180deg / 11)));
+}
+.svg path:nth-child(2) {
+  transform: rotate(calc(1 * (180deg / 11)));
+}
+.svg path:nth-child(3) {
+  transform: rotate(calc(2 * (180deg / 11)));
+}
+.svg path:nth-child(4) {
+  transform: rotate(calc(3 * (180deg / 11)));
+}
+.svg path:nth-child(5) {
+  transform: rotate(calc(4 * (180deg / 11)));
+}
+.svg path:nth-child(6) {
+  transform: rotate(calc(5 * (180deg / 11)));
+}
+.svg path:nth-child(7) {
+  transform: rotate(calc(6 * (180deg / 11)));
+}
+.svg path:nth-child(8) {
+  transform: rotate(calc(7 * (180deg / 11)));
+}
+.svg path:nth-child(9) {
+  transform: rotate(calc(8 * (180deg / 11)));
+}
+.svg path:nth-child(10) {
+  transform: rotate(calc(9 * (180deg / 11)));
+}
+.svg path:nth-child(11) {
+  transform: rotate(calc(10 * (180deg / 11)));
+}
+
+.plan_input_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.plan_input_container .input_section {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_section label {
+  margin: 2rem 0 1rem 0;
+}
+.input_section .input {
+  width: 100%;
+  border: 1px solid lightgrey;
+  padding: 0.8rem;
+  outline: none;
+  border-radius: 0.3rem;
+}
+.input_section .plan_select {
+  width: 100%;
+  border: 1px solid lightgrey;
+  padding: 0.8rem;
+  outline: none;
+  border-radius: 0.3rem;
+}
+
+.plan_input_container .discount_section {
+  padding-right: 4rem;
+  position: relative;
+  color: #fff;
+  font-weight: 500;
+}
+
+.discount_section .svg_get {
+  position: absolute;
+  top: 14%;
+  left: 31%;
+  font-size: 2rem;
+}
+.discount_section .svg_discount {
+  position: absolute;
+  top: 27%;
+  left: 20%;
+  font-size: 4rem;
+}
+.discount_section .svg_discount_title {
+  position: absolute;
+  top: 53%;
+  left: 49%;
+}
+.discount_section .svg_min_user {
+  position: absolute;
+  top: 63%;
+  left: 23%;
+}

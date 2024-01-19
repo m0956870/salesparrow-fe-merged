@@ -1,0 +1,34 @@
+.group_colours_container {
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+    width: 180%;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+    display: grid;
+    place-items: center;
+}
+
+.colour_title {
+    margin: 1rem 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.group_colours {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 2rem 1rem;
+    padding: 1rem 0;
+}
+
+.colour {
+    height: 150px;
+    width: 150px;
+    border-radius: 0.5rem;
+}
+
+.active_colour {
+    border: 6px solid var(--main-color);
+}

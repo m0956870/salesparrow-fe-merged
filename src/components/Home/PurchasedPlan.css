@@ -1,0 +1,84 @@
+.plan_tracking_tabs {
+  box-shadow: var(--box-shadow);
+  border-radius: 0.5rem;
+  background-color: #fff;
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ems_head {
+  background-color: var(--main-color);
+  color: #fff;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.ems_head .ems_head_left {
+  /* width: 70%; */
+  display: flex;
+}
+.ems_head .ems_head_right {
+  /* width: 30%; */
+  display: flex;
+  align-items: flex-start;
+}
+
+.left_head {
+  margin-right: 3rem;
+}
+.left_head_title {
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.right_head_title {
+  margin-top: -0.5rem;
+}
+
+.big_price {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.ems_head_price {
+  margin-right: 1rem;
+}
+
+.modules_covered {
+    padding: 1rem 3rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.ems_body_details {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 3rem;
+    height: 100%;
+}
+
+.upgrade {
+    display: flex;
+    align-items: flex-end;
+}
+
+.modules_list {
+    margin-left: 1rem;
+}
+
+.modules_list ol li {
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.modules .modules_name {
+font-size: 1.2rem;
+color: var(--main-color);
+font-weight: 500;
+margin-top: 1rem;
+}

@@ -1,0 +1,19 @@
+.lead_tab_container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.lead_tab {
+    display: inline;
+    border: 3px solid var(--main-color);
+    color: var(--main-color);
+    padding: 0.8rem 3rem;
+    border-radius: 0.4rem;
+    font-weight: 500;
+}
+
+.active_tab {
+    color: #fff;
+    background-color: var(--main-color);
+}

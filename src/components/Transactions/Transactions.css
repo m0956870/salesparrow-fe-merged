@@ -1,0 +1,111 @@
+.invoice_input {
+  padding: 0.2rem 0.5rem;
+  height: 102%;
+}
+
+.invoice_product_select {
+  width: 100%;
+  padding: 0.5rem;
+  height: 98%;
+}
+
+.invoice_bottom_btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.invoice_bottom_btns .action_btn {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin: 2rem 0;
+}
+
+/* tax invoices............................. */
+
+.invoice_container {
+  border: 1px solid grey;
+  padding-top: 1rem;
+}
+.tax_invoice {
+  margin: 2rem;
+  background: #fff;
+  padding: 1rem;
+}
+.d_flex {
+  display: flex;
+}
+
+.invoice_logo img {
+  width: 10.25rem;
+  padding: 10px;
+}
+.invoice_head {
+  flex-grow: 2;
+  text-align: center;
+}
+.invoice_col {
+  padding: 15px;
+}
+.invoice_col h6 {
+  min-width: 7.5rem;
+}
+.invoice_col .party_hear_part {
+  /* min-width: 6rem; */
+  text-align: start;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.d_flex .party_hear_part {
+  flex: 1;
+}
+.d_flex .party_detail_part {
+  flex: 4;
+}
+.invoice_col .party_detail_part {
+  /* min-width: 6rem; */
+  text-align: start;
+  padding-left: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #424242;
+}
+.invoice_first_table table tr {
+  height: 2.25rem;
+}
+.invoice_first_table table tr td {
+  padding: 5px;
+}
+.invoice_first_table table td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.invoice_third_table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.invoice_third_table th,
+.invoice_third_table td {
+  border: 1px solid black;
+  padding: 0.4rem;
+}
+
+.invoice_third_table .border_none {
+  border: none;
+  border-right: 1px solid;
+}
+.invoice_third_table .border_none_last {
+  border: none;
+}
+
+/* new invoice add btn ui */
+.add_product_invoice_btn {
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: flex-end;
+}

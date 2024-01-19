@@ -1,0 +1,47 @@
+.create_route {
+    display: flex;
+    padding-top: 2rem;
+    width: 100%;
+    gap: 1rem;
+}
+
+.create_route .select {
+    flex: 1;
+}
+
+.select input {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #f2f7fb;
+    box-sizing: border-box;
+}
+
+.select select {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #f2f7fb;
+    box-sizing: border-box;
+    color: gray;
+}
+.select select option {
+    margin: 0.6rem 0;
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background: #f2f7fb;
+    box-sizing: border-box;
+    color: gray;
+}

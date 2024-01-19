@@ -1,0 +1,83 @@
+.party_container {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+    margin: 0 auto;
+    padding: 0.5rem 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.party_container .grouping_title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 0.5rem 0;
+}
+
+.party_container select {
+    margin: 0.6rem 0;
+    padding: 0.8rem 1rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 5rem;
+    border: none;
+    outline: none;
+    background: #F2F7FB;
+    box-sizing: border-box;
+    color: gray;
+}
+
+.party select {
+    border-radius: 0.5rem;
+    background-color: #fff;
+    border: 1px solid lightgray;
+}
+
+.grouping_checkbox {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    grid-auto-flow: column;
+}
+
+.grouping_checkbox .grouping_row {
+    padding: 0.4rem 2rem;
+}
+
+.grouping_row input {
+    accent-color: var(--main-color);
+}
+
+.grouping_row label {
+    margin-left: 1.5rem;
+}
+
+.grouping_slider {
+    width: 50%;
+    padding: 0.2rem 0;
+}
+
+.grouping_select {
+    padding: 0 3rem;
+}
+
+.grouping_from {
+    display: flex;
+}
+
+.grouping_submit {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.party_container .submit_btn {
+    margin-bottom: 1rem;
+    padding: 0.6rem 3rem;
+}

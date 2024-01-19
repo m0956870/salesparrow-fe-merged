@@ -1,0 +1,76 @@
+.card_container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem 3rem;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+}
+
+.card_container .card {
+    height: 15rem;
+    width: 22rem;
+    box-shadow: var(--box-shadow);
+    border-radius: 0.5rem;
+}
+
+.card .card_body {
+    margin: 1.5rem;
+    height: 85%;
+}
+
+.card_body .card_content {
+    border-radius: 0.5rem;
+    height: 80%;
+    padding: 1rem;
+}
+
+.card_content .card_up {
+    height: 65%;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding-top: 3rem;
+}
+.card_content .card_down {
+    height: 35%;
+    width: 100%;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card_down .name {
+    width: 60%;
+}
+.card_down .exp_date {
+    width: 40%;
+}
+
+.card_title {
+    font-size: 0.9rem;
+}
+.card_detail {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 0.3rem;
+}
+
+.card_body .card_actions {
+    padding-top: 0.3rem;
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card_actions .edit {
+    color: var(--main-color);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.card_actions .delete {
+    color: red;
+    text-decoration: underline;
+    font-weight: 500;
+}

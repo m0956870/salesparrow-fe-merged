@@ -1,0 +1,79 @@
+.salary_config_input_error {
+  width: 98%;
+  font-size: 0.9rem;
+  color: red;
+  margin-bottom: 0.5rem;
+}
+
+.selection_form {
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  gap: 2rem;
+}
+
+.selection_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.selection_left,
+.selection_right {
+  flex: 1;
+}
+
+.selection_left h3,
+.selection_right h3 {
+  margin: 0.5rem 0;
+}
+
+.selection_container label {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.15em 0;
+}
+
+.selection_container label input {
+  justify-self: flex-end;
+  width: 10%;
+}
+
+.compulsory_selection_left {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  box-shadow: var(--box-shadow);
+}
+
+.compulsory_selection_left label input {
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
+  width: 150%;
+}
+
+.fixed_attendance_container {
+  display: flex;
+  padding: 1rem 0;
+  gap: 3rem;
+}
+
+.fixed_attendance_container input {
+  flex: 1;
+  width: 100%;
+  border: 1px solid lightgrey;
+  padding: 0.8rem;
+  outline: none;
+  border-radius: 0.3rem;
+}
+
+.start_time_input:before {
+  content: 'Start Time:';
+  margin-right: .6em;
+  color: #000;
+}
+.end_time_input:before {
+  content: 'End Time:';
+  margin-right: .6em;
+  color: #000;
+}

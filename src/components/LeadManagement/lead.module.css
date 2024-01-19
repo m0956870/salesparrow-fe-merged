@@ -1,0 +1,226 @@
+.leadInfoBox {
+  background-color: pink;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 1rem;
+  gap: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 3px #00000033;
+  border: 1px solid #ffffff22;
+  margin-bottom: 1rem;
+}
+.leadInfo {
+  white-space: nowrap;
+}
+.leadInfo label {
+  font-weight: 600;
+}
+
+.followUpDetails {
+  background-color: #b7abf6b0;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  border: 1px solid #ffffff22;
+  box-shadow: 0 4px 3px #00000033;
+}
+.followUpDetails .detail {
+  display: inline-block;
+  margin: 1rem 1.5rem 0 0;
+}
+.detail label {
+  font-weight: 600;
+}
+/* lead timeline */
+
+.tl_head {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.tl_heading {
+  font-weight: 700;
+  font-size: 17px;
+  margin-right: auto;
+}
+.addActBtn {
+  background-color: transparent;
+  border: none;
+  color: var(--main-color);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 18px;
+}
+.addActBtn .addIcon {
+  font-size: 23px;
+  border-radius: 50%;
+  background-color: var(--main-color);
+  color: #ffffff;
+}
+.tl_container {
+  max-height: 40vh;
+  /* border: 1px solid red; */
+  overflow: auto;
+}
+.tl_container::-webkit-scrollbar {
+  display: none;
+}
+.activity {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  overflow: hidden;
+  height: 100%;
+}
+.activity .actDT {
+  white-space: nowrap;
+  background-color: var(--main-color);
+  border-radius: 5px;
+  padding: 0.2rem 1rem;
+  color: #ffffff;
+  align-self: center;
+  width: 10%;
+}
+.actDT .date {
+  font-weight: 600;
+}
+.actDT .time {
+  font-size: small;
+}
+.actContent {
+  border-radius: 10px;
+  background-color: bisque;
+  padding: 1rem;
+  box-shadow: 0 4px 3px #00000033;
+  margin: 1.5rem 0.2rem 1.5rem 0;
+  align-self: center;
+  width: 100%;
+}
+.activity .iconBox {
+  background-color: #00000033;
+  display: flex;
+  width: 5px;
+  position: relative;
+}
+.activity .actIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  background-color: var(--main-color);
+  color: #ffffff;
+  display: flex;
+  padding: 0.7rem;
+  border-radius: 50%;
+}
+.activity:last-child .iconBox {
+  background-color: transparent;
+}
+.activity:last-child .iconBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+  height: 50%;
+  width: 100%;
+  background-color: #00000033;
+}
+
+/* ===========lead management home component========= */
+
+.homeComp {
+  box-shadow: 0 0 3px 1px #00000033;
+  margin-top: 1rem;
+  border-radius: 5px;
+  padding: 1.5rem;
+}
+.filterSelect {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.spanFull {
+  grid-column: 1/-1;
+}
+.filterSelect select {
+  padding: 0.7rem;
+  border: 1px solid #00000033;
+  border-radius: 5px;
+  accent-color: red;
+}
+.leadStageBox {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.leadStageBox span {
+  width: 1.5rem;
+  aspect-ratio: 1/1;
+  border-radius: 5px;
+}
+.subTabsBox {
+  margin-top: 2rem;
+}
+
+.leadStageTab .chart {
+  width: 60%;
+  margin-inline: auto;
+  clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+}
+.leadStageTab .chart .stackBox {
+  text-align: center;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  height: calc(var(--h) + 20px);
+}
+
+.leadPotentialTab .chart {
+  width: 40%;
+  margin-inline: auto;
+  position: relative;
+}
+.leadPotentialTab .chart .centerDiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  text-align: center;
+  font-size: 20px;
+}
+/* .activity .actIcon::before {
+  content: '';
+  width: 5px;
+  height: 200px;
+  background-color: #00000044;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% -100%;
+} */
+/* .activity .actIcon::after {
+  content: '';
+  width: 5px;
+  height: 200px;
+  background-color: #00000044;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  translate: -50% 0;
+} */
+/* .activity:last-child .actIcon::after {
+  display: none;
+} */
+
+/* ============== */
+.done {
+  color: #5cd07c;
+}
+.overdue {
+  color: red;
+}

@@ -1,0 +1,200 @@
+.select {
+  background: transparent;
+  font-size: 1.3rem;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+.select option {
+  background: #fe6e4c;
+  font-size: 1.2rem;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+
+.pd_container {
+  box-shadow: var(--box-shadow);
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+}
+.pd_container h4 {
+  margin-left: 2rem;
+}
+
+.dis_table {
+  box-shadow: var(--box-shadow);
+  margin-top: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  height: 30rem;
+  display: flex;
+}
+
+.dis_table .first_row,
+.dis_table .second_row,
+.dis_table .third_row,
+.dis_table .forth_row {
+  flex: 1;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid rgb(240, 239, 239);
+  border-bottom: none;
+}
+
+.first_row {
+  font-weight: 700;
+  display: flex;
+  justify-content: flex-start !important;
+}
+.first_row .table_cell {
+  display: flex;
+  justify-content: start;
+  padding-left: 3rem;
+}
+
+.second_row {
+  background-color: #55ef94;
+  color: #fff;
+}
+.third_row {
+  background-color: #3edfef;
+  color: #fff;
+}
+.forth_row {
+  background-color: #fe7658;
+  color: #fff;
+}
+
+.table_head {
+  font-weight: 700;
+  color: #000;
+  background-color: #fff;
+}
+
+.table_cell {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  border-bottom: 1px solid rgb(240, 239, 239);
+}
+.table_cell:last-child {
+  border-bottom: none;
+}
+
+/* party_sale */
+.party_sale {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  padding: 0 1rem;
+  padding-left: 2rem;
+}
+
+.party_sale .party_sale_title {
+  flex: 0.8;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+.party_sale .party_sale_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 4rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.primary_sale canvas {
+  height: 400px !important;
+  width: 2000px !important;
+}
+
+.scroll_primary_sale {
+  max-width: 79vw;
+  overflow-x: scroll;
+}
+
+.bar_detail_party {
+  margin-bottom: 1.6rem;
+  display: flex;
+  align-items: center;
+}
+
+.bar_detail_party .color {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+.bar_detail_party h4 {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+.bar_detail_party p {
+  margin-left: 0.5rem;
+  color: gray;
+}
+
+.party_head {
+  height: 5rem !important;
+  border-top-left-radius: 0.5rem !important;
+}
+.party_chart_div_2 {
+  padding-bottom: 0 !important;
+  margin: 0 3rem;
+}
+
+/* Party MTD */
+
+.party_mtd {
+  display: flex;
+  width: 100%;
+  padding: 1rem 2rem;
+}
+.party_mtd .party_mtd_chart{
+  width: 60%;
+}
+ .party_mtd_chart canvas{
+  height: 350px !important;
+}
+.party_mtd .party_mtd_divs{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.party_mtd_divs .mtd_orders {
+  background-color: #fe6e4c;
+  padding: 1rem;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+.party_mtd_divs .lmtd_orders {
+  background-color: #3edfef;
+  padding: 1rem;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+
+.mtd_orders div{
+  font-size: 1.5rem;
+}
+.lmtd_orders div{
+  font-size: 1.5rem;
+}

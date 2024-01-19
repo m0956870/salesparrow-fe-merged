@@ -1,0 +1,357 @@
+.device_table {
+  margin: 2rem 0;
+}
+
+.container .tracking_tabs {
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 2rem;
+  border-radius: 0.2rem;
+  background-color: #fff;
+  gap: 1rem;
+}
+
+.tarcking_tab_left,
+.tarcking_tab_right {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.tarcking_tab_left select {
+  /* margin: 0.4rem 0; */
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+  /* color: #ABABAB; */
+}
+.tarcking_tab_left select option {
+  margin: 0.4rem 0;
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+  /* color: #ABABAB; */
+}
+
+.tarcking_tab_left input {
+  /* margin: 0.4rem 0; */
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+  /* color: #ABABAB; */
+}
+
+.view_btn {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 0.9rem 2.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.view_btn_2 {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 0.9rem 3.5rem;
+  border-radius: 0.3rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.tarcking_tab_right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: start;
+}
+
+.radio_title {
+  font-weight: bold;
+  margin-right: 0.3rem;
+}
+
+.radio_input label {
+  color: gray;
+  margin-left: 0.2rem;
+}
+
+#map {
+  box-shadow: var(--box-shadow);
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 0.2rem;
+  height: 120vh;
+  margin-bottom: 2rem;
+}
+
+/* Day Summery */
+
+.ds_dis_visit_section {
+  box-shadow: var(--box-shadow);
+  padding: 1rem;
+  border-radius: 0.2rem;
+  background-color: #fff;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.ds_dis_visit_section .dis_section_heading {
+  margin-bottom: 1rem;
+}
+
+.ds_dis_visit_section .ds_details_section {
+  display: flex;
+  gap: 1rem;
+}
+
+.ds_details_section .ds_detail_container {
+  flex: 1;
+  background-color: #f2f7fb;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid lightgrey;
+}
+
+.ds_detail_container .ds_detail_div {
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.ds_detail_div .title {
+  font-weight: 600;
+}
+.ds_detail_div .info {
+  margin-left: 0.5rem;
+}
+
+.ds_daysummery_section {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Day Summery Timeline */
+.tl_head {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.tl_heading {
+  font-weight: 700;
+  font-size: 17px;
+  margin-right: auto;
+}
+.addActBtn {
+  background-color: transparent;
+  border: none;
+  color: var(--main-color);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 18px;
+}
+.addActBtn .addIcon {
+  font-size: 23px;
+  border-radius: 50%;
+  background-color: var(--main-color);
+  color: #ffffff;
+}
+.tl_container {
+  max-height: 80vh;
+  /* border: 1px solid red; */
+  overflow: auto;
+}
+.tl_container::-webkit-scrollbar {
+  display: none;
+}
+.activity {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  overflow: hidden;
+  height: 100%;
+  width: 74vw;
+}
+.activity .actDT {
+  white-space: nowrap;
+  background-color: var(--main-color);
+  border-radius: 5px;
+  padding: 0.2rem 1rem;
+  color: #ffffff;
+  align-self: center;
+  flex: 1;
+  text-align: center;
+}
+.actDT .date {
+  font-weight: 600;
+}
+.actDT .time {
+  font-size: small;
+}
+.activity .iconBox {
+  background-color: #00000033;
+  display: flex;
+  width: 5px;
+  position: relative;
+  /* flex: 0.5; */
+}
+.actContent {
+  border-radius: 0.2rem;
+  margin: 1rem 0.2rem 1rem 0;
+  align-self: center;
+  border: 1px solid lightgrey;
+  background-color: #f2f7fb;
+  flex: 9;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+.actContent .ds_detail_btn {
+  background-color: #6eff29;
+  padding: 0.5rem 1.5rem;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0.3rem;
+  margin: 0.5rem 0 0.5rem 1.5rem;
+}
+.actContent .ds_mv_retailer_name {
+  flex: 1;
+}
+.actContent .ds_mv_order {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+.ds_mv_order .ds_mv_tc {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ds_mv_order .ds_mv_pc {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid lightgray;
+}
+.actContent .ds_mv_amount {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.activity .actIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  background-color: #fff;
+  border: 2px solid var(--main-color);
+  color: #ffffff;
+  display: flex;
+  padding: 0.7rem;
+  border-radius: 50%;
+}
+.activity:last-child .iconBox {
+  background-color: transparent;
+}
+.activity:last-child .iconBox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0%;
+  /* translate: -50% 0; */
+  height: 50%;
+  width: 100%;
+  background-color: #00000033;
+}
+
+/* Day Starts */
+
+#ds_summery_cards {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-auto-flow: row;
+  gap: 1.5rem;
+}
+
+#ds_summery_cards .ds_card {
+  height: 10rem;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 1rem;
+  border: 1px solid lightgray;
+}
+
+.ds_card .ds_card_heading {
+  padding: 1rem;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.ds_card .ds_card_body {
+  display: flex;
+  padding: 0.2rem 1rem;
+}
+
+.ds_card_body .info_heading {
+  flex: 9;
+  font-size: 1.1rem;
+}
+.ds_card_body .info_count {
+  flex: 1;
+  font-size: 1.1rem;
+  text-align: right;
+}
+
+.ds_card_body .sp_info_heading {
+  flex: 6;
+}
+
+.ds_card_body .sp_info_count {
+  flex: 1.3;
+}
+
+/* Employee Travel Report */
+
+.etr_summery_count {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}

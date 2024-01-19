@@ -1,0 +1,158 @@
+/* Focused Product */
+.seleced {
+  padding: 0 0.5rem;
+  margin: 0.5rem 0 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.seleced .seleced_item {
+  border: 2px solid lightgray;
+  border-radius: 2rem;
+  padding: 0.3rem 0.5rem 0.3rem 1rem;
+  margin: 0 0.5rem 0.8rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* MODEL */
+.cardpopup_content select {
+  width: 100%;
+  margin-right: 1rem;
+  margin: 0.6rem 0;
+  padding: 0.8rem 0.6rem;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  color: grey;
+}
+
+.cardpopup_content .attachment_image {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  max-width: 80vw;
+  object-fit: contain;
+}
+
+.cardpopup_content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Varient */
+
+.product_varient {
+  color: var(--main-color);
+  cursor: pointer;
+}
+.product_varient:hover {
+  text-decoration: underline;
+}
+
+.packeging_details {
+  width: 100%;
+  background-color: #fff;
+  /* box-shadow: var(--box-shadow); */
+  margin: 0 auto;
+  padding: 0rem 6rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.packeging_details .flex_1 {
+  flex: 1;
+}
+
+.flex_1 input {
+  margin: 0.6rem 0;
+  padding: 0.8rem 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+}
+.flex_1 .details {
+  margin: 0.6rem 0;
+  padding: 0.6rem 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+
+.packeging_details .flex_half {
+  flex: 0.5;
+}
+
+.flex_half select {
+  margin: 0.6rem 0;
+  padding: 0.8rem 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #f2f7fb;
+  box-sizing: border-box;
+}
+
+.tarcking_tab_left .copy_from{
+  padding: 0.6rem;
+  width: 22%;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-weight: 600;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.tarcking_tab_left .name_input {
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #F2F7FB;
+  box-sizing: border-box;
+  color: #ABABAB;
+}
+
+.partyType {
+  background-color: transparent;
+  color: #fff;
+  padding: 0.2rem;
+  outline: none;
+  border: 1px solid lightgray;
+  border-radius: 0.2rem;
+}
+.partyType option {
+  background-color: transparent;
+  color: #000;
+}
+
+/* Price list partytype inputs */
+.partyType_pricelist {
+  width: 5rem;
+  height: 2rem;
+  padding: 0.5rem;
+  text-align: center;
+}
