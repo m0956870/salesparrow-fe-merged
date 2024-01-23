@@ -612,13 +612,14 @@ export const getCatBannerData = async (data) => {
 
 // FollowsUps .............................
 
-export const getFollowupd_data = async () => {
+export const getFollowupd_data = async (data) => {
   const token = localStorage.getItem("token");
 
   let config = {
-    method: "get",
+    method: "post",
     url: getBaseUrl() + "lead_api/listFollowUpLogs",
     headers: { Authorization: `Bearer ${token}` },
+    data
   };
 
   try {

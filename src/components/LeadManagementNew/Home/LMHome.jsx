@@ -13,11 +13,15 @@ import { HiOutlineUsers } from 'react-icons/hi';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { getHomeTabsData } from '../../../api/leadApi';
 import { CircularProgress } from '@mui/material';
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LMHome = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [lmActiveTab, setlmActiveTab] = useState("leadstage")
   const [isLoading, setisLoading] = useState(false)
   const [allEmployee, setallEmployee] = useState([]);
+  const [activeTitle , setActiveTitle] = useState("false");
 
   const [leadStage, setleadStage] = useState()
   const [leadPotential, setleadPotential] = useState()
@@ -88,9 +92,18 @@ const LMHome = () => {
       setisLoading(false)
     }
   }
+  useEffect(()=>{
+    setActiveTitle(location.pathname)
+  },[activeTitle])
 
   return (
     <div className="container">
+       <div className="lead_manage_head">
+                <div className={`${activeTitle === "/lead_management_home" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_home")}>Home </div>
+                <div className={`${activeTitle === "/lead_management_clients" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_clients")}>Clients</div>
+                <div className={`${activeTitle === "/lead_management_content" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_content")}>Content</div>
+                <div className={`${activeTitle === "/lead_management_followups" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_followups")}>Followup</div>
+                </div>
       <div className="beat_heading">
         <div className="beat_left">
           <div className="icon">

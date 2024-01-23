@@ -2,14 +2,16 @@ import { CircularProgress, Grid } from "@mui/material";
 import "./Followups.css";
 import React, { useEffect, useState } from "react";
 import { getFollowupd_data } from "../../../api/leadApi";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import group from "../../../images/group.png";
 
 const FollowUpsDashboard = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
 
     const [state , setState] = useState();
-    const [isLoading , setisLoading] = useState(false)
+    const [isLoading , setisLoading] = useState(false);
+    const [activeTitle , setActiveTitle] = useState("false");
 
     const getFollowupsData = async()=>{
       setisLoading(true)
@@ -33,8 +35,18 @@ const FollowUpsDashboard = () => {
      navigate("/followups_listing" ,{state:{type:type}})
     }
 
+    useEffect(()=>{
+      setActiveTitle(location.pathname)
+    },[activeTitle])
+
   return (
-    <div className="lm_content_main_containers">
+    <div className="lm_content_main_containers" style={{margin:"0"}}>
+       <div className="lead_manage_head">
+                <div className={`${activeTitle === "/lead_management_home" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_home")}>Home </div>
+                <div className={`${activeTitle === "/lead_management_clients" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_clients")}>Clients</div>
+                <div className={`${activeTitle === "/lead_management_content" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_content")}>Content</div>
+                <div className={`${activeTitle === "/lead_management_followups" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_followups")}>Followup</div>
+                </div>
       {isLoading?
        <div style={{ margin: "auto", }} >
                     <CircularProgress />
@@ -57,7 +69,7 @@ const FollowUpsDashboard = () => {
             <div className="followups_dashboard_box">
               <div className="followups_dashboard_overdue" onClick={()=>handleClick("overdue")}>
                 <h2 style={{textAlign:"center"}}>Overdue</h2>
-                <h2>{state?.overdue?.length}</h2>
+                <h2>{state?.overdue}</h2>
               </div>
             </div>
           </Grid>
@@ -65,7 +77,7 @@ const FollowUpsDashboard = () => {
             <div className="followups_dashboard_box">
               <div className="followups_dashboard_upcoming" onClick={()=>handleClick("upcoming")}>
                 <h2 style={{textAlign:"center"}}>Upcoming</h2>
-                <h2>{state?.upcoming?.length}</h2>
+                <h2>{state?.upcoming}</h2>
               </div>
             </div>
           </Grid>
@@ -73,7 +85,7 @@ const FollowUpsDashboard = () => {
             <div className="followups_dashboard_box">
               <div className="followups_dashboard_someday" onClick={()=>handleClick("today")}>
                 <h2 style={{textAlign:"center"}}>Today</h2>
-                <h2>{state?.today?.length}</h2>
+                <h2>{state?.today}</h2>
               </div>
             </div>
           </Grid>
@@ -104,7 +116,7 @@ const FollowUpsDashboard = () => {
                 <div>
                   <div className="followups_overdue"></div>
                   <h4 style={{textAlign:"center"}}>Overdue</h4>
-                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.overdue?.length}</h4>
+                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.overdue}</h4>
                 </div>
               </div>
             </Grid>
@@ -113,7 +125,7 @@ const FollowUpsDashboard = () => {
                 <div>
                   <div className="followups_upcoming"></div>
                   <h4 style={{textAlign:"center"}}>Upcoming</h4>
-                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.upcoming?.length}</h4>
+                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.upcoming}</h4>
                 </div>
               </div>
             </Grid>
@@ -122,7 +134,7 @@ const FollowUpsDashboard = () => {
                 <div>
                   <div className="followups_someday"></div>
                   <h4 style={{textAlign:"center"}}>Today</h4>
-                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.today?.length}</h4>
+                  <h4 style={{textAlign:"center",margin: "1rem 0rem"}}>{state?.today}</h4>
                 </div>
               </div>
             </Grid>

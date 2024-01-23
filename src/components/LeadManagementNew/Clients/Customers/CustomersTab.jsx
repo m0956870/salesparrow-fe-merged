@@ -219,7 +219,7 @@ const CustomersTab = ({ retailerData }) => {
             <>
               {selectionBtn === "selection" ? (
                 <div onClick={() => selectionBtnFunc("action")} className="top_right_create_btn_icon" style={{ marginLeft: "0.8rem" }}>
-                  Select Leads
+                  Select Customer
                 </div>
               ) : (
                 <div onClick={() => selectionBtnFunc("selection")} className="top_right_create_btn_icon" style={{ marginLeft: "0.8rem" }}>

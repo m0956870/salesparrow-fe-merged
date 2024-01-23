@@ -67,7 +67,8 @@ const MsgShareCustomer = () => {
             const res = await getMessageData(data);
             if(res.data.status){
                 setallLeadsData(res.data.result)
-                setpageLength(res.data.count);
+                setpageLength(res.data.page_length);
+                settotalDataCount(res.data.count)
                 // toast.success("");
             }else{
                 toast.error(res.data.message);
@@ -161,7 +162,7 @@ const MsgShareCustomer = () => {
                                                 </StyledTableCell>
                                                 <StyledTableCell align="left">{row.description}</StyledTableCell>
                                                 <StyledTableCell align="left" className='position-relative'>
-                                                    <BorderColorIcon
+                                                    {/* <BorderColorIcon
                                                         onClick={() => {
                                                             setcurrentGroup(row);
                                                         }}
@@ -173,7 +174,7 @@ const MsgShareCustomer = () => {
                                                             setcurrentGroup(row);
                                                         }}
                                                         style={{ fontSize: '1rem', color: 'red', marginLeft: '0.5rem' }}
-                                                    />
+                                                    /> */}
                                                     <RiShareBoxFill
                                                        onClick={()=>handleSharePopUp(row)}
                                                       style={{ fontSize: '1rem', color: 'var(--main-color)', marginLeft: '0.5rem' }}

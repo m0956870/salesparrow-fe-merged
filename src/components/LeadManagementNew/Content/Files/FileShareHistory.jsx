@@ -27,9 +27,7 @@ useEffect(()=>{
 getHistoryData()
 },[props?.fileData?._id])
 
-const handlePreview = () =>{
-    navigate(`https://crm.salesparrow.in/whatsapp-preview/${props?.fileData?._id}`)
-}
+console.log(props ,"props")
 
   return (
     <Dialog
