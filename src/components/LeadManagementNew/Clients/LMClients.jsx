@@ -7,13 +7,15 @@ import LeadListing from "./Lead/LeadListing";
 import GroupHome from "./Group/GroupHome";
 import Teams from "./Teams/Teams";
 import { CircularProgress } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const LMClients = () => {
     const location = useLocation()
+    const navigate = useNavigate();
 
     const [isLoading, setisLoading] = useState(false)
     const [activeTab, setactiveTab] = useState("customers");
+    const [activeTitle , setActiveTitle] = useState("false");
 
     const [customerTabSelected, setcustomerTabSelected] = useState(true)
     const [customerTab, setcustomerTab] = useState("")
@@ -21,9 +23,7 @@ const LMClients = () => {
     const [groupTabSelected, setgroupTabSelected] = useState(false)
     const [groupTab, setgroupTab] = useState("")
 
-    // useEffect(() => {
-    //     console.log(location?.state)
-    // }, [location])
+
 
     const [filterData, setfilterData] = useState({
         type: "customers",
@@ -32,9 +32,6 @@ const LMClients = () => {
         limit: "10",
     })
 
-    // const filterHandleInput = (e) => {
-    //     setfilterData({ ...filterData, [e.target.name]: e.target.value })
-    // }
 
     const tabClickedFunc = (tab) => {
         setactiveTab(tab)
@@ -56,12 +53,19 @@ const LMClients = () => {
         setgroupTabSelected(false)
     }
     
-    // useEffect(() => {
-    //     const url = "https://google.com";
-    //     window.navigation.navigate(url)
-    // }, []);
+   
+    useEffect(()=>{
+      setActiveTitle(location.pathname)
+    },[activeTitle])
+    
     return (
         <div className="container">
+                <div className="lead_manage_head">
+                <div className={`${activeTitle === "/lead_management_home" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_home")}>Home </div>
+                <div className={`${activeTitle === "/lead_management_clients" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_clients")}>Clients</div>
+                <div className={`${activeTitle === "/lead_management_content" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_content")}>Content</div>
+                <div className={`${activeTitle === "/lead_management_followups" ? "title" : "titleNotActive"}`} onClick={()=> navigate("/lead_management_followups")}>Followup</div>
+                </div>
             <div className="beat_heading">
                 <div className="beat_left">
                     <div className="icon">

@@ -63,7 +63,8 @@ const FileShareCustomer = () => {
             const res = await getFileData(data);
             if(res.data.status){
                 setallLeadsData(res.data.result)
-                setpageLength(res.data.total_page);
+                setpageLength(res.data.pageLength);
+                settotalDataCount(res.data.count)
                 // toast.success("");
             }else{
                 toast.error(res.data.File);

@@ -259,13 +259,13 @@ const Sidebar = ({ open }) => {
       icon: lead,
       icon_white: lead_white,
       title: "Lead Management",
-      navigate: "lead_management",
+      navigate: "/lead_management_home",
       show: false,
       subItems: [
         { name: 'Home', link: '/lead_management_home' },
-        { name: 'Clients', link: '/lead_management_clients' },
-        { name: 'Content', link: '/lead_management_content' },
-        { name: 'Followups', link: '/lead_management_followups' },
+        // { name: 'Clients', link: '/lead_management_clients' },
+        // { name: 'Content', link: '/lead_management_content' },
+        // { name: 'Followups', link: '/lead_management_followups' },
 
         // { name: 'Lead', link: '/lead' },
         // { name: 'Leads', link: '/leads' },

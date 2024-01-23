@@ -94,7 +94,8 @@ const WhatsAppPreview = () => {
         }else{
           setFileDetails(res?.data?.data)
         }
-       console.log(res.data.data)
+      }else{
+        toast.warning(res?.data?.message);
       }
     } catch (error) {
       console.log(error);

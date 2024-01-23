@@ -4,11 +4,9 @@ import { toast } from "react-toastify";
 import "../LMContent.css";
 import { useNavigate } from "react-router-dom";
 import CategoryBannerListing from "./CategoryBannerListing";
-
+ 
 const BannerListing = () => {
-
   const navigate = useNavigate();
-
   const [banner, setBanner] = useState([]);
   const [pageLength, setpageLength] = useState();
   const [catName , setCatName] =  useState()

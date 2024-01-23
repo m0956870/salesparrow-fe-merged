@@ -61,16 +61,21 @@ const FollowUpListing = () =>{
     const getFollowupsData = async()=>{
       let type = location.state.type
       setlistingLoading(true)
-        let res = await getFollowupd_data()
+      let data = {
+        key:location.state.type
+      }
+        let res = await getFollowupd_data(data)
         try {
             if(res.data.status){
                 if(type==="overdue"){
-                  setallLeadsData(res?.data?.data?.overdue)
+                  setallLeadsData(res?.data?.data)
                 }else if(type == "upcoming"){
-                  setallLeadsData(res?.data?.data?.upcoming)
+                  setallLeadsData(res?.data?.data)
                 }else {
-                  setallLeadsData(res?.data?.data?.today)
+                  setallLeadsData(res?.data?.data)
                 }
+                setpageLength(res.data.pageLength)
+                settotalDataCount(res.data.count)
             }
         } catch (error) {
             console.log(error)
@@ -147,13 +152,13 @@ const FollowUpListing = () =>{
                         {i+1}
                       </StyledTableCell>
                       <StyledTableCell align="left" style={{cursor:"pointer"}} >
-                        {row?.lead[0]?.leadName}</StyledTableCell>
-                      <StyledTableCell align="left">{row?.lead[0]?.mobileNumber}</StyledTableCell>
-                      <StyledTableCell align="left">{row?.lead[0]?.state?.name}</StyledTableCell>
-                      <StyledTableCell align="left">{row?.lead[0]?.leadSource}</StyledTableCell>
-                      <StyledTableCell align="left">{row?.lead[0]?.assignToEmp}</StyledTableCell>
-                      <StyledTableCell align="left">{row?.lead[0]?.lead_potential}</StyledTableCell>
-                      <StyledTableCell align="left">{row?.lead[0]?.lead_stage}</StyledTableCell>
+                        {row?.lead?.leadName}</StyledTableCell>
+                      <StyledTableCell align="left">{row?.lead?.mobileNumber}</StyledTableCell>
+                      <StyledTableCell align="left">{row?.lead?.state_name}</StyledTableCell>
+                      <StyledTableCell align="left">{row?.lead?.leadSource}</StyledTableCell>
+                      <StyledTableCell align="left">{row?.lead?.assignToEmp}</StyledTableCell>
+                      <StyledTableCell align="left">{row?.lead?.lead_potential}</StyledTableCell>
+                      <StyledTableCell align="left">{row?.lead?.lead_stage}</StyledTableCell>
                     
                     </StyledTableRow>
                   ))}
